@@ -41,4 +41,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function role(){
+        $role = $this->getMeta('role', true);
+        if(!$role || !$opiton = Option::find($role)) return null;
+        return $opiton;
+     }
+ 
+     public function hasAnyPermission($roles){
+         if(!$this->role()) return false;
+         if($this->role()->permissions()->whereIn('option_value', $roles)->first()) return true;
+         return false;
+     }
+     
+     public function hasPermission($role){
+        if(!$this->role()) return false;
+        if($this->role()->permissions()->where('option_value', $role)->first()) return true;
+        return false;
+     }
 }
