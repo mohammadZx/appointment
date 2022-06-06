@@ -1,0 +1,53 @@
+[
+    {
+        "category": "خدماتی",
+        "childs": [
+            {
+                "service": "آرایشگاه زنانه",
+                "childs": [
+                    {"sub_service": "کوتاه کردن مو"},
+                    {"sub_service": "کوتاه کردن مو"},
+                    {"sub_service": "کوتاه کردن مو"}
+                ]
+            },
+            {
+                "service": "آرایشگاه مردانه",
+                "childs": [
+                    {"sub_service": "اصلاح سر"},
+                    {"sub_service": "اصلاح ریش"},
+                    {"sub_service": "سشوار"}
+                ]
+            },
+            {
+                "service": "دامپزشک",
+                "childs": [
+                    {"sub_service": "معاینه دام"},
+                    {"sub_service": "اسکن"},
+                    {"sub_service": "mri"},
+                    {"sub_service": "سونوگرافی"}
+                ]
+            }
+        ]
+    },
+    {
+        "category": "خودرو و مکانیک",
+        "childs": [
+            {
+                "service": "باتری سازی",
+                "childs": [
+                    {"sub_service": "دیگاه خودرو"},
+                    {"sub_service": "اشکال گیری"},
+                    {"sub_service": "فروش باطری"}
+                ]
+            },
+            {
+                "service": "صافکاری",
+                "childs": [
+                    {"sub_service": "لیسه گیری"},
+                    {"sub_service": "بررسی جلوبندی"},
+                    {"sub_service": "پولیش خودرو"}
+                ]
+            }
+        ]
+    }
+]

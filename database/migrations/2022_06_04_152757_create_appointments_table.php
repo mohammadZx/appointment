@@ -18,8 +18,8 @@ return new class extends Migration
             $table->bigInteger('user_id')->nullable();
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
-            $table->timestamp('date_start');
-            $table->timestamp('date_end');
+            $table->timestamp('date_start')->nullable();
+            $table->timestamp('date_end')->nullable();
             $table->timestamps();
 
             // make relation to business service with relationship table

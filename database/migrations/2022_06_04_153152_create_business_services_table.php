@@ -16,9 +16,11 @@ return new class extends Migration
         Schema::create('business_services', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('business_id');
-            $table->bigInteger('service_id');
+            $table->bigInteger('sub_service_id');
             $table->integer('capacity')->default(1);
             $table->integer('time');
+            $table->bigInteger('price');
+            $table->boolean('is_price_from')->default(0);
         });
     }
 
