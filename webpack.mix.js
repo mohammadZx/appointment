@@ -20,5 +20,6 @@ mix.js('resources/js/app.js', 'public/js')
     .copy('resources/js/layout/extensions/*', 'public/js/layout/extensions')
     .copy('resources/css/layout/colors_version/*', 'public/css/layout/colors_version')
     .copy('resources/css/layout/icons/*', 'public/css/layout/icons')
+    .copy('resources/fonts/*', 'public/fonts')
 
     .sourceMaps();
