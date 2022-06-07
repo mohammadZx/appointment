@@ -11,15 +11,8 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
-
-    .copy('resources/js/layout/*', 'public/js/layout')
+mix.copy('resources/js/layout/*', 'public/js/layout')
     .copy('resources/css/layout/*', 'public/css/layout')
-
-    .copy('resources/js/layout/extensions/*', 'public/js/layout/extensions')
-    .copy('resources/css/layout/colors_version/*', 'public/css/layout/colors_version')
-    .copy('resources/css/layout/icons/*', 'public/css/layout/icons')
     .copy('resources/fonts/*', 'public/fonts')
-
+    .copy('resources/images/*', 'public/images')
     .sourceMaps();

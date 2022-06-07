@@ -5,6 +5,10 @@ Description: U-Listing Directory - Listing Html Template
 Version: 1.0.2
 
 ------------*/
+
+body{
+    direction: rtl;
+}
 #logo{
 	margin:0 0 0 40px
 }

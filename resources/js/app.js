@@ -1,1 +1,11 @@
+import './layout/mmenu.js'
+import './layout/chosen.min.js'
+import './layout/slick.min.js'
+import './layout/rangeslider.min.js'
+import './layout/magnific-popup.min.js'
+import './layout/jquery-ui.min.js'
+import './layout/bootstrap-select.min.js'
+import './layout/tooltips.min.js'
+import './layout/color_switcher.js'
+import './layout/jquery_custom.js'
 import './bootstrap';
