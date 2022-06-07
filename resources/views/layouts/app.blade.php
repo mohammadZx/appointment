@@ -19,7 +19,7 @@
 <!-- Wrapper -->
 <div id="main_wrapper">
   @include('layouts.header')
-
+  <div class="clearfix"></div>
   <div class="page-content">
     @yield('content')
   </div>
@@ -45,6 +45,6 @@
     <script src="{{ asset('js/layout/color_switcher.js') }}"></script>
     <script src="{{ asset('js/layout/jquery_custom.js') }}"></script>
 
-
+    @yield('scripts')
 </body>
 </html>

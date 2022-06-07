@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Listing\ListingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-
+// Auth
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+// Pages
+Route::get('/', fn() => view('pages.index'))->name('home');
+Route::get('/about', fn() => view('pages.about'))->name('about');
+Route::get('/contact', fn() => view('pages.contact'))->name('contact');
+Route::get('/faq', fn() => view('pages.faq'))->name('faq');
+
+
+
+// Front Routes
+Route::resource('listing', ListingController::class);
+
+
+// User Routes
+
+
+// Adming Routes
+

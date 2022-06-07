@@ -9173,7 +9173,6 @@ span.like-icon {
 	min-height: 100vh;
 	display: flex;
 	flex-wrap: wrap;
-	padding-top: 80px;
 }
 .utf_dashboard_content, .utf_dashboard_navigation {
 	flex: 1;
