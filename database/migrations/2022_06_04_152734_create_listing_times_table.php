@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('business_times', function (Blueprint $table) {
+        Schema::create('listing_times', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('business_id');
+            $table->bigInteger('listing_id');
             $table->string('time_start');
             $table->string('time_end');
             $table->string('week_day');
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('business_times');
+        Schema::dropIfExists('listing_times');
     }
 };

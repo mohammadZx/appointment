@@ -19,7 +19,7 @@ class DataSeeder extends Seeder
     public $subServicesId;
     public $cityesId;
     public $provincesId;
-    public $businessesId;
+    public $listingsId;
     public $appointmentsId;
 
     public function run()
@@ -29,9 +29,9 @@ class DataSeeder extends Seeder
         $this->makeOptions();
         $this->importCities();
         $this->importProvinces();
-        $this->importBusinesses();
-        $this->importBusinessesTime();
-        $this->importBusinessesService();
+        $this->importLisings();
+        $this->importLisingsTime();
+        $this->importLisingsService();
         $this->importAppointments();
 
     }
@@ -49,15 +49,15 @@ class DataSeeder extends Seeder
         
     }
 
-    public function importBusinesses(){
+    public function importLisings(){
 
     }
 
-    public function importBusinessesTime(){
+    public function importLisingsTime(){
 
     }
 
-    public function importBusinessesService(){
+    public function importLisingsService(){
 
     }
 

@@ -13,10 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('business_exceptions', function (Blueprint $table) {
+        Schema::create('listing_services', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('business_id');
-            $table->date('exception_date');
+            $table->bigInteger('listing_id');
+            $table->bigInteger('sub_service_id');
+            $table->integer('capacity')->default(1);
+            $table->integer('time');
+            $table->bigInteger('price');
+            $table->boolean('is_price_from')->default(0);
         });
     }
 
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('business_exceptions');
+        Schema::dropIfExists('listing_services');
     }
 };
