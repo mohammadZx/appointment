@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class SubService extends Model
 {
     use HasFactory;
+
+
+    public function appointments(){
+        return $this->morphedByMany(Appointment::class, 'target', 'relationships');
+    }
 }

@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('relationships', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('obj_id');
-            $table->bigInteger('obj_target');
-            $table->string('obj_type');
+            $table->bigInteger('target_id');
+            $table->string('target_type');
         });
     }
 

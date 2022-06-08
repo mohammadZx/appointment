@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class ListingService extends Model
 {
     use HasFactory;
+
+    public function listing(){
+        return $this->belongsTo(Listing::class);
+    }
+
+    public function subService(){
+        return $this->belongsTo(SubService::class);
+    }
 }

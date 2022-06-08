@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ListingTime extends Model
 {
     use HasFactory;
+
+    public function listing(){
+        return $this->belongsTo(Listing::class);
+    }
 }

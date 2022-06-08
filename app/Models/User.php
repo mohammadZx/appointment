@@ -61,5 +61,20 @@ class User extends Authenticatable
         if(!$this->role()) return false;
         if($this->role()->permissions()->where('option_value', $role)->first()) return true;
         return false;
-     }
+    }
+
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+
+    public function listings(){
+        return $this->hasMany(Listing::class);
+    }
+
+    public function appointments(){
+        return $this->hasMany(Appointment::class);
+    }
+
+
 }

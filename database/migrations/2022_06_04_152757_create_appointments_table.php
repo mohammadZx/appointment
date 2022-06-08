@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->timestamp('date_start')->nullable();
             $table->timestamp('date_end')->nullable();
+            $table->boolean('status')->default(0);
             $table->timestamps();
 
             // make relation to business service with relationship table
