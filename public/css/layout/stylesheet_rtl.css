@@ -1238,3 +1238,13 @@ header.fullwidth_block.dashboard .container {
     text-align: right;
 }
 }
+
+@font-face {
+    font-family: iransans;
+    src: url(/fonts/IRANSansWeb.woff2) format('woff2'), url(/fonts/IRANSansWeb.woff) format('woff'), url(/fonts/IRANSansWeb.ttf) format('truetype');
+    font-display: swap;
+}
+
+html, body, h1, h2, h3, h4, h5, h6, p, a, div, span, ul, li, ol, table, tr, th, td, input, select, textarea, option{
+    font-family: iransans, sans-serif;
+}

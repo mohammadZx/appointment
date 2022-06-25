@@ -9,6 +9,8 @@ class Attachment extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['src'];
+    public $timestamps = false;
 
     public function user(){
         return $this->belongsTo(MetaData::class, 'meta_value')->where('meta_key', 'profile_image');

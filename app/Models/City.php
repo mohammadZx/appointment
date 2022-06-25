@@ -9,6 +9,9 @@ class City extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['province_id','name'];
+    public $timestamps = false;
+
     public function province(){
         return $this->belongsTo(Province::class);
     }

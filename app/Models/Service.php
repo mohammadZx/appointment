@@ -9,6 +9,8 @@ class Service extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['category_id', 'title','content', 'icon', 'thumbnail_id'];
+
     public function category(){
         return $this->belongsTo(Category::class);
     }

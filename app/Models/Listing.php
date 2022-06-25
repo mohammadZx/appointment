@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Meta\MetaAble;
+use App\Options\DateStructure;
 
 class Listing extends Model
 {
-    use HasFactory;
+    use HasFactory, MetaAble, DateStructure;
+
+    protected $fillable = ['user_id', 'service_id', 'name', 'city_id', 'address', 'status', 'content'];
 
     public function comments(){
         return $this->morphMany(Comment::class, 'commentable');

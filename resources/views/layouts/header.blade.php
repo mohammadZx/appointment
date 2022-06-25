@@ -38,7 +38,7 @@
               <a href="#dialog_signin_part" class="button border sign-in popup-with-zoom-anim"><i class="fa fa-sign-in"></i>{{__('app.Login/Register')}}</a>
               <a href="#dialog_signin_part" class="button border with-icon popup-with-zoom-anim"><i class="sl sl-icon-user"></i> {{__('app.Add listing')}}</a></div>
               @else
-              <a class="nav-link" href="{{route('user.home')}}">{{ Auth::user()->name }}</a>
+              <a class="nav-link" href="{{route('user.dashboard')}}">{{ Auth::user()->name }}</a>
               <a href="{{route('listing.create')}}" class="button border with-icon"><i class="sl sl-icon-user"></i> {{__('app.Add listing')}}</a></div>
             @endguest
             
