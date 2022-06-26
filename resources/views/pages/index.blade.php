@@ -2,6 +2,7 @@
 @section('seo_title', 'شرکت ایران')
 @section('content')
 
+@include('auth.forceauth.loginform')
 <div class="search_container_block home_main_search_part main_search_block" data-background-image="images/city_search_background.jpg">
     <div class="main_inner_search_block">
       <div class="container">

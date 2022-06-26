@@ -22,6 +22,9 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
+Route::get('/send-code/{phone}', [\App\Http\Controllers\Auth\ForceAuthController::class, 'sendCode'])->name('send-code');
+Route::post('/code-login', [\App\Http\Controllers\Auth\ForceAuthController::class,'logincode'])->name('login-code');
+
 // Auth
 Auth::routes();
 
