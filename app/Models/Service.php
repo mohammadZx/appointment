@@ -18,4 +18,8 @@ class Service extends Model
     public function thumbnail(){
         return $this->hasOne(Attachment::class, 'thumbnail_id');
     }
+
+    public function subservices(){
+        return $this->hasMany(SubService::class);
+    }
 }
