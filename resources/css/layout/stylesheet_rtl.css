@@ -1245,6 +1245,8 @@ header.fullwidth_block.dashboard .container {
     font-display: swap;
 }
 
-html, body, h1, h2, h3, h4, h5, h6, p, a, div, span, ul, li, ol, table, tr, th, td, input, select, textarea, option{
+html, body, h1, h2, h3, h4, h5, h6, p, a, div, span, ul, li, ol, table, tr, th, td, input, select, textarea, option, button, .button{
     font-family: iransans, sans-serif;
 }
+
+.bootstrap-select .status{background:#f0f0f0;clear:both;color:#999;font-size:11px;font-style:italic;font-weight:500;line-height:1;margin-bottom:-5px;padding:10px 20px}

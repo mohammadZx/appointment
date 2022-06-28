@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/layout/stylesheet.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layout/stylesheet_rtl.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
 </head>
 <body>

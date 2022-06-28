@@ -1,0 +1,4 @@
+.city ul.dropdown-menu.inner {
+    max-height: 190px;
+    overflow-y: auto;
+}

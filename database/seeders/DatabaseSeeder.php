@@ -100,6 +100,7 @@ class DatabaseSeeder extends Seeder
         foreach($categories as $category){
             $cat = new Category();
             $cat->title = $category['category'];
+            $cat->icon = $category['icon'];
             $cat->save();
             $this->categoryIds[] = $cat->id;
 

@@ -15,4 +15,5 @@ mix.copy('resources/js/layout/*', 'public/js/layout')
     .copy('resources/css/layout/*', 'public/css/layout')
     .copy('resources/fonts/*', 'public/fonts')
     .copy('resources/images/*', 'public/images')
+    .css('resources/css/app.css', 'public/css')
     .sourceMaps();

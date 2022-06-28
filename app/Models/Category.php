@@ -18,4 +18,9 @@ class Category extends Model
     public function thumbnail(){
         return $this->hasOne(Attachment::class, 'thumbnail_id');
     }
+
+    public function listings()
+    {
+        return $this->hasManyThrough(Listing::class, Service::class);
+    }
 }

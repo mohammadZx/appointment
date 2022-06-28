@@ -1,6 +1,7 @@
 [
     {
         "category": "خدماتی",
+        "icon" : "im im-icon-Sheriff-Badge",
         "childs": [
             {
                 "service": "آرایشگاه زنانه",
@@ -31,6 +32,7 @@
     },
     {
         "category": "خودرو و مکانیک",
+        "icon" : "im im-icon-Car-3",
         "childs": [
             {
                 "service": "باتری سازی",
