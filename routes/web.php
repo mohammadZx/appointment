@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Service\ServiceController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Listing\ListingController;
@@ -40,7 +41,8 @@ Route::get('/faq', fn() => view('pages.faq'))->name('faq');
 
 // Front Routes
 Route::resource('listing', ListingController::class);
-Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
+Route::resource('category', CategoryController::class);
+Route::resource('service', ServiceController::class);
 Route::post('listing/get-times', [ListingTimeController::class, 'getTimes'])->name('listing.get_times');
 
 

@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Listing;
 use App\Models\ListingService;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -27,13 +28,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categories = Category::with(['services' => fn($q) => $q->with('subservices')])->get();
-        $listins = Listing::with(['service' => fn($q) => $q->with(['category'])])->get();
+        $listins = Listing::with(['service' => fn($q) => $q->with(['category'])])->limit(9)->get();
         $comments = Comment::with(['commentable', 'user'])->get();
+        $services = Service::with(['category', 'subservices'])->get();
         return view('pages.index', [
-            'categories' => $categories,
             'listings' => $listins,
-            'comments' => $comments
+            'comments' => $comments,
+            'services' => $services
         ]);
     }
 }

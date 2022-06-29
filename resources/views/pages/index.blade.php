@@ -54,21 +54,21 @@
   <div class="container">
 	<div class="row">
       <div class="col-md-12">
-        <h3 class="headline_part centered margin-top-75"> Most Popular Categories<span>Browse the most desirable categories</span></h3>
+        <h3 class="headline_part centered margin-top-75"> {{__('app.pages.index.Most Popular Categories')}}<span>{{__('app.pages.index.Browse the most desirable categories')}}</span></h3>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
         <div class="container_categories_box margin-top-5 margin-bottom-30"> 
-          	@foreach($categories->slice(0, 10) as $cat)
-				<a href="{{route('category.show', $cat->id)}}" class="utf_category_small_box_part"> <i class="{{$cat->icon}}"></i>
-					<h4>{{$cat->title}}</h4>
-					<span>{{$cat->listings()->count()}}</span>
+          	@foreach($services->slice(0, 10) as $service)
+				<a href="{{route('service.show', $service->id)}}" class="utf_category_small_box_part"> <i class="{{$service->icon}}"></i>
+					<h4>{{$service->title}}</h4>
+					<span>{{$service->listings()->count()}}</span>
 				</a> 
 			@endforeach
 		</div>
-		<div class="col-md-12 centered_content"> <a href="#" class="button border margin-top-20">View More</a> </div>
       </div>
+	  <div class="col-md-12 centered_content"> <a href="{{route('service.index')}}" class="button border margin-top-20">{{__('app.View More')}}</a> </div>
     </div>
   </div>
   </div>
@@ -76,142 +76,24 @@
     <div class="container">
       <div class="row slick_carousel_slider">
         <div class="col-md-12">
-          <h3 class="headline_part centered margin-bottom-45"> Most Visited Places <span>Explore the greates places in the city</span> </h3>
+          <h3 class="headline_part centered margin-bottom-45"> {{__('app.pages.index.Most Recent Listings')}} <span>{{__('app.pages.index.Explore the greates listing in the city')}}</span> </h3>
         </div>
 		
 		<div class="row">
 			<div class="col-md-12">
 				<div class="simple_slick_carousel_block utf_dots_nav"> 
-				  <div class="utf_carousel_item"> <a href="listings_single_page_1.html" class="utf_listing_item-container compact">
-					<div class="utf_listing_item"> <img src="images/utf_listing_item-01.jpg" alt=""> <span class="tag"><i class="im im-icon-Chef-Hat"></i> Restaurant</span> <span class="featured_tag">Featured</span>
-					  <span class="utf_open_now">Open Now</span>
-					  <div class="utf_listing_item_content">
-					    <div class="utf_listing_prige_block">							
-							<span class="utf_meta_listing_price"><i class="fa fa-tag"></i> $25 - $55</span>							
-							<span class="utp_approve_item"><i class="utf_approve_listing"></i></span>
-						</div>
-						<h3>Chontaduro Barcelona</h3>
-						<span><i class="sl sl-icon-location"></i> The Ritz-Carlton, Hong Kong</span>
-						<span><i class="sl sl-icon-phone"></i> (415) 796-3633</span>											
-					  </div>					  
-					</div>
-					<div class="utf_star_rating_section" data-rating="4.5">
-						<div class="utf_counter_star_rating">(4.5)</div>
-						<span class="utf_view_count"><i class="fa fa-eye"></i> 822+</span>
-						<span class="like-icon"></span>
-					</div>
-					</a> 
-				  </div>
-				  
-				  <div class="utf_carousel_item"> <a href="listings_single_page_1.html" class="utf_listing_item-container compact">
-					<div class="utf_listing_item"> <img src="images/utf_listing_item-02.jpg" alt=""> <span class="tag"><i class="im im-icon-Electric-Guitar"></i> Events</span>
-					  <div class="utf_listing_item_content">
-					    <div class="utf_listing_prige_block">							
-							<span class="utf_meta_listing_price"><i class="fa fa-tag"></i> $45 - $70</span>							
-						</div>
-						<h3>The Lounge & Bar</h3>
-						<span><i class="sl sl-icon-location"></i> The Ritz-Carlton, Hong Kong</span>
-						<span><i class="sl sl-icon-phone"></i> (415) 796-3633</span>												
-					  </div>
-					</div>
-					<div class="utf_star_rating_section" data-rating="4.5">
-						<div class="utf_counter_star_rating">(4.5)</div>
-						<span class="utf_view_count"><i class="fa fa-eye"></i> 822+</span>
-						<span class="like-icon"></span>
-					</div>
-					</a> 
-				  </div>
-				  
-				  <div class="utf_carousel_item"> <a href="listings_single_page_1.html" class="utf_listing_item-container compact">
-					<div class="utf_listing_item"> <img src="images/utf_listing_item-03.jpg" alt=""> <span class="tag">Hotels <i class="im im-icon-Hotel"></i></span>
-					  <span class="utf_closed">Closed</span>
-					  <div class="utf_listing_item_content">
-					    <div class="utf_listing_prige_block">							
-							<span class="utf_meta_listing_price"><i class="fa fa-tag"></i> $25 - $55</span>							
-						</div>
-						<h3>Westfield Sydney</h3>
-						<span><i class="sl sl-icon-location"></i> The Ritz-Carlton, Hong Kong</span>
-						<span><i class="sl sl-icon-phone"></i> (415) 796-3633</span>												
-					  </div>
-					</div>
-					<div class="utf_star_rating_section" data-rating="4.5">
-						<div class="utf_counter_star_rating">(4.5)</div>
-						<span class="utf_view_count"><i class="fa fa-eye"></i> 822+</span>
-						<span class="like-icon"></span>
-					</div>
-					</a> 
-				  </div>
-				  
-				  <div class="utf_carousel_item"> <a href="listings_single_page_1.html" class="utf_listing_item-container compact">
-					<div class="utf_listing_item"> <img src="images/utf_listing_item-04.jpg" alt=""> <span class="tag"><i class="im im-icon-Dumbbell"></i> Fitness</span>
-					  <div class="utf_listing_item_content">
-					    <div class="utf_listing_prige_block">							
-							<span class="utf_meta_listing_price"><i class="fa fa-tag"></i> $45 - $70</span>							
-							<span class="utp_approve_item"><i class="utf_approve_listing"></i></span>
-						</div>
-						<h3>Ruby Beauty Center</h3>
-						<span><i class="sl sl-icon-location"></i> The Ritz-Carlton, Hong Kong</span>
-						<span><i class="sl sl-icon-phone"></i> (415) 796-3633</span>												
-					  </div>
-					</div>
-					<div class="utf_star_rating_section" data-rating="4.5">
-						<div class="utf_counter_star_rating">(4.5)</div>
-						<span class="utf_view_count"><i class="fa fa-eye"></i> 822+</span>
-						<span class="like-icon"></span>
-					</div>
-					</a> 
-				  </div>
-				  
-				  <div class="utf_carousel_item"> <a href="listings_single_page_1.html" class="utf_listing_item-container compact">
-					<div class="utf_listing_item"> <img src="images/utf_listing_item-05.jpg" alt=""> <span class="tag">Hotels <i class="im im-icon-Hotel"></i></span> <span class="featured_tag">Featured</span>
-					  <span class="utf_closed">Closed</span>
-					  <div class="utf_listing_item_content">
-					    <div class="utf_listing_prige_block">							
-							<span class="utf_meta_listing_price"><i class="fa fa-tag"></i> $45 - $70</span>							
-						</div>
-						<h3>UK Fitness Club</h3>
-						<span><i class="sl sl-icon-location"></i> The Ritz-Carlton, Hong Kong</span>
-						<span><i class="sl sl-icon-phone"></i> (415) 796-3633</span>												
-					  </div>
-					</div>
-					<div class="utf_star_rating_section" data-rating="4.5">
-						<div class="utf_counter_star_rating">(4.5)</div>
-						<span class="utf_view_count"><i class="fa fa-eye"></i> 822+</span>
-						<span class="like-icon"></span>
-					</div>
-					</a> 
-				   </div>
-				  
-				  <div class="utf_carousel_item"> <a href="listings_single_page_1.html" class="utf_listing_item-container compact">
-					<div class="utf_listing_item"> <img src="images/utf_listing_item-06.jpg" alt=""> <span class="tag"><i class="im im-icon-Chef-Hat"></i> Restaurant</span>
-					  <span class="utf_open_now">Open Now</span>
-					  <div class="utf_listing_item_content">
-					    <div class="utf_listing_prige_block">							
-							<span class="utf_meta_listing_price"><i class="fa fa-tag"></i> $25 - $45</span>							
-							<span class="utp_approve_item"><i class="utf_approve_listing"></i></span>
-						</div>
-						<h3>Fairmont Pacific Rim</h3>
-						<span><i class="sl sl-icon-location"></i> The Ritz-Carlton, Hong Kong</span>
-						<span><i class="sl sl-icon-phone"></i> (415) 796-3633</span>											
-					  </div>
-					</div>
-					<div class="utf_star_rating_section" data-rating="4.5">
-						<div class="utf_counter_star_rating">(4.5)</div>
-						<span class="utf_view_count"><i class="fa fa-eye"></i> 822+</span>
-						<span class="like-icon"></span>
-					</div>
-					</a>
-				  </div>
+					@include('partials.listing.listings-grid-layout', ['listings' => $listings, 'slide' => true])
 				</div>
 			  </div>
 		  </div>
+		  <div class="col-md-12 centered_content"> <a href="{{route('listing.index')}}" class="button border margin-top-20">{{__('app.View More')}}</a> </div>
 	   </div>
     </div>
   </section>
   
-  <a href="listings_grid_full_width.html" class="flip-banner parallax" data-background="images/slider-bg-02.jpg" data-color="#000" data-color-opacity="0.85" data-img-width="2500" data-img-height="1666">
+  <a href="{{route('listing.index')}}" class="flip-banner parallax" data-background="images/slider-bg-02.jpg" data-color="#000" data-color-opacity="0.85" data-img-width="2500" data-img-height="1666">
 	  <div class="flip-banner-content">
-		<h2 class="flip-visible">Browse Listings Attractions List</h2>    
+		<h2 class="flip-visible">{{__('app.pages.index.Browse Listings Attractions List')}}</h2>    
 	  </div>
   </a>
   
@@ -219,7 +101,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
-          <h3 class="headline_part centered">What Say Our Customers <span class="margin-top-15">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since...</span> </h3>
+          <h3 class="headline_part centered">{{__('app.pages.index.What Say Our Customers')}} <span class="margin-top-15">{{__('app.pages.index.Customer comment desc')}}</span> </h3>
         </div>
       </div>
     </div>
@@ -264,7 +146,7 @@
   <div class="container padding-bottom-70">
     <div class="row">
       <div class="col-md-12">
-        <h3 class="headline_part centered margin-bottom-35 margin-top-70">Most Popular Cities/Towns <span>Discover best things to do restaurants, shopping, hotels, cafes and places<br>around the world by categories.</span></h3>
+        <h3 class="headline_part centered margin-bottom-35 margin-top-70">{{__('app.pages.index.Most Popular Service')}} <span>{{__('app.pages.index.Discover best service for appointment')}}</span></h3>
       </div>
       <div class="col-md-3"> 
          <a href="listings_list_with_sidebar.html" class="img-box" data-background-image="images/popular-location-01.jpg">
@@ -314,7 +196,6 @@
 			</div>
          </a>
 	  </div>
-	  <div class="col-md-12 centered_content"> <a href="#" class="button border margin-top-20">View More Categories</a> </div>
     </div>
   </div>
 

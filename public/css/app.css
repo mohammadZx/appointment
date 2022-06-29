@@ -2,3 +2,24 @@
     max-height: 190px;
     overflow-y: auto;
 }
+
+.utf_listing_item_content{
+    bottom: 15px;
+}
+
+
+.header-account-button {
+    width: -webkit-fit-content  !important;
+    width: -moz-fit-content  !important;
+    width: fit-content  !important;
+    background: none  !important;
+     color: #ff2222  !important; 
+    border: 1px solid #ff2222  !important;
+    padding: 8px 10px  !important;
+    min-width: auto  !important;
+    text-align: center  !important;
+}
+
+.header-account-button i {
+    padding: 0 !important;
+}

@@ -24,6 +24,6 @@ class Service extends Model
     }
 
     public function listings(){
-        return $this->hasMany(listings::class);
+        return $this->hasMany(Listing::class);
     }
 }

@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/operations/action.php';
 
+use App\Models\Attachment;
 use Hekmatinasser\Verta\Verta;
 use Carbon\Carbon;
 
@@ -60,4 +61,10 @@ function getOptionTypes(){
          $item->label = __('app.'.$item->option_key);
          return $item;
     });
+}
+
+
+function get_image($id){
+    $image = Attachment::find($id);
+    return asset('storage/' . $image->src);
 }
