@@ -10,6 +10,24 @@ use function GuzzleHttp\json_decode;
 
 define('PREPAGE', 5);
 define('FILTERS', ['service', 'city']);
+define('SOCIAL', [
+    [
+        'icon' => 'fa fa-instagram' ,
+        'name' => 'اینستاگرام',
+        'link' => 'https://instagram.com'
+    ],
+    [
+        'icon' => 'fa fa-paper-plane' ,
+        'name' => 'تلگرام',
+        'link' => 'https://instagram.com'
+    ],
+    [
+        'icon' => 'fa fa-whatsapp' ,
+        'name' => 'واتساپ',
+        'link' => 'https://instagram.com'
+    ],
+]);
+define('LOGO', 'http://127.0.0.1:8000/images/logo.png');
 function clearFormat($data, $status = true){
     if($data == null){
         if($status){

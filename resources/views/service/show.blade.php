@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('seo_title', $category->title)
+@section('seo_title', $service->getMeta('seo_title', true) ? $service->getMeta('seo_title', true) : $service->title)
 @section('content')
 
 
@@ -11,8 +11,8 @@
           <nav id="breadcrumbs">
             <ul>
               <li><a href="{{route('home')}}">{{__('app.Home')}}</a></li>
-              <li>{{__('app.Category')}}</li>
-              <li>{{$category->title}}</li>
+              <li><a href="{{route('service.index')}}">{{__('app.Services')}}</a></li>
+              <li>{{$service->title}}</li>
             </ul>
           </nav>
         </div>
@@ -23,7 +23,16 @@
     <div class="row">
       @include('partials.listing.listings', ['listings' => $listings, 'withFilters' => true])
     </div>
+
+	@if($listings->currentPage() == 1)
+	<div class="row">
+		<div class="archive-content">
+			<h1>{{$service->title}}</h1>
+			{!! $service->content !!}
+		</div>
+	</div>
   </div>
+  @endif
   
 
 @endsection

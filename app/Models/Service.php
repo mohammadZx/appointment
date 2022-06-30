@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Meta\MetaAble;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
-    use HasFactory;
+    use HasFactory, MetaAble;
 
     protected $fillable = ['category_id', 'title','content', 'icon', 'thumbnail_id'];
 

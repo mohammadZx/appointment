@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Service;
 
 use App\Http\Controllers\Controller;
+use App\Models\Listing;
+use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
 
 class ServiceController extends Controller
 {
@@ -14,7 +17,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $services = Service::all();
+        return view('service.index', ['services' => $services]);
     }
 
     /**
@@ -44,9 +48,22 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Service $service)
     {
-        //
+
+        $pipelines = app(Pipeline::class)
+        ->send($service->listings())
+        ->through([
+            new \App\QueryFilters\City(Listing::class),
+            new \App\QueryFilters\Service(Listing::class),
+        ])
+        ->thenReturn();
+        $data = $pipelines->with(['service', 'user' => function($q){
+            return $q->with(['meta']);
+        }])->orderBy('id', 'DESC');
+
+            
+       return view('service.show', ['service' => $service, 'listings' => $data->paginate(PREPAGE)]);
     }
 
     /**

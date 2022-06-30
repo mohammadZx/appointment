@@ -19,7 +19,8 @@ class ListingController extends Controller
         $pipelines = app(Pipeline::class)
         ->send(Listing::query())
         ->through([
-      
+            new \App\QueryFilters\City(Listing::class),
+            new \App\QueryFilters\Service(Listing::class),
         ])
         ->thenReturn();
         $data = $pipelines->with(['service', 'user' => function($q){

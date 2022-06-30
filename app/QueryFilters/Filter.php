@@ -18,6 +18,10 @@ abstract class Filter{
         if(!request()->has($this->filterName())){
            return $builder;  
         }
+
+        if(!request()->get($this->filterName())){
+            return $builder; 
+        }
         
         return $this->applyFilter($builder);   
     }

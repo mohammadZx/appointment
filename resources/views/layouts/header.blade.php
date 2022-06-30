@@ -2,7 +2,7 @@
     <div id="header">
       <div class="container"> 
         <div class="utf_left_side"> 
-          <div id="logo"> <a href="{{route('home')}}"><img src="images/logo.png" alt=""></a> </div>
+          <div id="logo"> <a href="{{route('home')}}"><img src="{{LOGO}}" alt=""></a> </div>
           <div class="mmenu-trigger">
 			<button class="hamburger utfbutton_collapse" type="button">
 				<span class="utf_inner_button_box">
@@ -31,10 +31,10 @@
         <div class="utf_right_side">
           <div class="header_widget"> 
             @guest
-              <a href="#dialog_signin_part" class="button border sign-in popup-with-zoom-anim"><i class="fa fa-sign-in"></i>{{__('app.Login/Register')}}</a>
-              <a href="#dialog_signin_part" class="button border with-icon popup-with-zoom-anim"><i class="sl sl-icon-user"></i> {{__('app.Add listing')}}</a></div>
+              <a href="#dialog_signin_part" class="button border sign-in login-button popup-with-zoom-anim"><i class="fa fa-sign-in"></i>{{__('app.Login/Register')}}</a>
+              <a href="#dialog_signin_part" class="button border with-icon add-listing-button popup-with-zoom-anim"><i class="sl sl-icon-user"></i> {{__('app.Add listing')}}</a></div>
               @else
-              <a href="{{route('user.dashboard')}}" class="header-account-button button border with-icon"><i class="sl sl-icon-user"></i></a>
+              <a href="{{route('user.dashboard')}}" class="header-account-button button border with-icon"><i class="sl sl-icon-user"></i> {{__('app.Account')}}</a>
               <a href="{{route('listing.create')}}" class="button border with-icon"><i class="sl sl-icon-user"></i> {{__('app.Add listing')}}</a></div>
             @endguest
             
@@ -42,20 +42,11 @@
         
         <div id="dialog_signin_part" class="zoom-anim-dialog mfp-hide">
           <div class="small_dialog_header">
-            <h3>{{__('app.Login/Register')}}</h3>
+            <h3>&nbsp;</h3>
           </div>
           <div class="utf_signin_form style_one">
             <div class="tab_container alt"> 
-                <form method="post" class="login">
-                  <p class="utf_row_form utf_form_wide_block">
-                    <label for="password">
-                      <input class="input-text" type="password" name="password" id="password" placeholder="Password"/>
-                    </label>
-                  </p>
-                  <div class="utf_row_form">
-                    <input type="submit" class="button border margin-top-5" name="login" value="Login" />
-                  </div>
-                </form>
+                @include('auth.forceauth.loginform')
             </div>
           </div>
         </div>

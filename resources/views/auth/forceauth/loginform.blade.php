@@ -115,7 +115,7 @@ margin: 30px 0;
   			<h3>ورود یا ثبت نام</h3>
             <div class="wrapper">
               	
-                <form id="register" class="my_captcha_form" data-redirect="/user" tabindex="502" action="{{ route('login-code') }}" method="POST">
+                <form id="register" class="my_captcha_form" data-redirect="{{route('user.dashboard')}}" tabindex="502" action="{{ route('login-code') }}" method="POST">
                     @csrf
                 <div class="phone">
                         <label>تلفن</label>

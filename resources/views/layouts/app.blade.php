@@ -46,6 +46,16 @@
     <script src="{{ asset('js/layout/color_switcher.js') }}"></script>
     <script src="{{ asset('js/layout/jquery_custom.js') }}"></script>
 
+    <script>
+      $('.add-listing-button').click(function(){
+        $('#register').attr('data-redirect', "{{route('listing.create')}}")
+      })
+      $('.login-button').click(function(){
+        $('#register').attr('data-redirect', "{{route('user.dashboard')}}")
+      })
+      
+    </script>
+
     @yield('scripts')
 </body>
 </html>
