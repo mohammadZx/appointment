@@ -12,6 +12,9 @@ return [
     'Listing' => 'کسب و کار',
     'Add listing' => 'افزودن کسب و کار',
     'View More' => 'مشاهده بیشتر',
+    'Apply' => 'اعمال',
+    'service' => 'خدمت',
+    'city' => 'شهر',
     'pages' => [
         'index' => [
             'Main page title' => 'کامین لاین مرجع نوبت گیری آنلاین',
@@ -29,7 +32,7 @@ return [
             'Customer comment desc' => 'شما می توانید در لیست زیر نظرات برخی از صاحبین کسب و کار را در خصوص مجموعه کامین لاین ببینید',
             'Most Popular Service' => 'مشاهده محبوب ترین خدمات',
             'Discover best service for appointment' => 'محبوب ترین خدمات از لحاظ نوبت گیری در سایت',
-            '' => '',
+            'Listings about this service' => 'کسب و کار متعلق به این خدمت',
             '' => '',
             '' => '',
             '' => '',

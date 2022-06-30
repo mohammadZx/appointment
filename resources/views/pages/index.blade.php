@@ -145,57 +145,24 @@
   
   <div class="container padding-bottom-70">
     <div class="row">
+		@php
+			$classmap = [3,3,6,6,3,3];
+			$counter = 0;
+		@endphp
       <div class="col-md-12">
         <h3 class="headline_part centered margin-bottom-35 margin-top-70">{{__('app.pages.index.Most Popular Service')}} <span>{{__('app.pages.index.Discover best service for appointment')}}</span></h3>
       </div>
-      <div class="col-md-3"> 
-         <a href="listings_list_with_sidebar.html" class="img-box" data-background-image="images/popular-location-01.jpg">
-			<div class="utf_img_content_box visible">
-			  <h4>Nightlife </h4>
-			  <span>18 Listings</span> 
+		@foreach($services as $service)
+			<div class="col-md-{{$classmap[$counter]}}"> 
+				<a href="{{route('service.show', $service->id)}}" class="img-box" data-background-image="{{get_image($service->thumbnail_id)}}">
+					<div class="utf_img_content_box visible">
+					<h4>{{$service->title}} </h4>
+					<span>{{$service->listings()->count()}} {{__('app.pages.index.Listings about this service')}}</span> 
+					</div>
+				</a> 
 			</div>
-         </a> 
-	  </div>
-      <div class="col-md-3"> 
-         <a href="listings_list_with_sidebar.html" class="img-box" data-background-image="images/popular-location-02.jpg">
-			<div class="utf_img_content_box visible">
-			  <h4>Shops</h4>
-			  <span>24 Listings</span> 
-			</div>
-         </a> 
-	  </div>
-      <div class="col-md-6"> 
-         <a href="listings_list_with_sidebar.html" class="img-box" data-background-image="images/popular-location-03.jpg">
-			<div class="utf_img_content_box visible">
-			  <h4>Restaurant</h4>
-			  <span>17 Listings</span> 
-			</div>
-         </a> 
-	  </div>
-      <div class="col-md-6"> 
-         <a href="listings_list_with_sidebar.html" class="img-box" data-background-image="images/popular-location-04.jpg">
-			<div class="utf_img_content_box visible">
-			  <h4>Outdoor Activities</h4>
-			  <span>12 Listings</span> 
-			</div>
-         </a> 
-	  </div>
-      <div class="col-md-3"> 
-         <a href="listings_list_with_sidebar.html" class="img-box" data-background-image="images/popular-location-05.jpg">
-			<div class="utf_img_content_box visible">
-			  <h4>Hotels</h4>
-			  <span>14 Listings</span> 
-			</div>
-         </a> 
-	  </div>
-      <div class="col-md-3"> 
-         <a href="listings_list_with_sidebar.html" class="img-box" data-background-image="images/popular-location-06.jpg">
-			<div class="utf_img_content_box visible">
-			  <h4>New York</h4>
-			  <span>9 Listings</span> 
-			</div>
-         </a>
-	  </div>
+			@php $counter++; @endphp
+		@endforeach
     </div>
   </div>
 

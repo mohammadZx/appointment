@@ -8,9 +8,8 @@ use Carbon\Carbon;
 
 use function GuzzleHttp\json_decode;
 
-define('PREPAGE', 50);
-
-
+define('PREPAGE', 5);
+define('FILTERS', ['service', 'city']);
 function clearFormat($data, $status = true){
     if($data == null){
         if($status){
@@ -66,5 +65,6 @@ function getOptionTypes(){
 
 function get_image($id){
     $image = Attachment::find($id);
-    return asset('storage/' . $image->src);
+    return $image ? asset('storage/' . $image->src) : null;
 }
+

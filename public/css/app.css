@@ -23,3 +23,61 @@
 .header-account-button i {
     padding: 0 !important;
 }
+
+.sort-by.w-30 {
+    width: 30%;
+}
+.filter-row{
+    display: flex;
+}
+.sort-by.px-1 {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.filtered{
+    margin-top: 10px;
+}
+@media screen and (max-width: 765px){ 
+.sort-by.w-30 {
+    width: 100%;
+}
+.filter-row{
+    flex-direction: column;
+}
+.sort-by.px-1 {
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 10px;
+}
+
+}
+
+.sort-by.w-30 .utf_sort_by_select_item {
+    width: 100%;
+}
+
+
+
+.bs-searchbox:after {
+    left: 15px;
+    right: unset;
+}
+
+.bs-searchbox .form-control::-moz-placeholder {
+    font-size: 13px;
+    font-family: 'iransans';
+}
+
+.bs-searchbox .form-control:-ms-input-placeholder {
+    font-size: 13px;
+    font-family: 'iransans';
+}
+
+.bs-searchbox .form-control:focus, .bs-searchbox .form-control::placeholder {
+    font-size: 13px;
+    font-family: 'iransans';
+}
+
+.utf_listing_item-container.list-layout .utf_listing_item_content{
+    flex: 3;
+}

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Listing;
 
 use App\Http\Controllers\Controller;
+use App\Models\Listing;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Http\Request;
 
 class ListingController extends Controller
@@ -14,7 +16,18 @@ class ListingController extends Controller
      */
     public function index()
     {
-        return view('listing.index');
+        $pipelines = app(Pipeline::class)
+        ->send(Listing::query())
+        ->through([
+      
+        ])
+        ->thenReturn();
+        $data = $pipelines->with(['service', 'user' => function($q){
+            return $q->with(['meta']);
+        }])->orderBy('id', 'DESC');
+        return view('listing.index', [
+            'listings' => $data->paginate(PREPAGE)
+        ]);
     }
 
     /**
