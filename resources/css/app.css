@@ -86,3 +86,18 @@
 #footer .logo{
     margin-top: 20px;
 }
+
+a.listing-address {
+    direction: ltr;
+}
+
+.guest-none{
+    display: none;
+}
+
+.d-none{
+    display: none;
+}
+.guest-show{
+    display: block;
+}

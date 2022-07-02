@@ -266,9 +266,23 @@ margin: 30px 0;
 			}).then(res => res.json()).then(res => {
 				
 				if(res.status && res.status == 200){
+
 					if(_('#register').getAttribute('data-redirect') != "false"){
 						window.location = res.redirect_to || _('#register').getAttribute('data-redirect')
 					}
+
+                    if(_('#register').getAttribute('data-close')){
+                            setTimeout(function(){
+                                _('.mfp-close').click()
+                            }, 1000)
+                    }
+
+                    for(var n of __('.guest-none')){
+                        n.classList.remove('guest-none')
+                    }
+                    for(var n of __('.guest-show')){
+                        n.classList.remove('guest-show')
+                    }
 
 					_('#name').classList.add('unactive');
 					_('#code').classList.add('unactive');

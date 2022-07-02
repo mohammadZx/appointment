@@ -58,9 +58,15 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Listing $listing)
     {
-        return view('listing.show');
+        $similarListings = Listing::where('service_id', $listing->service_id)->orderBy('id', 'DESC')->limit(12)->get();
+        $times = $listing->times()->selectRaw('week_day, CONCAT(time_start, "|", time_end) as time, GROUP_CONCAT(CONCAT(time_start, "|", time_end)) as weekdaytime')->groupBy('week_day')->get();
+
+        return view('listing.show', [
+            'listing' => $listing,
+            'similarListings' => $similarListings
+        ]);
     }
 
     /**
