@@ -100,3 +100,53 @@ function get_user_avatar($image){
     }
     return asset('images/avatar.png');
 }
+
+function get_time_slot($interval, $start_time, $end_time)
+{
+    $start = new DateTime($start_time);
+    $end = new DateTime($end_time);
+    $startTime = $start->format('H:i');
+    $endTime = $end->format('H:i');
+    $i=0;
+    $time = [];
+    while(strtotime($startTime) <= strtotime($endTime)){
+        $start = $startTime;
+        $end = date('H:i',strtotime('+'.$interval.' minutes',strtotime($startTime)));
+        $startTime = date('H:i',strtotime('+'.$interval.' minutes',strtotime($startTime)));
+        $i++;
+        if(strtotime($startTime) <= strtotime($endTime)){
+            $time[$i]['slot_start_time'] = $start;
+            $time[$i]['slot_end_time'] = $end;
+        }
+    }
+    return $time;
+}
+
+
+function get_splits($removes, $startTime, $endTime){
+	if($startTime === $endTime) return [];
+	
+	usort($removes, function($r1, $r2){
+		$r1 = explode(":", $r1['end']);
+		$r1 = intval($r1[0]) * 60 + intval($r1[1]);
+		$r2 = explode(":", $r2['end']);
+		$r2 = intval($r2[0]) * 60 + intval($r2[1]);
+		return $r1 <=> $r2;
+	});
+	
+	$splits = [];
+	
+	foreach($removes as $r){
+		$splits[] = [
+			'start' => $startTime,
+			'end' => $r['start']
+		];
+		$startTime = $r['end'];
+		if($startTime === $endTime) return $splits;
+	}
+
+	return array_merge($splits,[[
+			'start' => $startTime,
+			'end' => $endTime
+		]]);
+}

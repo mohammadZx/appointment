@@ -113,3 +113,16 @@ a.listing-address {
 .guest-show{
     display: block;
 }
+.select_subservice_box .bootstrap-select{
+    border-radius: 5px !important;
+    box-shadow: 0 1px 6px 0 rgb(0 0 0 / 10%);
+    
+}
+.select_subservice_box .bootstrap-select *{
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.verified-badge.close{
+    background: orangered;
+}

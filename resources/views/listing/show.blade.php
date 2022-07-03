@@ -82,21 +82,31 @@
       
       <!-- Sidebar -->
       <div class="col-lg-4 col-md-4 margin-top-75 sidebar-search" id="booking">
-        <div class="verified-badge with-tip margin-bottom-30" data-tip-content="Listing has been verified and belongs business owner or manager."> <i class="sl sl-icon-check"></i> Now Available</div>
-        <div class="utf_box_widget booking_widget_box">
-          <h3><i class="fa fa-calendar"></i> Booking
-			<div class="price">
-				<span>185$<small>person</small></span>				
-			</div>
+		@if($avaliable)
+        <div class="verified-badge margin-bottom-30"> <i class="sl sl-icon-check"></i> {{__('app.Now open')}}</div>
+        @else
+		<div class="verified-badge close margin-bottom-30"> <i class="sl sl-icon-close"></i> {{__('app.Not open')}}</div>
+		@endif
+		<div class="utf_box_widget booking_widget_box">
+          <h3><i class="fa fa-calendar"></i> {{__('app.Booking')}}
 		  </h3>
-          <div class="row with-forms margin-top-0">
+          <form class="row with-forms margin-top-0">
+			@csrf
+			<input type="hidden" name="listing_id" value="{{$listing->id}}">
+			<div class="col-lg-12 col-md-12 select_subservice_box margin-bottom-20">
+				<select name="service" multiple  data-count-selected-text="موارد انتخاب شده {0} تا"  data-placeholder="{{__('app.Choose items')}}" class="selectpicker default category" title="{{__('app.Choose items')}}" data-live-search="true" data-selected-text-format="count" data-size="5">
+					@foreach($listing->services as $service)
+						<option value="{{$service->id}}">{{$service->subservice->title}}</option>
+					@endforeach
+				</select>
+			</div>
             <div class="col-lg-12 col-md-12 select_date_box">
-              <input type="text" id="date-picker" placeholder="Select Date" readonly="readonly">
+              <input type="text" id="date-picker" class="booking-date-picker" data-jdp placeholder="{{__('app.Select Date')}}" readonly="readonly">
 			  <i class="fa fa-calendar"></i>
             </div>
   		    <div class="col-lg-12">
 				<div class="panel-dropdown time-slots-dropdown">
-					<a href="#">Choose Time Slot...</a>
+					<a href="#">{{__('app.Choose Time Slot...')}}</a>
 					<div class="panel-dropdown-content padding-reset">
 						<div class="panel-dropdown-scrollable">
 							<div class="time-slot">
@@ -112,112 +122,33 @@
 									<strong><span>2</span> : 8:30 AM - 9:00 AM</strong>
 								</label>
 							</div>
-
-							<div class="time-slot">
-								<input type="radio" name="time-slot" id="time-slot-3">
-								<label for="time-slot-3">
-									<strong><span>3</span> : 9:00 AM - 9:30 AM</strong>
-								</label>
-							</div>
-
-							<div class="time-slot">
-								<input type="radio" name="time-slot" id="time-slot-4">
-								<label for="time-slot-4">
-									<strong><span>4</span> : 9:30 AM - 10:00 AM</strong>
-								</label>
-							</div>
-
-							<div class="time-slot">
-								<input type="radio" name="time-slot" id="time-slot-5">
-								<label for="time-slot-5">
-									<strong><span>5</span> : 10:00 AM - 10:30 AM</strong>
-								</label>
-							</div>
-
-							<div class="time-slot">
-								<input type="radio" name="time-slot" id="time-slot-6">
-								<label for="time-slot-6">
-									<strong><span>6</span> : 13:00 PM - 13:30 PM</strong>
-								</label>
-							</div>
-
-							<div class="time-slot">
-								<input type="radio" name="time-slot" id="time-slot-7">
-								<label for="time-slot-7">
-									<strong><span>7</span> : 13:30 PM - 14:00 PM</strong>
-								</label>
-							</div>
-
-							<div class="time-slot">
-								<input type="radio" name="time-slot" id="time-slot-8">
-								<label for="time-slot-8">
-									<strong><span>8</span> : 14:00 PM - 14:30 PM</strong>
-								</label>
-							</div>
-							
-							<div class="time-slot">
-								<input type="radio" name="time-slot" id="time-slot-9">
-								<label for="time-slot-9">
-									<strong><span>9</span> : 15:00 PM - 15:30 PM</strong>
-								</label>
-							</div>
-							
-							<div class="time-slot">
-								<input type="radio" name="time-slot" id="time-slot-10">
-								<label for="time-slot-10">
-									<strong><span>10</span> : 16:00 PM - 16:30 PM</strong>
-								</label>
-							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-12">
-				<div class="panel-dropdown">
-					<a href="#">Guests <span class="qtyTotal" name="qtyTotal">1</span></a>
-					<div class="panel-dropdown-content">
-						<div class="qtyButtons">
-							<div class="qtyTitle">Adults</div>
-							<input type="text" name="qtyInput" value="1">
-						</div>
-						<div class="qtyButtons">
-							<div class="qtyTitle">Childrens</div>
-							<input type="text" name="qtyInput" value="1">
-						</div>
-					</div>
+
+				<div class="errors alert alert-danger">
+					<ul>
+		
+					</ul>
 				</div>
-			</div>
-			<div class="with-forms margin-top-0">
-				<div class="col-lg-12 col-md-12">
-					<select class="utf_chosen_select_single" >
-					  <option label="Select Time">Select Time</option>
-					  <option>Lunch</option>
-					  <option>Dinner</option>					  
-					</select>
-				</div>
-			</div>	
+			</form>
           </div>          
-		  <a <a href="listing_booking.html" class="utf_progress_button button fullwidth_block margin-top-5">Request Booking</a>
-		  <button class="like-button add_to_wishlist"><span class="like-icon"></span> Add to Wishlist</button>
+		   <button class="utf_progress_button button fullwidth_block margin-top-5">{{__('app.Request Booking')}}</button>
           <div class="clearfix"></div>
         </div>
 
         <div class="utf_box_widget opening-hours margin-top-35">
-          <h3><i class="sl sl-icon-clock"></i> Business Hours</h3>
+          <h3><i class="sl sl-icon-clock"></i> {{__('app.Business Hours')}}</h3>
           <ul>
-            <li>Monday <span>09:00 AM - 09:00 PM</span></li>
-            <li>Tuesday <span>09:00 AM - 09:00 PM</span></li>
-            <li>Wednesday <span>09:00 AM - 09:00 PM</span></li>
-            <li>Thursday <span>09:00 AM - 09:00 PM</span></li>
-            <li>Friday <span>09:00 AM - 09:00 PM</span></li>
-            <li>Saturday <span>09:00 AM - 10:00 PM</span></li>
-            <li>Sunday <span>09:00 AM - 10:00 PM</span></li>
+            @foreach($times as $time)
+			<li>{{__('app.'.$time->week_day)}} <span>از {{str_replace(['|',','],[' تا ',' و از '], $time->weekdaytime)}}</span></li>
+			@endforeach
           </ul>
         </div>	
 
  
 		<div class="utf_box_widget opening-hours margin-top-35">
-          <h3><i class="sl sl-icon-info"></i> Google AdSense</h3>
+          <h3><i class="sl sl-icon-info"></i> {{__('app.Ads place')}}</h3>
           <span><img src="/images/google_adsense.jpg" alt="" /></span>
         </div>
 
@@ -248,39 +179,13 @@
 
 @section('scripts')
 <!-- Maps --> 
+<link rel="stylesheet" href="{{ asset('css/layout/jalalidatepicker.min.css') }}">
 <script src="http://maps.google.com/maps/api/js?sensor=false&amp;language=fa"></script> 
 
-<script src="{{ asset('js/layout/infobox.min.js') }}"></script>
-<script src="{{ asset('js/layout/markerclusterer.js') }}"></script>
 <script src="{{ asset('js/layout/maps.js') }}"></script>
-<script src="{{ asset('js/layout/quantityButtons.js') }}"></script>
-<script src="{{ asset('js/layout/moment.min.js') }}"></script>
-<script src="{{ asset('js/layout/daterangepicker.js') }}"></script>
+<script src="{{ asset('js/layout/jalalidatepicker.min.js') }}"></script>
 
 <script>
-$(function() {
-	$('#date-picker').daterangepicker({
-		"opens": "left",
-		singleDatePicker: true,
-		isInvalidDate: function(date) {
-		var disabled_start = moment('09/02/2018', 'MM/DD/YYYY');
-		var disabled_end = moment('09/06/2018', 'MM/DD/YYYY');
-		return date.isAfter(disabled_start) && date.isBefore(disabled_end);
-		}
-	});
-});
-
-$('#date-picker').on('showCalendar.daterangepicker', function(ev, picker) {
-	$('.daterangepicker').addClass('calendar-animated');
-});
-$('#date-picker').on('show.daterangepicker', function(ev, picker) {
-	$('.daterangepicker').addClass('calendar-visible');
-	$('.daterangepicker').removeClass('calendar-hidden');
-});
-$('#date-picker').on('hide.daterangepicker', function(ev, picker) {
-	$('.daterangepicker').removeClass('calendar-visible');
-	$('.daterangepicker').addClass('calendar-hidden');
-});
 
 function close_panel_dropdown() {
 $('.panel-dropdown').removeClass("active");
@@ -309,5 +214,34 @@ $('.panel-dropdown').hover(function() {
 $("body").mouseup(function() {
 	if (!mouse_is_inside) close_panel_dropdown();
 });
+
+jalaliDatepicker.startWatch({
+	separatorChar: "-"
+});
+
+$('.booking-date-picker').on('change', getTimeSlots)
+$('.select_subservice_box select').on('change', getTimeSlots)
+
+function getTimeSlots(){
+	var date = $('.booking-date-picker').val()
+	var services = $('.select_subservice_box select').val()
+	var token = $('input[name="_token"]').val()
+	var listing_id = $('input[name="listing_id"]').val()
+
+	$.post( "{{route('listing.get_times')}}", { date: date, services: services, _token: token, listing_id: listing_id }).done(function( res ) {
+		if(res.errors){
+			$('.errors ul').html('')
+			var errorsHtml = '';
+			for(var error of Object.values(res.errors)){
+				errorsHtml += `<li>${error}</li>`
+			}
+
+			$('.errors ul').append(errorsHtml)
+			return
+		}
+		$('.errors ul').html('')
+
+  	});
+}
 </script>
 @endsection

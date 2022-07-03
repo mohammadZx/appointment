@@ -148,8 +148,11 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'services' => [
+            'required' => 'انتخاب حداقل یک خدمت الزامی است',
+        ],
+        'date' => [
+            'required' => 'انتخاب تاریخ الزامی است',
         ],
     ],
 
