@@ -61,7 +61,7 @@ class ListingController extends Controller
     public function show(Listing $listing)
     {
         $similarListings = Listing::where('service_id', $listing->service_id)->orderBy('id', 'DESC')->limit(12)->get();
-        $times = $listing->times()->selectRaw('week_day, CONCAT(time_start, "|", time_end) as time, GROUP_CONCAT(CONCAT(time_start, "|", time_end)) as weekdaytime')->groupBy('week_day')->get();
+        $times = ListingTimeController::getWorkTimes($listing);
         $isNowOpen = ListingTimeController::isListingOpenNow($listing);
         return view('listing.show', [
             'listing' => $listing,

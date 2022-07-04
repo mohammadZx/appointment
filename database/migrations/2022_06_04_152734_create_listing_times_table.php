@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('time_start');
             $table->string('time_end');
             $table->string('week_day');
+            $table->string('type')->default('main');
         });
     }
 

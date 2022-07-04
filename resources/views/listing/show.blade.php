@@ -90,39 +90,25 @@
 		<div class="utf_box_widget booking_widget_box">
           <h3><i class="fa fa-calendar"></i> {{__('app.Booking')}}
 		  </h3>
-          <form class="row with-forms margin-top-0">
+          <form id="booking-form" class="row with-forms margin-top-0" action="{{route('user.booking.store')}}" method="post">
 			@csrf
 			<input type="hidden" name="listing_id" value="{{$listing->id}}">
 			<div class="col-lg-12 col-md-12 select_subservice_box margin-bottom-20">
-				<select name="service" multiple  data-count-selected-text="موارد انتخاب شده {0} تا"  data-placeholder="{{__('app.Choose items')}}" class="selectpicker default category" title="{{__('app.Choose items')}}" data-live-search="true" data-selected-text-format="count" data-size="5">
+				<select name="service[]" required multiple  data-count-selected-text="موارد انتخاب شده {0} تا"  data-placeholder="{{__('app.Choose items')}}" class="selectpicker default category" title="{{__('app.Choose items')}}" data-live-search="true" data-selected-text-format="count" data-size="5">
 					@foreach($listing->services as $service)
 						<option value="{{$service->id}}">{{$service->subservice->title}}</option>
 					@endforeach
 				</select>
 			</div>
             <div class="col-lg-12 col-md-12 select_date_box">
-              <input type="text" id="date-picker" class="booking-date-picker" data-jdp placeholder="{{__('app.Select Date')}}" readonly="readonly">
+              <input type="text" id="date-picker" required class="booking-date-picker" data-jdp placeholder="{{__('app.Select Date')}}" readonly="readonly">
 			  <i class="fa fa-calendar"></i>
             </div>
   		    <div class="col-lg-12">
 				<div class="panel-dropdown time-slots-dropdown">
 					<a href="#">{{__('app.Choose Time Slot...')}}</a>
 					<div class="panel-dropdown-content padding-reset">
-						<div class="panel-dropdown-scrollable">
-							<div class="time-slot">
-								<input type="radio" name="time-slot" id="time-slot-1">
-								<label for="time-slot-1">
-									<strong><span>1</span> : 8:00 AM - 8:30 AM</strong>									
-								</label>
-							</div>
-							
-							<div class="time-slot">
-								<input type="radio" name="time-slot" id="time-slot-2">
-								<label for="time-slot-2">
-									<strong><span>2</span> : 8:30 AM - 9:00 AM</strong>
-								</label>
-							</div>
-						</div>
+						<div class="panel-dropdown-scrollable"></div>
 					</div>
 				</div>
 
@@ -131,10 +117,16 @@
 		
 					</ul>
 				</div>
+
+				@guest
+				<div class="d-none guest-show">
+					<a href="#dialog_signin_part" data-close="true" data-redirect="false" data-callback="applybooking" class="button login-button popup-with-zoom-anim">{{__('app.Request Booking')}}</a>
+				</div>
+			@endguest 
+			<button class="utf_progress_button button fullwidth_block margin-top-5 @guest guest-none  @endguest">{{__('app.Request Booking')}}</button>  
 			</form>
-          </div>          
-		   <button class="utf_progress_button button fullwidth_block margin-top-5">{{__('app.Request Booking')}}</button>
-          <div class="clearfix"></div>
+          </div>
+			<div class="clearfix"></div>  
         </div>
 
         <div class="utf_box_widget opening-hours margin-top-35">
@@ -229,8 +221,10 @@ function getTimeSlots(){
 	var listing_id = $('input[name="listing_id"]').val()
 
 	$.post( "{{route('listing.get_times')}}", { date: date, services: services, _token: token, listing_id: listing_id }).done(function( res ) {
+		$('.panel-dropdown-scrollable').html('')
+		$('.errors ul').html('')
+
 		if(res.errors){
-			$('.errors ul').html('')
 			var errorsHtml = '';
 			for(var error of Object.values(res.errors)){
 				errorsHtml += `<li>${error}</li>`
@@ -239,9 +233,36 @@ function getTimeSlots(){
 			$('.errors ul').append(errorsHtml)
 			return
 		}
-		$('.errors ul').html('')
+
+		if(res.data){
+			
+			var html = '';
+			var counter = 1;
+			for(var stlotime of Object.values(res.data)){
+				html += `
+						<div class="time-slot">
+							<input type="radio" value="${stlotime.time_start}|${stlotime.time_end}" name="time-slot" id="time-slot-${stlotime.time_start}">
+							<label for="time-slot-${stlotime.time_start}">
+								<strong><span>${counter++}</span> از ساعت ${stlotime.time_start} تا ساعت ${stlotime.time_end}</strong>									
+							</label>
+						</div>
+				`
+				counter++
+			}
+			$('.panel-dropdown-scrollable').html(html)
+		}
 
   	});
+}
+
+$('#booking-form').on('submit', function(e){
+	if(!$('input[name="time-slot"]') || !$('input[name="time-slot"]').is(':checked')){
+		e.preventDefault()
+	}
+})
+
+function applybooking(){
+	$('#booking-form').submit()
 }
 </script>
 @endsection

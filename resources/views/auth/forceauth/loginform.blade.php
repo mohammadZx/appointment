@@ -277,6 +277,10 @@ margin: 30px 0;
                             }, 1000)
                     }
 
+                    if(_('#register').getAttribute('data-callback')){
+                        window[_('#register').getAttribute('data-callback')]()
+                    }
+
                     for(var n of __('.guest-none')){
                         n.classList.remove('guest-none')
                     }

@@ -13,7 +13,8 @@ class ListingTime extends Model
         'listing_id',
         'time_start',
         'time_end',
-        'week_day'
+        'week_day',
+        'type'
     ];
     public $timestamps = false;
 

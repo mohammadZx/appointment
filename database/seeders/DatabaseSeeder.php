@@ -108,6 +108,7 @@ class DatabaseSeeder extends Seeder
                 $sObj = new Service();
                 $sObj->category_id = $cat->id;
                 $sObj->title = $service['service'];
+                $sObj->icon = $service['icon'];
                 $sObj->save();
                 $this->serviceIds[] = $sObj->id;
                 
@@ -150,10 +151,13 @@ class DatabaseSeeder extends Seeder
             $listing->address = $faker->address;
             $listing->content = $faker->text;
             $listing->save();
-            for($n = 0; $n < 5; $n++){
+            for($n = 1; $n < 5; $n++){
                 $listing->setMeta('thumbnail_id', $this->attachmentIds[array_rand($this->attachmentIds)]);
             }
-
+            $listing->setMeta('social_instagram', 'https://instagram.com');
+            $listing->setMeta('social_twitter', 'https://twitter.com');
+            $listing->setMeta('site_link', 'https://example.com');
+            $listing->setMeta('fixed_phone', '02133665544');
             $this->listingIds[] = $listing->id;
         }
 
@@ -212,10 +216,23 @@ class DatabaseSeeder extends Seeder
                 $listingTime->time_start = $randDate->format('H:i');
                 $listingTime->time_end =$randDate->format('H:i');
                 $listingTime->week_day = $day;
+                $listingTime->type = 'main';
                 $listingTime->save();
 
                 $this->listingTimeIds[] = $listingTime->id;
 
+            }
+
+            for($i = 0; $i <= rand(1, 5); $i++){
+                $randDate = new DateTime();
+                $randDate->setTime(mt_rand(0, 23), mt_rand(0, 59));
+                $listingTime = new ListingTime();
+                $listingTime->listing_id = $this->listingIds[array_rand($this->listingIds)];
+                $listingTime->time_start = $randDate->format('H:i');
+                $listingTime->time_end =$randDate->format('H:i');
+                $listingTime->week_day = $this->days[array_rand($this->days)];
+                $listingTime->type = 'slot';
+                $listingTime->save();
             }
         }
 

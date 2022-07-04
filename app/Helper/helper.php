@@ -101,7 +101,7 @@ function get_user_avatar($image){
     return asset('images/avatar.png');
 }
 
-function get_time_slot($interval, $start_time, $end_time)
+function get_time_slot($interval, $start_time, $end_time, $ignor = 0)
 {
     $start = new DateTime($start_time);
     $end = new DateTime($end_time);
@@ -115,8 +115,8 @@ function get_time_slot($interval, $start_time, $end_time)
         $startTime = date('H:i',strtotime('+'.$interval.' minutes',strtotime($startTime)));
         $i++;
         if(strtotime($startTime) <= strtotime($endTime)){
-            $time[$i]['slot_start_time'] = $start;
-            $time[$i]['slot_end_time'] = $end;
+            $time[$i]['time_start'] = $start;
+            $time[$i]['time_end'] = $end;
         }
     }
     return $time;
@@ -124,7 +124,9 @@ function get_time_slot($interval, $start_time, $end_time)
 
 
 function get_splits($removes, $startTime, $endTime){
-	if($startTime === $endTime) return [];
+
+
+	if($startTime === $endTime) return [['start' => $startTime, 'end' => $endTime]];
 	
 	usort($removes, function($r1, $r2){
 		$r1 = explode(":", $r1['end']);

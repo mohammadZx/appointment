@@ -5,6 +5,7 @@
         "childs": [
             {
                 "service": "آرایشگاه زنانه",
+                "icon": "im im-icon-Business-Woman",
                 "childs": [
                     {"sub_service": "کوتاه کردن مو"},
                     {"sub_service": "کوتاه کردن مو"},
@@ -13,6 +14,7 @@
             },
             {
                 "service": "آرایشگاه مردانه",
+                "icon": "im im-icon-Hair",
                 "childs": [
                     {"sub_service": "اصلاح سر"},
                     {"sub_service": "اصلاح ریش"},
@@ -21,6 +23,7 @@
             },
             {
                 "service": "دامپزشک",
+                "icon": "im im-icon-Dog",
                 "childs": [
                     {"sub_service": "معاینه دام"},
                     {"sub_service": "اسکن"},
@@ -36,6 +39,7 @@
         "childs": [
             {
                 "service": "باتری سازی",
+                "icon": "im im-icon-No-Battery",
                 "childs": [
                     {"sub_service": "دیگاه خودرو"},
                     {"sub_service": "اشکال گیری"},
@@ -44,6 +48,7 @@
             },
             {
                 "service": "صافکاری",
+                "icon": "im im-icon-Car-3",
                 "childs": [
                     {"sub_service": "لیسه گیری"},
                     {"sub_service": "بررسی جلوبندی"},

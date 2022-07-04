@@ -55,7 +55,7 @@
         </div>
     @guest
        <div class="d-none guest-show">
-        برای درج نظر ابتدا وارد شوید
+        {{__('app.For add new comment login')}}
             <br>
             <a href="#dialog_signin_part" data-redirect="false" data-close="true" class="button login-button popup-with-zoom-anim">{{__('app.Login/Register')}}</a>
        </div>

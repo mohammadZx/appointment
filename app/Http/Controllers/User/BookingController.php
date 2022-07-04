@@ -35,7 +35,8 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        echo 'booking new listing to user';
+        dd($request->all());
     }
 
     /**
