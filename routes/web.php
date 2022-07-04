@@ -54,6 +54,7 @@ Route::prefix('/user')->name('user.')->middleware('auth')->group(function(){
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'storeData'])->name('profile');
     
+    Route::resource('wishlist', App\Http\Controllers\User\WishlistController::class);
     Route::resource('booking', BookingController::class);
     Route::resource('appointment', AppointmentController::class);
     Route::resource('listing', App\Http\Controllers\User\Listing\ListingController::class);

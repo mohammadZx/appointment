@@ -5,32 +5,10 @@
     <!-- Dashboard -->
   <div id="dashboard"> 
     @include('partials.user.dashboard')   
-	<div class="utf_dashboard_content"> 
-      <div id="titlebar" class="dashboard_gradient">
-        <div class="row">
-          <div class="col-md-12">
-            <h2>Dashboard</h2>
-            <nav id="breadcrumbs">
-              <ul>
-                <li><a href="index_1.html">Home</a></li>
-                <li>Dashboard</li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </div>
-      
-      <div class="row">
-        <div class="col-md-12">
-          <div class="notification success closeable margin-bottom-30">
-            <p>You are currently signed in as <strong>Jonathon Cristy</strong> Has Been Approved!</p>
-            <a class="close" href="#"></a> 
-		  </div>
-        </div>
-      </div>
-      
+    <div class="utf_dashboard_content">
+
       <div class="row"> 
-        <div class="col-lg-2 col-md-6">
+        <div class="col-lg-3 col-md-6">
           <div class="utf_dashboard_stat color-1">
             <div class="utf_dashboard_stat_content">
               <h4>36</h4>
@@ -40,7 +18,7 @@
           </div>
         </div>
         
-        <div class="col-lg-2 col-md-6">
+        <div class="col-lg-3 col-md-6">
           <div class="utf_dashboard_stat color-2">
             <div class="utf_dashboard_stat_content">
               <h4>615</h4>
@@ -50,7 +28,7 @@
           </div>
         </div>
         
-        <div class="col-lg-2 col-md-6">
+        <div class="col-lg-3 col-md-6">
           <div class="utf_dashboard_stat color-3">
             <div class="utf_dashboard_stat_content">
               <h4>9128</h4>
@@ -60,7 +38,7 @@
           </div>
         </div>
         
-        <div class="col-lg-2 col-md-6">
+        <div class="col-lg-3 col-md-6">
           <div class="utf_dashboard_stat color-4">
             <div class="utf_dashboard_stat_content">
               <h4>572</h4>
@@ -70,25 +48,6 @@
           </div>
         </div>
 	
-		<div class="col-lg-2 col-md-6">
-          <div class="utf_dashboard_stat color-5">
-            <div class="utf_dashboard_stat_content">
-              <h4>572</h4>
-              <span>Total Views</span>
-			</div>
-            <div class="utf_dashboard_stat_icon"><i class="im im-icon-Eye-Visible"></i></div>
-          </div>
-        </div>
-		
-        <div class="col-lg-2 col-md-6">
-          <div class="utf_dashboard_stat color-6">
-            <div class="utf_dashboard_stat_content">
-              <h4>572</h4>
-              <span>Total Reviews</span>
-			</div>
-            <div class="utf_dashboard_stat_icon"><i class="im im-icon-Star"></i></div>
-          </div>
-        </div>
       </div>
       <div class="row"> 
         <div class="col-lg-6 col-md-12">
@@ -126,18 +85,6 @@
 				<i class="utf_list_box_icon sl sl-icon-heart"></i> Someone Bookmarked Your <strong><a href="#">Listing</a></strong> Restaurant <a href="#" class="close-list-item"><i class="fa fa-close"></i></a> 
 			  </li>
             </ul>
-          </div>
-		  <div class="clearfix"></div>
-          <div class="utf_pagination_container_part margin-top-30 margin-bottom-30">
-            <nav class="pagination">
-              <ul>
-				<li><a href="#"><i class="sl sl-icon-arrow-right"></i></a></li>
-				<li><a href="#" class="current-page">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#"><i class="sl sl-icon-arrow-left"></i></a></li>
-			  </ul>
-            </nav>
           </div>
         </div>
 		<div class="col-lg-6 col-md-12">
@@ -189,87 +136,13 @@
             </ul>
           </div>
         </div>
-		<div class="col-lg-12 col-md-12 mb-4">
-		  <div class="utf_dashboard_list_box table-responsive recent_booking">
-			<h4>Recent Booking</h4>
-			<div class="dashboard-list-box table-responsive invoices with-icons">
-			  <table class="table table-hover">
-				<thead>
-				  <tr>
-					<th>#</th>
-					<th>Image</th>
-					<th>Name</th>
-					<th>Booking Date</th>
-					<th>Payment Type</th>
-					<th>Status</th>
-					<th>View Booking</th>
-				  </tr>
-				</thead>
-				<tbody>
-				  <tr>
-					<td>1</td>
-					<td><img alt="" class="img-fluid rounded-circle shadow-lg" src="images/thumb-1.jpg" width="50" height="50"></td>
-					<td>Kathy Brown</td>
-					<td>12 Jan 2019</td>
-					<td>Paypal</td>
-					<td><span class="badge badge-pill badge-primary text-uppercase">Booked</span></td>
-					<td><a href="dashboard_bookings.html" class="button gray"><i class="fa fa-eye"></i> View</a></td>
-				  </tr>
-				  <tr>
-					<td>2</td>
-					<td><img alt="" class="img-fluid rounded-circle shadow-lg" src="images/thumb-2.jpg" width="50" height="50"></td>
-					<td>Kathy Brown</td>
-					<td>12 Jan 2019</td>
-					<td>Credit Card</td>
-					<td><span class="badge badge-pill badge-primary text-uppercase">Booked</span></td>
-					<td><a href="dashboard_bookings.html" class="button gray"><i class="fa fa-eye"></i> View</a></td>
-				  </tr>
-				  <tr>
-					<td>3</td>
-					<td><img alt="" class="img-fluid rounded-circle shadow-lg" src="images/thumb-3.jpg" width="50" height="50"></td>
-					<td>Kathy Brown</td>
-					<td>12 Jan 2019</td>
-					<td>Paypal</td>
-					<td><span class="badge badge-pill badge-danger text-uppercase">Pending</span></td>
-					<td><a href="dashboard_bookings.html" class="button gray"><i class="fa fa-eye"></i> View</a></td>
-				  </tr>
-				  <tr>
-					<td>4</td>
-					<td><img alt="" class="img-fluid rounded-circle shadow-lg" src="images/thumb-1.jpg" width="50" height="50"></td>
-					<td>Kathy Brown</td>
-					<td>12 Jan 2019</td>
-					<td>Paypal</td>
-					<td><span class="badge badge-pill badge-danger text-uppercase">Pending</span></td>
-					<td><a href="dashboard_bookings.html" class="button gray"><i class="fa fa-eye"></i> View</a></td>
-				  </tr>
-				  <tr>
-					<td>5</td>
-					<td><img alt="" class="img-fluid rounded-circle shadow-lg" src="images/thumb-2.jpg" width="50" height="50"></td>
-					<td>Kathy Brown</td>
-					<td>12 Jan 2019</td>
-					<td>Paypal</td>
-					<td><span class="badge badge-pill badge-danger text-uppercase">Pending</span></td>
-					<td><a href="dashboard_bookings.html" class="button gray"><i class="fa fa-eye"></i> View</a></td>
-				  </tr>
-				  <tr>
-					<td>6</td>
-					<td><img alt="" class="img-fluid rounded-circle shadow-lg" src="images/thumb-3.jpg" width="50" height="50"></td>
-					<td>Kathy Brown</td>
-					<td>12 Jan 2019</td>
-					<td>Paypal</td>
-					<td><span class="badge badge-pill badge-canceled text-uppercase">Canceled</span></td>
-					<td><a href="dashboard_bookings.html" class="button gray"><i class="fa fa-eye"></i> View</a></td>
-				  </tr>
-				</tbody>
-			  </table>
-			</div>
-		  </div>
-		</div>
         <div class="col-md-12">
-          <div class="footer_copyright_part">Copyright © 2019 All Rights Reserved.</div>
+          <div class="footer_copyright_part">{{__('app.Copyright')}}</div>
         </div>
       </div>
-    </div>    
+    </div>
+    </div>
+       
   </div>
 
 @endsection

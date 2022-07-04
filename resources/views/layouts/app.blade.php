@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="{{ asset('css/layout/stylesheet.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layout/stylesheet_rtl.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @if(request()->is('user*'))
+    <link rel="stylesheet" href="{{ asset('css/user.css') }}">
+    @endif
 
 </head>
 <body>
@@ -45,9 +48,8 @@
     <script src="{{ asset('js/layout/tooltips.min.js') }}"></script> 
     <script src="{{ asset('js/layout/color_switcher.js') }}"></script>
     <script src="{{ asset('js/layout/jquery_custom.js') }}"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-
       $('.login-button').click(function(){
         $('#register').attr('data-redirect', $(this).attr('data-redirect'))
 
@@ -65,8 +67,20 @@
 
 
       })
-      
+
+      @if(session()->has('message'))
+        @php
+          $message = session()->get('message');
+        @endphp
+        Swal.fire({
+            icon: '{{$message['type']}}',
+            text: '{{$message['message']}}',
+            confirmButtonText: 'خروج',
+          })
+    @endif
     </script>
+
+    
 
     @yield('scripts')
 </body>

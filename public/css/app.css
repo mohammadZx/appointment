@@ -113,3 +113,8 @@ a.listing-address {
 .guest-show{
     display: block !important;
 }
+
+
+.swal2-html-container, button.swal2-confirm.swal2-styled {
+    font-size: 16px
+}

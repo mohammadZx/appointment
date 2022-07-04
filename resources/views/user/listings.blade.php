@@ -7,20 +7,7 @@
     @include('partials.user.dashboard')   
    
     <div class="utf_dashboard_content"> 
-      <div id="titlebar" class="dashboard_gradient">
-        <div class="row">
-          <div class="col-md-12">
-            <h2>My Listings</h2>
-            <nav id="breadcrumbs">
-              <ul>
-                <li><a href="index_1.html">Home</a></li>
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li>My Listings</li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </div>
+ 
       <div class="row"> 
         <div class="col-lg-12 col-md-12">
           <div class="utf_dashboard_list_box margin-top-0">
@@ -178,7 +165,7 @@
           </div>
         </div>
         <div class="col-md-12">
-          <div class="footer_copyright_part">Copyright © 2019 All Rights Reserved.</div>
+          <div class="footer_copyright_part">{{__('app.Copyright')}}</div>
         </div>
       </div>
     </div>

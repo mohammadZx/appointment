@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use App\Rules\IsValidBookingTime;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
+        return view('user.bookings');
     }
 
     /**
@@ -45,8 +46,26 @@ class BookingController extends Controller
             'listing_id' => 'required'
         ]);
         $validator->validate();
+        $request->date = date('Y-m-d', strtotime(toGregorian($request->date)));
+
+        list($start, $end) = explode('|', $request->time_slot);
+        $appointment = new Appointment();
+        $appointment->listing_id = $request->listing_id;
+        if(!$request->has('name') && !$request->has('phone')) $appointment->user_id = auth()->user()->id;
+        if($request->has('user_id')) $appointment->user_id = $request->user_id;
+        if($request->has('name')) $appointment->name = $request->name;
+        if($request->has('phone')) $appointment->phone = $request->phone;
         
-        dd($request->all());
+        $appointment->date_start = $request->date . ' ' . $start .':00';
+        $appointment->date_end = $request->date . ' ' . $start .':00';
+        $appointment->status = 'none';
+        if($request->has('status')) $request->status = $request->status;
+        $appointment->save();
+
+        return redirect()->route('user.booking.index')->with('message', [
+            'type' => 'success',
+            'message' =>  __('app.Your appointment has been successfully registered. Please show up on time')
+        ]);
     }
 
     /**

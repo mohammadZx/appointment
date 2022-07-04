@@ -5,23 +5,8 @@
     <!-- Dashboard -->
   <div id="dashboard"> 
     @include('partials.user.dashboard')   
-    <div class="utf_dashboard_content"> 
-	  <div id="titlebar" class="dashboard_gradient">
-        <div class="row">
-          <div class="col-md-12">
-            <h2>Bookings</h2>
-            <nav id="breadcrumbs">
-              <ul>
-                <li><a href="index_1.html">Home</a></li>
-				<li><a href="dashboard.html">Dashboard</a></li>
-                <li>Bookings</li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </div>
-	  
-      <div class="row"> 
+	<div class="utf_dashboard_content">
+	<div class="row"> 
         <div class="col-lg-6 col-md-6">
           <div class="utf_dashboard_list_box margin-top-0">
 			<div class="sort-by my_sort_by">
@@ -534,9 +519,12 @@
           </div>		  
         </div>
         <div class="col-md-12">
-          <div class="footer_copyright_part">Copyright © 2019 All Rights Reserved.</div>
+          <div class="footer_copyright_part">{{__('app.Copyright')}}</div>
         </div>
       </div>
+	</div>
+	  
+ 
     </div>
   
 
