@@ -3,6 +3,7 @@
 require_once __DIR__ . '/operations/action.php';
 
 use App\Models\Attachment;
+use App\Models\Listing;
 use Hekmatinasser\Verta\Verta;
 use Carbon\Carbon;
 
@@ -151,4 +152,68 @@ function get_splits($removes, $startTime, $endTime){
 			'start' => $startTime,
 			'end' => $endTime
 		]]);
+}
+
+function get_booking_times($date, $services, $listing_id){
+    // get dependencies
+    $day = strtolower(date('l', strtotime($date))); // get weekday of user selected date
+    $listing = Listing::findOrFail($listing_id);
+    $exceptions = $listing->exceptions()->where('exception_date',$date )->first();
+    $time = $listing->times()->where('week_day', $day)->whereType('main')->first(); //get times in week day for listings
+    $timeSlots = $listing->times()->where('week_day', $day)->whereType('slot')->get();
+    $services = $listing->services()->whereIn('id', $services)->get();
+    $appointments = $listing->appointments()->where('date_start', 'LIKE', "%{$date}%")->where('status', 'none')->get();
+    $timeSlot = 0; // handle servicing times
+    $capture = []; // work time slots and appointment starts
+    $bookingTimes = [];
+
+    // get services times
+    foreach($services as $service){
+        $timeSlot += $service->time;
+    }
+
+
+    // calc minuts every appointment in request date and save in $captures
+    foreach($appointments as $appointment){
+        $capture[] = [
+            'start' => date('H:i', strtotime($appointment->date_start)),
+            'end' => date('H:i', strtotime($appointment->date_end))
+        ];
+    }
+
+
+    foreach($timeSlots as $slot){
+        $capture[] = [
+            'start' => $slot->time_start,
+            'end' =>  $slot->time_end
+        ];
+    }
+
+    // get time splits
+    $splits = get_splits($capture, $time->time_start, $time->time_end);
+
+    foreach($splits as $split){
+        $bookingTimes = array_merge($bookingTimes, get_time_slot($timeSlot, $split['start'], $split['end']));
+    }
+    
+    // handle times
+    if($exceptions){
+        return ['errors' => [__('app.This business is closed on the day of your choice. Please choose another day for appointment')]];
+    }
+    if(!$time){
+        return ['errors' => [__('app.Business is closed on this day')]];
+    }
+
+    return ['data' => $bookingTimes];
+
+}
+
+function is_valid_appointment($listing, $services, $date, $start, $end){
+    $bookingTimes = get_booking_times($date, $services, $listing);
+    $status = false;
+    if(!isset($bookingTimes['data'])) return false;
+    foreach($bookingTimes['data'] as $item){
+        if($item['time_start'] == $start && $item['time_end'] == $end) $status = true;
+    }
+    return $status;
 }

@@ -101,7 +101,7 @@
 				</select>
 			</div>
             <div class="col-lg-12 col-md-12 select_date_box">
-              <input type="text" id="date-picker" required class="booking-date-picker" data-jdp placeholder="{{__('app.Select Date')}}" readonly="readonly">
+              <input type="text" id="date-picker" name="date" required class="booking-date-picker" data-jdp placeholder="{{__('app.Select Date')}}" readonly="readonly">
 			  <i class="fa fa-calendar"></i>
             </div>
   		    <div class="col-lg-12">
@@ -241,7 +241,7 @@ function getTimeSlots(){
 			for(var stlotime of Object.values(res.data)){
 				html += `
 						<div class="time-slot">
-							<input type="radio" value="${stlotime.time_start}|${stlotime.time_end}" name="time-slot" id="time-slot-${stlotime.time_start}">
+							<input type="radio" value="${stlotime.time_start}|${stlotime.time_end}" name="time_slot" id="time-slot-${stlotime.time_start}">
 							<label for="time-slot-${stlotime.time_start}">
 								<strong><span>${counter++}</span> از ساعت ${stlotime.time_start} تا ساعت ${stlotime.time_end}</strong>									
 							</label>
@@ -256,7 +256,7 @@ function getTimeSlots(){
 }
 
 $('#booking-form').on('submit', function(e){
-	if(!$('input[name="time-slot"]') || !$('input[name="time-slot"]').is(':checked')){
+	if(!$('input[name="time_slot"]') || !$('input[name="time_slot"]').is(':checked')){
 		e.preventDefault()
 	}
 })

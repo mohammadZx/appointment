@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Rules\IsValidBookingTime;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -36,6 +38,14 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         echo 'booking new listing to user';
+        $validator = Validator::make($request->all(), [
+            'date' => 'required',
+            'service' => 'required',
+            'time_slot' => ['required' , new IsValidBookingTime($request->all())],
+            'listing_id' => 'required'
+        ]);
+        $validator->validate();
+        
         dd($request->all());
     }
 

@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         'friday',
         'saturday'
     ];
-
+    public $companies = ['اذرآنلاین' , 'دیجیکالا' , 'دیجی استایل', 'اسنپ', 'تپسی', 'ایرانسل', 'شاتل', 'پارس آنلاین', 'کافه بازار'];
     public $provinceIds = [];
     public $cityIds = [];
     public $categoryIds = [];
@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
     public $listingTimeIds = [];
     public $listingServiceIds = [];
     public $appointmentIds = [];
+    public $commentIds = [];
 
 
     /**
@@ -128,7 +129,7 @@ class DatabaseSeeder extends Seeder
 
     public function attachments(){
 
-        for($i = 0; $i < 9; $i++){
+        for($i = 1; $i < 9; $i++){
             $attachment = new Attachment();
             $attachment->src = '2022/06/0' . $i . '.jpg';
             $attachment->save();
@@ -147,9 +148,9 @@ class DatabaseSeeder extends Seeder
             $listing->city_id = $this->cityIds[array_rand($this->cityIds)];
             $listing->status = rand(0, 1);
             $listing->flexibility = rand(0, 10);
-            $listing->name = $faker->company;
-            $listing->address = $faker->address;
-            $listing->content = $faker->text;
+            $listing->name = $this->companies[array_rand($this->companies)];
+            $listing->address = \Faker::address();
+            $listing->content = \Faker::paragraph();
             $listing->save();
             for($n = 1; $n < 5; $n++){
                 $listing->setMeta('thumbnail_id', $this->attachmentIds[array_rand($this->attachmentIds)]);
@@ -159,6 +160,16 @@ class DatabaseSeeder extends Seeder
             $listing->setMeta('site_link', 'https://example.com');
             $listing->setMeta('fixed_phone', '02133665544');
             $this->listingIds[] = $listing->id;
+
+
+            for($n = 0; $n < rand(0, 3); $n++){
+                $listing->comments()->create([
+                    'rate' => rand(0,5),
+                    'content' => \Faker::paragraph(),
+                    'user_id' => rand(0,40),
+                    'status' => rand(0,1),
+                ]);
+            }
         }
 
         return;

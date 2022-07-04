@@ -23,56 +23,10 @@ class ListingTimeController extends Controller
         }
 
         $request->date = date('Y-m-d', strtotime(toGregorian($request->date)));
-        $day = strtolower(date('l', strtotime($request->date))); // get weekday of user selected date
+       
+        $bookingTimes = get_booking_times($request->date, $request->services, $request->listing_id);
         
-        
-        // get dependencies
-        $listing = Listing::findOrFail($request->listing_id);
-        $exceptions = $listing->exceptions()->where('exception_date',$request->date )->first();
-        $time = $listing->times()->where('week_day', $day)->whereType('main')->first(); //get times in week day for listings
-        $timeSlots = $listing->times()->where('week_day', $day)->whereType('slot')->get();
-        $services = $listing->services()->whereIn('id', $request->services)->get();
-        $appointments = $listing->appointments()->where('date_start', 'LIKE', "%{$request->date}%")->where('status', 'none')->get();
-        $timeSlot = 0; // handle servicing times
-        $capture = []; // work time slots and appointment starts
-        $bookingTimes = [];
-
-        // get services times
-        foreach($services as $service){
-            $timeSlot += $service->time;
-        }
-
-
-        // calc minuts every appointment in request date and save in $captures
-        foreach($appointments as $appointment){
-            $capture[] = [
-                'start' => date('H:i', strtotime($appointment->date_start)),
-                'end' => date('H:i', strtotime($appointment->date_end))
-            ];
-        }
-        foreach($timeSlots as $slot){
-            $capture[] = [
-                'start' => $slot->time_start,
-                'end' =>  $slot->time_end
-            ];
-        }
-
-        // get time splits
-        $splits = get_splits($capture, $time->time_start, $time->time_end);
-
-        foreach($splits as $split){
-            $bookingTimes = array_merge($bookingTimes, get_time_slot($timeSlot, $split['start'], $split['end']));
-        }
-        
-        // handle times
-        if($exceptions){
-            return response()->json(['errors' => [__('app.This business is closed on the day of your choice. Please choose another day for appointment')]]);
-        }
-        if(!$time){
-            return response()->json(['errors' => [__('app.Business is closed on this day')]]);
-        }
-
-        return response()->json(['data' => $bookingTimes]);
+        return response()->json($bookingTimes);
 
 
     }
