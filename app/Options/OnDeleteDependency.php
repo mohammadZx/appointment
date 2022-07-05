@@ -3,8 +3,6 @@
 namespace App\Options;
 
 trait OnDeleteDependency{
-    public static $onDeletes;
-
     public static function boot() {
         parent::boot();
         $onDeletes = static::$onDeletes;

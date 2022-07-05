@@ -49,16 +49,13 @@ function clearFormat($data, $status = true){
 
 
 function toJalali($date, $delimeter = '-', $concater = '-'){
-     $date = date('Y-m-d H:i', strtotime($date));
-    $getData = explode($delimeter, explode(' ', $date)[0]);
-    $Ndate = Verta::getJalali($getData[0], $getData[1], $getData[2]);
-    return implode($concater, $Ndate)  .' ' . explode(' ', $date)[1];
+    return Carbon::parse($date)->toJalali();
 }
 
 function toGregorian($date, $delimeter = '-', $concater = '-'){
     $de = explode(' ', Carbon::parse($date)->format('Y-m-d H:i:s'));
     $getData = explode($delimeter, $de[0]);
-    $Ndate = Verta::getGregorian($getData[0], $getData[1], $getData[2]);
+    $Ndate = Verta::getGregorian((int) $getData[0], (int) $getData[1], (int) $getData[2]);
     $h = isset($de[1]) ? $de[1] : null;
     return implode($concater, $Ndate)  .' ' . $h;
 
@@ -217,3 +214,4 @@ function is_valid_appointment($listing, $services, $date, $start, $end){
     }
     return $status;
 }
+

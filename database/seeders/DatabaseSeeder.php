@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\AppointmentStatusEnum;
 use App\Models\Appointment;
 use App\Models\Attachment;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -252,12 +253,7 @@ class DatabaseSeeder extends Seeder
     }
 
     public function appointments(){
-        $status = [
-            'none',
-            'approve',
-            'late',
-            'finish',
-        ];
+        $status = AppointmentStatusEnum::cases();
 
         
         

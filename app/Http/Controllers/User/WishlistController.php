@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
 class WishlistController extends Controller
@@ -14,7 +15,11 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        return view('user.wishlists');
+        $user = auth()->user();
+        $wishlists = $user->wishlists()->orderBy('id', 'DESC')->paginate(PREPAGE);
+        return view('user.wishlists', [
+            'wishlists' => $wishlists
+        ]);
     }
 
     /**
@@ -78,8 +83,12 @@ class WishlistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Wishlist $wishlist)
     {
-        //
+        $wishlist->delete();
+        return redirect()->back()->with('message' , [
+            'type' => 'success',
+            'message' => 'مورد با موفقیت حذف شد'
+        ]);
     }
 }

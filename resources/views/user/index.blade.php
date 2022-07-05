@@ -11,8 +11,8 @@
         <div class="col-lg-3 col-md-6">
           <div class="utf_dashboard_stat color-1">
             <div class="utf_dashboard_stat_content">
-              <h4>36</h4>
-              <span>Published Listings</span>
+              <h4>{{$user->listings->count()}}</h4>
+              <span>{{__('app.Published Listings count')}}</span>
 			</div>
             <div class="utf_dashboard_stat_icon"><i class="im im-icon-Map2"></i></div>
           </div>
@@ -21,8 +21,8 @@
         <div class="col-lg-3 col-md-6">
           <div class="utf_dashboard_stat color-2">
             <div class="utf_dashboard_stat_content">
-              <h4>615</h4>
-              <span>Pending Listings</span>
+              <h4>{{$user->appointments->count()}}</h4>
+              <span>{{__('app.Your appointments listings count')}}</span>
 			</div>
             <div class="utf_dashboard_stat_icon"><i class="im im-icon-Add-UserStar"></i></div>
           </div>
@@ -31,8 +31,8 @@
         <div class="col-lg-3 col-md-6">
           <div class="utf_dashboard_stat color-3">
             <div class="utf_dashboard_stat_content">
-              <h4>9128</h4>
-              <span>Expired Listings</span>
+              <h4>{{$user->bookings->count()}}</h4>
+              <span>{{__('app.Your bookings count')}}</span>
 			</div>
             <div class="utf_dashboard_stat_icon"><i class="im im-icon-Align-JustifyRight"></i></div>
           </div>
@@ -41,105 +41,88 @@
         <div class="col-lg-3 col-md-6">
           <div class="utf_dashboard_stat color-4">
             <div class="utf_dashboard_stat_content">
-              <h4>572</h4>
-              <span>New Feedbacks</span>
+              <h4>{{$user->wishlists->count()}}</h4>
+              <span>{{__('app.Your wishlists count')}}</span>
 			</div>
-            <div class="utf_dashboard_stat_icon"><i class="im im-icon-Diploma"></i></div>
+            <div class="utf_dashboard_stat_icon"><i class="im im-icon-Heart"></i></div>
           </div>
         </div>
 	
       </div>
+      
       <div class="row"> 
+      @if($user->listings->count() > 0)
         <div class="col-lg-6 col-md-12">
           <div class="utf_dashboard_list_box with-icons margin-top-20">
-            <h4>Recent Activities</h4>
+            <h4>{{__('app.Your listings list')}}</h4>
             <ul>
+              @foreach($listings as $listing)
               <li> 
-				<i class="utf_list_box_icon sl sl-icon-layers"></i> Peter Parker Left A Review 5.0 On <strong><a href="#"> Restaurant</a></strong> <a href="#" class="close-list-item"><i class="fa fa-close"></i></a> 
-			  </li>
-              <li> 
-			    <i class="utf_list_box_icon sl sl-icon-star"></i> Your Listing <strong><a href="#">Local Service</a></strong> Has Been Approved<a href="#" class="close-list-item"><i class="fa fa-close"></i></a> 
-			  </li>
-              <li> 
-				<i class="utf_list_box_icon sl sl-icon-heart"></i> Someone Bookmarked Your <strong><a href="#">Listing</a></strong> Restaurant <a href="#" class="close-list-item"><i class="fa fa-close"></i></a> 
-			  </li>              
-              <li> 
-			    <i class="utf_list_box_icon sl sl-icon-star"></i> Your Listing <strong><a href="#">Local Service</a></strong> Has Been Approved<a href="#" class="close-list-item"><i class="fa fa-close"></i></a> 
-			  </li>
-              <li> 
-			    <i class="utf_list_box_icon sl sl-icon-heart"></i> Someone Bookmarked Your <strong><a href="#">Listing</a></strong> Restaurant <a href="#" class="close-list-item"><i class="fa fa-close"></i></a> 
-			  </li>			  
-              <li> 
-				<i class="utf_list_box_icon sl sl-icon-layers"></i> Peter Parker Left A Review 5.0 On <strong><a href="#"> Restaurant</a></strong> <a href="#" class="close-list-item"><i class="fa fa-close"></i></a> 
-			  </li>
-			  <li>
-			    <i class="utf_list_box_icon sl sl-icon-star"></i> Someone Bookmarked Your <strong><a href="#">Listing</a></strong> Restaurant <a href="#" class="close-list-item"><i class="fa fa-close"></i></a> 
-			  </li>
-			  <li> 
-				<i class="utf_list_box_icon sl sl-icon-layers"></i> Peter Parker Left A Review 5.0 On <strong><a href="#"> Restaurant</a></strong> <a href="#" class="close-list-item"><i class="fa fa-close"></i></a> 
-			  </li>
-              <li> 
-			    <i class="utf_list_box_icon sl sl-icon-star"></i> Your Listing <strong><a href="#">Local Service</a></strong> Has Been Approved<a href="#" class="close-list-item"><i class="fa fa-close"></i></a> 
-			  </li>
-              <li> 
-				<i class="utf_list_box_icon sl sl-icon-heart"></i> Someone Bookmarked Your <strong><a href="#">Listing</a></strong> Restaurant <a href="#" class="close-list-item"><i class="fa fa-close"></i></a> 
-			  </li>
+                <i class="utf_list_box_icon {{$listing->service->icon}}"></i> <a href="{{route('user.listing.edit', $listing->id)}}">{{$listing->name}}</a> <strong><a href="#">{{$listing->service->title}}</a></strong></a> 
+              </li>
+              @endforeach
             </ul>
           </div>
         </div>
-		<div class="col-lg-6 col-md-12">
+        @endif
+		<div class="@if($user->listings->count() == 0) col-lg-12 @else col-lg-6 @endif col-md-12">
           <div class="utf_dashboard_list_box invoices with-icons margin-top-20">
-            <h4>All Order Invoices</h4>
+            <h4>{{__('app.Recent bookings')}}</h4>
             <ul>
-              <li><i class="utf_list_box_icon sl sl-icon-doc"></i> <strong><span class="paid">Paid</span> Premium Plan</strong>
+              @foreach($bookings as $booking)
+              <li><a href="{{route('listing.show', $booking->listing->id)}}"><i class="utf_list_box_icon {{$booking->listing->service->icon}}"></i> <strong>{{$booking->listing->name}} <span class="paid booking-status {{$booking->status->value}}">{{__('app.'.$booking->status->value)}}</span></strong></a>
                 <ul>
-                  <li><span>Order Number:-</span> 004128641</li>
-                  <li><span>Date:-</span> 12 Jan 2019</li>
+                  @foreach($booking->subServices as $subservice)
+                  <li>{{$subservice->title}}</li>
+                  @endforeach
+                  <li><span>{{__('app.In date')}} {{$booking->date_start->format('Y-m-d')}} {{__('app.From hour')}} {{$booking->date_start->format('H:i')}} {{__('app.To hour')}} {{$booking->date_start->format('H:i')}}</li>
                 </ul>
-                <div class="buttons-to-right"> <a href="dashboard_invoice.html" class="button gray"><i class="sl sl-icon-printer"></i> Invoice</a> </div>
+                <div class="buttons-to-right"> <form action="{{route('user.booking.destroy', $booking->id)}}" method="post">@csrf @method('delete')<button class="button gray"><i class="sl sl-icon-trash"></i> {{__('app.Delete booking')}}</button></form> </div>
+                <ul class="margin-top-10"><li><i class="im im-icon-Location-2"></i> {{$booking->listing->address}}</li></ul>
               </li>
-              <li><i class="utf_list_box_icon sl sl-icon-doc"></i> <strong><span class="paid">Paid</span> Platinum Plan</strong>
-                <ul>
-                  <li><span>Order Number:-</span> 004312641</li>
-                  <li><span>Date:-</span> 12 Jan 2019</li>
-                </ul>
-                <div class="buttons-to-right"> <a href="dashboard_invoice.html" class="button gray"><i class="sl sl-icon-printer"></i> Invoice</a> </div>
-              </li>
-              <li><i class="utf_list_box_icon sl sl-icon-doc"></i> <strong><span class="paid">Paid</span> Platinum Plan</strong>
-                <ul>
-                  <li><span>Order Number:-</span> 004312641</li>
-                  <li><span>Date:-</span> 12 Jan 2019</li>
-                </ul>
-                <div class="buttons-to-right"> <a href="dashboard_invoice.html" class="button gray"><i class="sl sl-icon-printer"></i> Invoice</a> </div>
-              </li>
-              <li><i class="utf_list_box_icon sl sl-icon-doc"></i> <strong><span class="unpaid">Unpaid</span> Basic Plan</strong>
-                <ul>
-                  <li><span>Order Number:-</span> 004031281</li>
-                  <li><span>Date:-</span> 12 Jan 2019</li>
-                </ul>
-                <div class="buttons-to-right"> <a href="dashboard_invoice.html" class="button gray"><i class="sl sl-icon-printer"></i> Invoice</a> </div>
-              </li>
-			  <li><i class="utf_list_box_icon sl sl-icon-doc"></i> <strong><span class="unpaid">Unpaid</span> Basic Plan</strong>
-                <ul>
-                  <li><span>Order Number:-</span> 004031281</li>
-                  <li><span>Date:-</span> 12 Jan 2019</li>
-                </ul>
-                <div class="buttons-to-right"> <a href="dashboard_invoice.html" class="button gray"><i class="sl sl-icon-printer"></i> Invoice</a> </div>
-              </li>
-			  <li><i class="utf_list_box_icon sl sl-icon-doc"></i> <strong><span class="unpaid">Unpaid</span> Basic Plan</strong>
-                <ul>
-                  <li><span>Order Number:-</span> 004031281</li>
-                  <li><span>Date:-</span> 12 Jan 2019</li>
-                </ul>
-                <div class="buttons-to-right"> <a href="dashboard_invoice.html" class="button gray"><i class="sl sl-icon-printer"></i> Invoice</a> </div>
-              </li>
+              @endforeach
             </ul>
           </div>
         </div>
+
+        @if($user->appointments->count() > 0)
+        <div class="col-lg-12 col-md-12">
+        <div class="utf_dashboard_list_box invoices with-icons margin-top-20">
+            <h4>{{__('app.Recent bookings for your listing')}}</h4>
+            <ul>
+              @foreach($appointments as $appointment)
+              <li><a href="{{route('listing.show', $appointment->listing->id)}}"><i class="utf_list_box_icon {{$appointment->listing->service->icon}}"></i> <strong>{{$appointment->listing->name}} <span class="paid booking-status {{$appointment->status->value}}">{{__('app.'.$appointment->status->value)}}</span></strong></a>
+              <form class="changestatus-appointment" action="{{route('user.appointment.changestatus', $appointment->id)}}" method="post">
+                @csrf    
+              <select required name="status">
+                        <option value="">{{__('app.Change status to')}}</option>
+                        @foreach($cases as $case)
+                        <option value="{{$case->value}}">{{__('app.'. $case->value)}}</option>
+                        @endforeach
+                  </select>
+                  <button class="button margin-right-10">انجام</button>
+                  <a href="{{route('user.appointment.edit', $appointment->id)}}" class="button button margin-right-10"><span class="im im-icon-Pen-4"></span></a>
+              </form> 
+
+              <ul>
+                  @foreach($appointment->subServices as $subservice)
+                  <li>{{$subservice->title}}</li>
+                  @endforeach
+                  <li>@if($appointment->name && $appointment->phone) {{$appointment->name}} - {{$appointment->phone}} @else {{$appointment->user->name}} - {{$appointment->user->phone}} @endif</li>
+                  <li><span>{{__('app.In date')}} {{$appointment->date_start->format('Y-m-d')}} {{__('app.From hour')}} {{$appointment->date_start->format('H:i')}} {{__('app.To hour')}} {{$appointment->date_start->format('H:i')}}</li>
+                </ul>
+                <div class="buttons-to-right"> <form action="{{route('user.appointment.destroy', $appointment->id)}}" method="post">@csrf @method('delete')<button class="button gray"><i class="sl sl-icon-trash"></i> {{__('app.Delete booking')}}</button></form> </div>              </li>
+              @endforeach
+            </ul>
+          </div>
+        </div>
+        @endif
+
         <div class="col-md-12">
           <div class="footer_copyright_part">{{__('app.Copyright')}}</div>
         </div>
       </div>
+  
     </div>
     </div>
        

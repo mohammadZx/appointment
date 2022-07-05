@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Enums\AppointmentStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Rules\IsValidBookingTime;
@@ -17,7 +18,11 @@ class BookingController extends Controller
      */
     public function index()
     {
-        return view('user.bookings');
+        $user = auth()->user();
+        $bookings = $user->bookings()->orderBy('id', 'DESC')->paginate(PREPAGE);
+        return view('user.bookings', [
+            'bookings' => $bookings
+        ]);
     }
 
     /**
@@ -58,7 +63,7 @@ class BookingController extends Controller
         
         $appointment->date_start = $request->date . ' ' . $start .':00';
         $appointment->date_end = $request->date . ' ' . $start .':00';
-        $appointment->status = 'none';
+        $appointment->status = AppointmentStatusEnum::NONE;
         if($request->has('status')) $request->status = $request->status;
         $appointment->save();
 
@@ -108,8 +113,12 @@ class BookingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Appointment $appointment)
     {
-        //
+        $appointment->delete();
+        return redirect()->back()->with('message' , [
+            'type' => 'success',
+            'message' => 'مورد با موفقیت حذف شد'
+        ]);
     }
 }

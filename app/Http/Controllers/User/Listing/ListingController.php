@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\Listing;
 
 use App\Http\Controllers\Controller;
+use App\Models\Listing;
 use Illuminate\Http\Request;
 
 class ListingController extends Controller
@@ -14,7 +15,11 @@ class ListingController extends Controller
      */
     public function index()
     {
-        return view('user.listings');
+        $user = auth()->user();
+        $listings = $user->listings()->orderBy('id', 'DESC')->paginate(PREPAGE);
+        return view('user.listings', [
+            'listings' => $listings
+        ]);
     }
 
     /**
@@ -78,8 +83,12 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Listing $listing)
     {
-        //
+        $listing->delete();
+        return redirect()->back()->with('message' , [
+            'type' => 'success',
+            'message' => 'مورد با موفقیت حذف شد'
+        ]);
     }
 }

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Enums\AppointmentStatusEnum;
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Enum;
 
 class AppointmentController extends Controller
 {
@@ -14,7 +17,13 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        return view('user.appointments');
+        $user = auth()->user();
+        $appointments = $user->appointments()->orderBy('id', 'DESC')->paginate(PREPAGE);
+        $cases = AppointmentStatusEnum::cases();
+        return view('user.appointments', [
+            'appointments' => $appointments,
+            'cases' => $cases
+        ]);
     }
 
     /**
@@ -78,8 +87,26 @@ class AppointmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Appointment $appointment)
     {
-        //
+        $appointment->delete();
+        return redirect()->back()->with('message' , [
+            'type' => 'success',
+            'message' => 'مورد با موفقیت حذف شد'
+        ]);
+    }
+
+
+    public function changestatus(Request $request, Appointment $appointment){
+        $request->validate([
+            'status' => ['required', new Enum(AppointmentStatusEnum::class)]
+        ]);
+        $appointment->status = $request->status;
+        $appointment->save();
+        return redirect()->back()->with('message' , [
+            'type' => 'success',
+            'message' => 'مورد با موفقیت ویرایش شد'
+        ]);
+        
     }
 }

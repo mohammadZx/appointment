@@ -106,3 +106,42 @@ a.listing-address {
 .swal2-html-container, button.swal2-confirm.swal2-styled {
     font-size: 16px
 }
+
+span.paid.booking-status.none {
+    background: #ffa5005e !important;
+    color: orangered !important;
+}
+
+
+span.paid.booking-status.late {
+    background: #ffa5005e !important;
+    color: orangered !important;
+}
+
+span.paid.booking-status.approve {
+    background: #55ff0047 !important;
+    color: #2b6a02 !important;
+}
+
+span.paid.booking-status.finish {
+    background: #57dbfd47 !important;
+    color: #02456a !important;
+}
+
+
+.invoices .buttons-to-right {
+    top: 10px !important;
+    transform: translate(0, 0);
+}
+
+.changestatus-appointment {
+    display: flex;
+    align-items: center;
+}
+
+.changestatus-appointment select {
+    width: 175px;
+    padding: 0;
+    height: auto;
+    margin: 0;
+}
