@@ -28,6 +28,9 @@ class IsValidBookingTime implements Rule
     public function passes($attribute, $value)
     {
             list($start, $end) = explode('|', $value);
+            if(isset($this->data['appointment_id'])){
+                return is_valid_appointment($this->data['listing_id'], $this->data['service'], $this->data['date'] ,$start, $end, $this->data['appointment_id']);
+            }
             return is_valid_appointment($this->data['listing_id'], $this->data['service'], $this->data['date'] ,$start, $end);
     }
 

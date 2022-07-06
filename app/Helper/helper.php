@@ -151,15 +151,19 @@ function get_splits($removes, $startTime, $endTime){
 		]]);
 }
 
-function get_booking_times($date, $services, $listing_id){
+function get_booking_times($date, $services, $listing_id, $appointment_id = null){
     // get dependencies
     $day = strtolower(date('l', strtotime($date))); // get weekday of user selected date
     $listing = Listing::findOrFail($listing_id);
     $exceptions = $listing->exceptions()->where('exception_date',$date )->first();
     $time = $listing->times()->where('week_day', $day)->whereType('main')->first(); //get times in week day for listings
     $timeSlots = $listing->times()->where('week_day', $day)->whereType('slot')->get();
-    $services = $listing->services()->whereIn('id', $services)->get();
-    $appointments = $listing->appointments()->where('date_start', 'LIKE', "%{$date}%")->where('status', 'none')->get();
+    $services = $listing->services()->whereIn('sub_service_id', $services)->get();
+    if($appointment_id){
+        $appointments = $listing->appointments()->where('id', '<>', $appointment_id)->where('date_start', 'LIKE', "%{$date}%")->where('status', 'none')->get();
+    }else{
+        $appointments = $listing->appointments()->where('date_start', 'LIKE', "%{$date}%")->where('status', 'none')->get();
+    }
     $timeSlot = 0; // handle servicing times
     $capture = []; // work time slots and appointment starts
     $bookingTimes = [];
@@ -205,8 +209,8 @@ function get_booking_times($date, $services, $listing_id){
 
 }
 
-function is_valid_appointment($listing, $services, $date, $start, $end){
-    $bookingTimes = get_booking_times($date, $services, $listing);
+function is_valid_appointment($listing, $services, $date, $start, $end, $appointment_id = null){
+    $bookingTimes = get_booking_times($date, $services, $listing, $appointment_id);
     $status = false;
     if(!isset($bookingTimes['data'])) return false;
     foreach($bookingTimes['data'] as $item){

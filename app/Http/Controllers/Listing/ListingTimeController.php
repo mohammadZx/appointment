@@ -23,8 +23,12 @@ class ListingTimeController extends Controller
         }
 
         $request->date = date('Y-m-d', strtotime(toGregorian($request->date)));
-       
-        $bookingTimes = get_booking_times($request->date, $request->services, $request->listing_id);
+
+        if($request->has('appointment_id')){
+            $bookingTimes = get_booking_times($request->date, $request->services, $request->listing_id, $request->appointment_id);
+        }else{
+            $bookingTimes = get_booking_times($request->date, $request->services, $request->listing_id);
+        }
         
         return response()->json($bookingTimes);
 

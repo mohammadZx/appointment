@@ -44,15 +44,19 @@ class BookingController extends Controller
     public function store(Request $request)
     {
        
+        $allReq = $request->all();
+        $allReq['date'] = date('Y-m-d', strtotime(toGregorian($request->date)));
+
         $validator = Validator::make($request->all(), [
             'date' => 'required',
             'service' => 'required',
-            'time_slot' => ['required' , new IsValidBookingTime($request->all())],
+            'time_slot' => ['required' , new IsValidBookingTime($allReq)],
             'listing_id' => 'required'
         ]);
+        
         $validator->validate();
+        
         $request->date = date('Y-m-d', strtotime(toGregorian($request->date)));
-
         list($start, $end) = explode('|', $request->time_slot);
         $appointment = new Appointment();
         $appointment->listing_id = $request->listing_id;
@@ -62,11 +66,11 @@ class BookingController extends Controller
         if($request->has('phone')) $appointment->phone = $request->phone;
         
         $appointment->date_start = $request->date . ' ' . $start .':00';
-        $appointment->date_end = $request->date . ' ' . $start .':00';
+        $appointment->date_end = $request->date . ' ' . $end .':00';
         $appointment->status = AppointmentStatusEnum::NONE;
         if($request->has('status')) $request->status = $request->status;
         $appointment->save();
-
+        $appointment->subServices()->sync($request->service);
         return redirect()->route('user.booking.index')->with('message', [
             'type' => 'success',
             'message' =>  __('app.Your appointment has been successfully registered. Please show up on time')

@@ -14,6 +14,7 @@
             @csrf
             @method('put')
             <input type="hidden" name="listing_id" value="{{$listing->id}}">
+            <input type="hidden" name="appointment_id" value="{{$appointment->id}}">
 			<div class="col-lg-12 col-md-12 select_subservice_box margin-bottom-20">
 				<select name="service[]" required multiple  data-count-selected-text="موارد انتخاب شده {0} تا"  data-placeholder="{{__('app.Choose items')}}" class="selectpicker default category" title="{{__('app.Choose items')}}" data-live-search="true" data-selected-text-format="count" data-size="5">
 					@foreach($listing->services as $service)
@@ -107,8 +108,9 @@ function getTimeSlots(){
 	var services = $('.select_subservice_box select').val()
 	var token = $('input[name="_token"]').val()
 	var listing_id = $('input[name="listing_id"]').val()
+	var appointment_id = $('input[name="appointment_id"]').val()
 
-	$.post( "{{route('listing.get_times')}}", { date: date, services: services, _token: token, listing_id: listing_id }).done(function( res ) {
+	$.post( "{{route('listing.get_times')}}", { date: date, services: services, _token: token, listing_id: listing_id, appointment_id: appointment_id }).done(function( res ) {
 		$('.panel-dropdown-scrollable').html('')
 		$('.errors ul').html('')
 
