@@ -96,7 +96,7 @@
 			<div class="col-lg-12 col-md-12 select_subservice_box margin-bottom-20">
 				<select name="service[]" required multiple  data-count-selected-text="موارد انتخاب شده {0} تا"  data-placeholder="{{__('app.Choose items')}}" class="selectpicker default category" title="{{__('app.Choose items')}}" data-live-search="true" data-selected-text-format="count" data-size="5">
 					@foreach($listing->services as $service)
-						<option value="{{$service->id}}">{{$service->subservice->title}}</option>
+						<option value="{{$service->subservice->id}}">{{$service->subservice->title}}</option>
 					@endforeach
 				</select>
 			</div>

@@ -801,7 +801,7 @@ a.rate-review i{
     float: left;
 }
 .utf_dashboard_list_box.with-icons ul li {
-    padding-right: 75px;
+    /* padding-right: 75px; */
 	padding-left:0;
 }
 .utf_dashboard_list_box ul li i.utf_list_box_icon {

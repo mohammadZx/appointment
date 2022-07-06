@@ -94,7 +94,7 @@ function get_listing_service_price($service){
 
 function get_user_avatar($image){
     if($image){
-        get_image($image);
+        return get_image($image);
     }
     return asset('images/avatar.png');
 }

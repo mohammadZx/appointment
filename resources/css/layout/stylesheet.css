@@ -10432,8 +10432,8 @@ input[type="radio"] {
 .change-photo-btn {
 	font-weight: 600;
 	padding: 5px;
-	color: #333;
-	background-color: #fff;
+	color: white;
+	background-color: #ff2222;
 	border-radius: 50px;
 	display: inline-block;
 	position: relative;

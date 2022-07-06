@@ -145,3 +145,40 @@ span.paid.booking-status.finish {
     height: auto;
     margin: 0;
 }
+
+.edit-profile-photo img{
+    width: 200px;
+    height: 200px;
+}
+
+
+.input-text.invalid, textarea.invalid, select.invalid {
+    border: 1px solid red;
+    background: #ff000003;
+}
+
+
+ul.errors {
+    border: 1px solid #ff2222;
+    background: #ff22220d;
+    border-radius: 5px;
+    padding: 10px;
+    padding-right: 30px;
+}
+
+ul.errors li {
+    list-style: disc;
+    padding: 0;
+}
+
+input.input-text:disabled {
+    background: #ededed;
+}
+
+
+.edit-appointment.utf_box_widget{
+    padding: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}

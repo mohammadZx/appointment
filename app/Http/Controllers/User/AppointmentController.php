@@ -5,9 +5,10 @@ namespace App\Http\Controllers\User;
 use App\Enums\AppointmentStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Rules\IsValidBookingTime;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Enum;
-
+use Illuminate\Support\Facades\Validator;
 class AppointmentController extends Controller
 {
     /**
@@ -64,9 +65,12 @@ class AppointmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Appointment $appointment)
     {
-        //
+        return view('user.update-appointment', [
+            'appointment' => $appointment,
+            'listing' => $appointment->listing
+        ]);
     }
 
     /**
@@ -76,9 +80,34 @@ class AppointmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Appointment $appointment)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'date' => 'required',
+            'service' => 'required',
+            'time_slot' => ['required' , new IsValidBookingTime($request->all())],
+            'listing_id' => 'required'
+        ]);
+        $validator->validate();
+        $request->date = date('Y-m-d', strtotime(toGregorian($request->date)));
+
+        list($start, $end) = explode('|', $request->time_slot);
+        $appointment->listing_id = $request->listing_id;
+        if(!$request->has('name') && !$request->has('phone')) $appointment->user_id = auth()->user()->id;
+        if($request->has('user_id')) $appointment->user_id = $request->user_id;
+        if($request->has('name')) $appointment->name = $request->name;
+        if($request->has('phone')) $appointment->phone = $request->phone;
+        
+        $appointment->date_start = $request->date . ' ' . $start .':00';
+        $appointment->date_end = $request->date . ' ' . $start .':00';
+        $appointment->status = AppointmentStatusEnum::NONE;
+        if($request->has('status')) $request->status = $request->status;
+        $appointment->save();
+
+        return redirect()->route('user.booking.index')->with('message', [
+            'type' => 'success',
+            'message' =>  __('app.Your appointment has been successfully registered. Please show up on time')
+        ]);
     }
 
     /**

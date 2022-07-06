@@ -43,7 +43,7 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        echo 'booking new listing to user';
+       
         $validator = Validator::make($request->all(), [
             'date' => 'required',
             'service' => 'required',
