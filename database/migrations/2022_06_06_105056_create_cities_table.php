@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('province_id');
+            $table->string('lat')->nullable();
+            $table->string('lon')->nullable();
             $table->string('name');
         });
     }

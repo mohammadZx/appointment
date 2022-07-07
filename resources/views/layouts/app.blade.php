@@ -45,6 +45,7 @@
     <script src="{{ asset('js/layout/magnific-popup.min.js') }}"></script> 
     <script src="{{ asset('js/layout/jquery-ui.min.js') }}"></script> 
     <script src="{{ asset('js/layout/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('js/layout/ajax-bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('js/layout/tooltips.min.js') }}"></script> 
     <script src="{{ asset('js/layout/color_switcher.js') }}"></script>
     <script src="{{ asset('js/layout/jquery_custom.js') }}"></script>

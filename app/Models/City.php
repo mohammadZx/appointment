@@ -9,7 +9,7 @@ class City extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['province_id','name'];
+    protected $fillable = ['province_id','name', 'lat', 'lon'];
     public $timestamps = false;
 
     public function province(){

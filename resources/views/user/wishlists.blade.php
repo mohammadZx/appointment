@@ -16,7 +16,7 @@
               @foreach($wishlists as $wishlist)
               @php $listing = $wishlist->wishlistable @endphp
               <li> 
-                <i class="utf_list_box_icon {{$listing->service->icon}}"></i> <a href="{{route('listing.show', $listing->id)}}">{{$listing->name}}</a> <strong><a href="#">{{$listing->service->title}}</a></strong></a> 
+                <a href="{{route('listing.show', $listing->id)}}">{{$listing->name}}</a> <strong><a href="#">{{$listing->service->title}}</a></strong></a> 
                 <form class="close-list-item" action="{{route('user.wishlist.destroy', $wishlist->id)}}" method="post">
                     @csrf
                     @method('delete')

@@ -58,7 +58,7 @@
             <ul>
               @foreach($listings as $listing)
               <li> 
-                <i class="utf_list_box_icon {{$listing->service->icon}}"></i> <a href="{{route('user.listing.edit', $listing->id)}}">{{$listing->name}}</a> <strong><a href="#">{{$listing->service->title}}</a></strong></a> 
+                <a href="{{route('user.listing.edit', $listing->id)}}">{{$listing->name}}</a> <strong><a href="#">{{$listing->service->title}}</a></strong></a> 
               </li>
               @endforeach
             </ul>
@@ -70,7 +70,7 @@
             <h4>{{__('app.Recent bookings')}}</h4>
             <ul>
               @foreach($bookings as $booking)
-              <li><a href="{{route('listing.show', $booking->listing->id)}}"><i class="utf_list_box_icon {{$booking->listing->service->icon}}"></i> <strong>{{$booking->listing->name}} <span class="paid booking-status {{$booking->status->value}}">{{__('app.'.$booking->status->value)}}</span></strong></a>
+              <li><a href="{{route('listing.show', $booking->listing->id)}}"><strong>{{$booking->listing->name}} <span class="paid booking-status {{$booking->status->value}}">{{__('app.'.$booking->status->value)}}</span></strong></a>
                 <ul>
                   @foreach($booking->subServices as $subservice)
                   <li>{{$subservice->title}}</li>
@@ -91,7 +91,7 @@
             <h4>{{__('app.Recent bookings for your listing')}}</h4>
             <ul>
               @foreach($appointments as $appointment)
-              <li><a href="{{route('listing.show', $appointment->listing->id)}}"><i class="utf_list_box_icon {{$appointment->listing->service->icon}}"></i> <strong>{{$appointment->listing->name}} <span class="paid booking-status {{$appointment->status->value}}">{{__('app.'.$appointment->status->value)}}</span></strong></a>
+              <li><a href="{{route('listing.show', $appointment->listing->id)}}"><strong>{{$appointment->listing->name}} <span class="paid booking-status {{$appointment->status->value}}">{{__('app.'.$appointment->status->value)}}</span></strong></a>
               <form class="changestatus-appointment" action="{{route('user.appointment.changestatus', $appointment->id)}}" method="post">
                 @csrf    
               <select required name="status">

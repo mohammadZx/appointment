@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('city_id');
             $table->string('address');
+            $table->integer('capacity')->default(1);
             $table->boolean('status')->default(0);
             $table->boolean('flexibility')->default(0);
             $table->text('content')->nullable();

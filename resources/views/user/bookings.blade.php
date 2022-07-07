@@ -13,7 +13,7 @@
             <h4>{{__('app.Recent bookings')}}</h4>
             <ul>
               @foreach($bookings as $booking)
-              <li><a href="{{route('listing.show', $booking->listing->id)}}"><i class="utf_list_box_icon {{$booking->listing->service->icon}}"></i> <strong>{{$booking->listing->name}} <span class="paid booking-status {{$booking->status->value}}">{{__('app.'.$booking->status->value)}}</span></strong></a>
+              <li><a href="{{route('listing.show', $booking->listing->id)}}"><strong>{{$booking->listing->name}} <span class="paid booking-status {{$booking->status->value}}">{{__('app.'.$booking->status->value)}}</span></strong></a>
                 <ul>
                   @foreach($booking->subServices as $subservice)
                   <li>{{$subservice->title}}</li>

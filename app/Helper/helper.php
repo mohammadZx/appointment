@@ -6,6 +6,7 @@ use App\Models\Attachment;
 use App\Models\Listing;
 use Hekmatinasser\Verta\Verta;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 use function GuzzleHttp\json_decode;
 
@@ -160,10 +161,11 @@ function get_booking_times($date, $services, $listing_id, $appointment_id = null
     $timeSlots = $listing->times()->where('week_day', $day)->whereType('slot')->get();
     $services = $listing->services()->whereIn('sub_service_id', $services)->get();
     if($appointment_id){
-        $appointments = $listing->appointments()->where('id', '<>', $appointment_id)->where('date_start', 'LIKE', "%{$date}%")->where('status', 'none')->get();
+        $appointments = $listing->appointments()->selectRaw('*, count(*) as count')->where('id', '<>', $appointment_id)->where('date_start', 'LIKE', "%{$date}%")->where('status', 'none')->groupBy(DB::raw('CONCAT(date_start, "|", date_end) '))->get();
     }else{
-        $appointments = $listing->appointments()->where('date_start', 'LIKE', "%{$date}%")->where('status', 'none')->get();
+        $appointments = $listing->appointments()->selectRaw('*, count(*) as count')->where('date_start', 'LIKE', "%{$date}%")->where('status', 'none')->groupBy(DB::raw('CONCAT(date_start, "|", date_end) '))->get();
     }
+
     $timeSlot = 0; // handle servicing times
     $capture = []; // work time slots and appointment starts
     $bookingTimes = [];
@@ -176,10 +178,12 @@ function get_booking_times($date, $services, $listing_id, $appointment_id = null
 
     // calc minuts every appointment in request date and save in $captures
     foreach($appointments as $appointment){
-        $capture[] = [
-            'start' => date('H:i', strtotime($appointment->date_start)),
-            'end' => date('H:i', strtotime($appointment->date_end))
-        ];
+        if($listing->capacity <= $appointment->count){
+            $capture[] = [
+                'start' => date('H:i', strtotime($appointment->date_start)),
+                'end' => date('H:i', strtotime($appointment->date_end))
+            ];
+        }
     }
 
 

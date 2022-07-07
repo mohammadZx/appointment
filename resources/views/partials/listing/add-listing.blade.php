@@ -2,11 +2,11 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h2>Add Listing</h2>          
+          <h2>{{__('app.Add listing')}}</h2>          
           <nav id="breadcrumbs">
             <ul>
-              <li><a href="index_1.html">Home</a></li>
-              <li>Add Listing</li>
+              <li><a href="{{route('home')}}">{{__('app.Home')}}</a></li>
+              <li>{{__('app.Add listing')}}</li>
             </ul>
           </nav>
         </div>
@@ -18,94 +18,58 @@
      <div class="row">
         <div class="col-lg-12">
           <div id="utf_add_listing_part">             
-			<div class="add_utf_listing_section"> 
-			  <div class="utf_add_listing_part_headline_part">
-                <h3><i class="sl sl-icon-user"></i> Have an Account?</h3>
-              </div>			  
-			  <div class="row with-forms">				
-				<div class="col-md-12">
-					<div class="form-group lis-relative">
-						Sign in If you don’t have an account you can create one below by entering your email address/username. Your account details will be confirmed via email. <a href="#dialog_signin_part" class="login_form sign-in popup-with-zoom-anim">Sign in</a>
-					</div>
-				</div>
-			  </div>
-			</div>
-			
+		
             <div class="add_utf_listing_section margin-top-45"> 
               <div class="utf_add_listing_part_headline_part">
-                <h3><i class="sl sl-icon-tag"></i> Categories & Tags</h3>
+                <h3><i class="sl sl-icon-tag"></i> {{__('app.Listing information')}}</h3>
               </div>              
               <div class="row with-forms">
-                <div class="col-md-6">
-                  <h5>Listing Title</h5>
-                  <input type="text" class="search-field" name="listing_title" id="listing_title" placeholder="Listing Title" value="">
-                </div>
-				<div class="col-md-6">
-                  <h5>Keywords</h5>                  
-				  <input type="text" name="keywords" id="keywords" placeholder="Keywords..." value="">
+                <div class="col-md-12">
+                  <h5>{{__('app.Listing title')}}</h5>
+                  <input type="text" class="search-field" required name="listing_title" id="listing_title" placeholder="{{__('app.Listing title')}}" value="">
                 </div>
               </div>              
-              <div class="row with-forms">                 
-                <div class="col-md-6">
-                  <h5>Category</h5>
+              <div class="row with-forms">  
+			  <div class="col-md-6">
+                  <h5>{{__('app.Services')}}</h5>
                   <div class="intro-search-field utf-chosen-cat-single">
-					  <select class="selectpicker default" data-selected-text-format="count" data-size="7" title="Select Category">
-						<option>Eat & Drink</option>
-						<option>Shops</option>
-						<option>Hotels</option>
-						<option>Restaurants</option>
-						<option>Fitness</option>
-						<option>Events</option>						
+					  <select name="lilsting_services" class="selectpicker default" multiple required data-placeholder="{{__('app.Select services')}}" data-selected-text-format="count" data-size="7" title="{{__('app.Select services')}}">
+						<option value="">{{__('app.Select a category')}}</option> 						
 					  </select>
 				  </div>
-                </div>
+                </div>               
                 <div class="col-md-6">
-                  <h5>Tags(optional)</h5>
+                  <h5>{{__('app.Category')}}</h5>
                   <div class="intro-search-field utf-chosen-cat-single">
-					  <select class="selectpicker default" data-selected-text-format="count" data-size="7" title="Select Tags">
-						<option>One</option>
-						<option>Two</option>
-						<option>Three</option>
-						<option>Four</option>
-						<option>Five</option> 						
+					  <select name="lilsting_category" class="selectpicker default" data-count-selected-text="{{__('app.Selected item {0}')}}" data-placeholder="{{__('app.Select Category')}}"  data-live-search="true"  data-selected-text-format="count" data-size="7" title="{{__('app.Select Category')}}">
+					  		@foreach($categories as $cat)
+								<optgroup label="{{$cat->title}}">
+									@foreach($cat->services as $service)
+										<option value="{{$service->id}}">{{$service->title}}</option>
+									@endforeach
+								</optgroup>
+							@endforeach					
 					  </select>
 				  </div>
                 </div>
               </div>
-			  <div class="row with-forms">
-                <div class="col-md-12">
-                  <h5>Listing Tags</h5>
-                  <input type="text" class="search-field" name="listing_title" id="listing_title" placeholder="Listing Tags" value="">
-                </div>				
-              </div> 
             </div>
             
             <div class="add_utf_listing_section margin-top-45"> 
               <div class="utf_add_listing_part_headline_part">
-                <h3><i class="sl sl-icon-map"></i> Location</h3>
+                <h3><i class="sl sl-icon-map"></i> {{__('app.Location')}}</h3>
               </div>
               <div class="utf_submit_section"> 
                 <div class="row with-forms"> 				
                   <div class="col-md-6">
-                    <h5>City</h5>
-                    <div class="intro-search-field utf-chosen-cat-single">
-					  <select class="selectpicker default" data-selected-text-format="count" data-size="7" title="Select City">
-						  <option>New York</option>
-						  <option>Argentina</option>
-						  <option>Chicago</option>
-						  <option>Azerbaijan</option>
-						  <option>Indonesia</option>
-						  <option>India</option>
-						  <option>Thailand</option>
-						  <option>Gambia</option>
-						  <option>Spain</option>
-						  <option>Iraq</option> 						
-					  </select>
+                    <h5>{{__('app.City')}}</h5>
+					<div class="intro-search-field utf-chosen-cat-single">
+					  <select  name="city" class="selectpicker default with-ajax city" data-placeholder="{{__('app.pages.index.City')}}" data-selected-text-format="count" data-size="7" data-live-search="true" title="{{__('app.pages.index.City')}}"></select>
 				    </div>
                   </div>                  
                   <div class="col-md-6">
-                    <h5>Address</h5>                    
-					<input type="text" class="input-text" name="address" id="address" placeholder="Address" value="">
+                    <h5>{{__('app.Address')}}</h5>                    
+					<input type="text" class="input-text" name="address" id="address" placeholder="{{__('app.Address')}}" value="">
                   </div>                  
                   <div class="col-md-12">
                   <h5>Decimal Degrees</h5>                    
@@ -121,9 +85,9 @@
 				  <div id="utf_listing_location" class="col-md-12 utf_listing_section">
 					  <div id="utf_single_listing_map_block">
 						<div id="utf_single_listingmap" data-latitude="40.7324319" data-longitude="-73.824807777775" data-map-icon="im im-icon-Hamburger"></div>
-						<a href="#" id="utf_street_view_btn">Street View</a> 
 					  </div>
 				  </div>
+				  
                 </div>
               </div>
             </div>
