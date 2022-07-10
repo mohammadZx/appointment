@@ -1,8 +1,5 @@
 <link rel="stylesheet" href="{{ asset('css/layout/jalalidatepicker.min.css') }}">
 
-<script src="http://maps.google.com/maps/api/js?sensor=false&amp;language=fa"></script> 
-
-<script src="{{ asset('js/layout/maps.js') }}"></script>
 <script src="{{ asset('js/layout/jalalidatepicker.min.js') }}"></script>
 
 <script>

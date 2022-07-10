@@ -13,6 +13,7 @@ use function GuzzleHttp\json_decode;
 define('PREPAGE', 5);
 define('FILTERS', ['service', 'city']);
 define('PRICE_UNIT', 'تومان');
+define('PRICE_UNIT_EN', 'TOMAN');
 define('LOGO', 'http://127.0.0.1:8000/images/logo.png');
 define('SOCIAL', [
     [
@@ -32,6 +33,15 @@ define('SOCIAL', [
     ],
 ]);
 
+define('WEEKDAY', [
+    'شنبه' => 'saturday',
+    'یکشنبه' => 'sunday',
+    'دوشنبه' => 'monday',
+    'سه شنبه' => 'tuesday',
+    'چهارشنبه' => 'wednesday',
+    'پنج شنبه' => 'thursday',
+    'جمعه' => 'friday',
+]);
 
 function clearFormat($data, $status = true){
     if($data == null){
@@ -155,6 +165,8 @@ function get_splits($removes, $startTime, $endTime){
 function get_booking_times($date, $services, $listing_id, $appointment_id = null){
     // get dependencies
     $day = strtolower(date('l', strtotime($date))); // get weekday of user selected date
+    $data = Carbon::parse($date)->toJalali()->formatWord('l');
+    $day =  WEEKDAY[$data];
     $listing = Listing::findOrFail($listing_id);
     $exceptions = $listing->exceptions()->where('exception_date',$date )->first();
     $time = $listing->times()->where('week_day', $day)->whereType('main')->first(); //get times in week day for listings
@@ -223,3 +235,12 @@ function is_valid_appointment($listing, $services, $date, $start, $end, $appoint
     return $status;
 }
 
+
+
+function random_point($radius){
+    $longitude = (float) 33.33333;
+    $latitude = (float) 22.22222;
+    $lng_min = $longitude - $radius / abs(cos(deg2rad($latitude)) * 69);
+    $lat_max = $latitude + ($radius / 69);
+    return [$lat_max, $lng_min];
+}

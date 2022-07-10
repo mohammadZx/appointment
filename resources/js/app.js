@@ -1,11 +1,17 @@
-import './layout/mmenu.js'
-import './layout/chosen.min.js'
-import './layout/slick.min.js'
-import './layout/rangeslider.min.js'
-import './layout/magnific-popup.min.js'
-import './layout/jquery-ui.min.js'
-import './layout/bootstrap-select.min.js'
-import './layout/tooltips.min.js'
-import './layout/color_switcher.js'
-import './layout/jquery_custom.js'
-import './bootstrap';
+
+// Login popup handle
+$('.login-button').click(function(){
+    $('#register').attr('data-redirect', $(this).attr('data-redirect'))
+
+    if($(this).attr('data-close')){
+      $('#register').attr('data-close', $(this).attr('data-close'))
+    }else{
+      $('#register').attr('data-close', null)
+    }
+
+    if($(this).attr('data-callback')){
+      $('#register').attr('data-callback', $(this).attr('data-callback'))
+    }else{
+      $('#register').attr('data-callback', null)
+    }
+  })

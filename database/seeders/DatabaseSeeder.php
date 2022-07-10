@@ -58,14 +58,31 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->province();
+        echo "Imported province \n";
+
         $this->city();
+        echo "Imported cities \n";
+
         $this->category();
+        echo "Imported cateogries, services and subservices \n";
+
         $this->attachments();
+        echo "Imported attachments \n";
+
         $this->listings();
+        echo "Imported listings \n";
+
         $this->listingTimes();
+        echo "Imported listing times \n";
+
         $this->listingExceptions();
+        echo "Imported listing Exceptions \n";
+
         $this->listingServices();
+        echo "Imported listing services \n";
+
         $this->appointments();
+        echo "Imported appointments \n";
     }
 
     public function province(){
@@ -160,6 +177,7 @@ class DatabaseSeeder extends Seeder
             $listing->setMeta('social_twitter', 'https://twitter.com');
             $listing->setMeta('site_link', 'https://example.com');
             $listing->setMeta('fixed_phone', '02133665544');
+            $listing->setMeta('map', implode(',', random_point(rand(1, 10))));
             $this->listingIds[] = $listing->id;
 
 

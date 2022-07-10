@@ -194,3 +194,96 @@ input.input-text:disabled {
     box-shadow: none !important;
     border: none !important;
 }
+
+#utf_pricing_list_section, #utf_hours_list_section {
+    width: 100%;
+    margin-top: 10px;
+}
+.l-list-item td {
+    display: flex;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.l-list-item td .fm-input.pricing-name {
+    max-width: 350px;
+}
+
+.l-list-item td .fm-input {
+    margin-right: 20px;
+}
+.l-list-item td .fm-input, .l-list-item td .fm-move, .l-list-item td .fm-close {
+    flex: 1;
+    position: relative;
+}
+
+.l-list-item td .fm-close {
+    text-align: right;
+}
+
+.l-list-item td .fm-move, .l-list-item td .fm-close {
+    max-width: 40px;
+}
+
+.l-list-item td .fm-close a {
+    margin-right: 10px;
+    margin-left: 0;
+}
+
+.l-list-item td .fm-close a {
+    background: #ff2222;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    line-height: 30px;
+    border-radius: 50%;
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.l-list-item td .fm-input {
+    margin-right: 0px;
+    margin-left: 20px;
+}
+.l-list-item select{
+    padding: 0;
+}
+@media screen and (max-width: 767px) {
+    
+.l-list-item td {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+
+.l-list-item td .fm-input, .l-list-item td .fm-input.pricing-price, .l-list-item td .fm-input.pricing-name {
+    max-width: 100%;
+    margin-right: 0;
+}
+
+.l-list-item td .fm-input {
+    margin-right: 0px;
+    margin-left: 0;
+}
+
+.l-list-item td .fm-close a {
+    margin-right: 10px;
+    margin-left: -20px;
+}
+
+.l-list-item td .fm-close {
+    top: -5px;
+    left: 20px;
+    right: unset !important;
+}
+.l-list-item td .fm-close {
+    text-align: left;
+    position: absolute;
+    top: 4px;
+    right: 0;
+}
+
+}
+

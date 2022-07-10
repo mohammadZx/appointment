@@ -22,20 +22,13 @@
   var theme = 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
     var lat = 35.715298;
     var lon = 51.404343;
-    var alt =481;
     var macarte = null;
     var marker;
-    //var trace = new Array();
-    var i = 0;
-    //var marker1;
-    var markerClusters; // Servira à stocker les groupes de marqueurs
     var popup = L.popup();
         function initMap(){
             macarte = L.map('utf_single_listingmap').setView([lat, lon], 10);
             marker = L.marker({lat, lon}).addTo(macarte)
             macarte.addLayer(marker);
-
-            markerClusters = L.markerClusterGroup;
             L.tileLayer(theme, {}).addTo(macarte);
             macarte.on('click', onMapClick);
         }
@@ -62,39 +55,51 @@
         initMap();
     });
 
-</script>
 
-<script>
-$(".utf_opening_day.utf_js_demo_hours .utf_chosen_select").each(function() {
-	$(this).append(''+
-        '<option></option>'+
-        '<option>Closed</option>'+
-        '<option>1 AM</option>'+
-        '<option>2 AM</option>'+
-        '<option>3 AM</option>'+
-        '<option>4 AM</option>'+
-        '<option>5 AM</option>'+
-        '<option>6 AM</option>'+
-        '<option>7 AM</option>'+
-        '<option>8 AM</option>'+
-        '<option>9 AM</option>'+
-        '<option>10 AM</option>'+
-        '<option>11 AM</option>'+
-        '<option>12 AM</option>'+
-        '<option>1 PM</option>'+
-        '<option>2 PM</option>'+
-        '<option>3 PM</option>'+
-        '<option>4 PM</option>'+
-        '<option>5 PM</option>'+
-        '<option>6 PM</option>'+
-        '<option>7 PM</option>'+
-        '<option>8 PM</option>'+
-        '<option>9 PM</option>'+
-        '<option>10 PM</option>'+
-        '<option>11 PM</option>'+
-        '<option>12 PM</option>');
-});
-</script> 
+    
+// js time slot hanle for add listing
+let x = {
+    slotInterval: 60,
+    openTime: '00:00',
+    closeTime: '00:00'
+  };
+  let startTime = moment(x.openTime, "HH:mm");
+  let endTime = moment(x.closeTime, "HH:mm").add(1, 'days');
+
+  let allTimes = null;
+  
+  //Loop over the times - only pushes time with 30 minutes interval
+  while (startTime < endTime) {
+    //Push times
+    allTimes += `<option value="${startTime.format("HH:mm")}">${startTime.format("HH:mm")}</option>`;
+    //Add interval of 30 minutes
+    startTime.add(x.slotInterval, 'minutes');
+  }
+
+$('.time-select').each(function(index){
+    $(this).append(allTimes)
+})
+
+
+
+// Add listing hour add item
+$('.add-list-item').click(function(e){
+  e.preventDefault()
+  $(this).parent().find('table .l-list-item:nth-child(1)').clone().appendTo($(this).parent().find('table tbody'))
+
+  $('.fm-close a').click(function(e){
+    e.preventDefault()
+
+    if( $(this).parent().parent().parent().parent().children().length > 1){
+      $(this).parent().parent().parent().remove()
+    }
+  })
+})
+
+
+
+
+</script>
 <script src="{{ asset('js/layout/dropzone.js') }}"></script>
 
 @endsection
