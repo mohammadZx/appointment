@@ -32,10 +32,10 @@
           <div class="header_widget"> 
             @guest
               <a href="#dialog_signin_part" data-redirect="{{route('user.dashboard')}}" class="button border sign-in login-button popup-with-zoom-anim"><i class="fa fa-sign-in"></i>{{__('app.Login/Register')}}</a>
-              <a href="#dialog_signin_part" data-redirect="{{route('listing.create')}}" class="button border with-icon login-button add-listing-button popup-with-zoom-anim"><i class="sl sl-icon-user"></i> {{__('app.Add listing')}}</a></div>
+              <a href="#dialog_signin_part" data-redirect="{{route('user.listing.create')}}" class="button border with-icon login-button add-listing-button popup-with-zoom-anim"><i class="sl sl-icon-user"></i> {{__('app.Add listing')}}</a></div>
               @else
               <a href="{{route('user.dashboard')}}" class="header-account-button button border with-icon"><i class="sl sl-icon-user"></i> {{__('app.Account')}}</a>
-              <a href="{{route('listing.create')}}" class="button border with-icon"><i class="sl sl-icon-user"></i> {{__('app.Add listing')}}</a></div>
+              <a href="{{route('user.listing.create')}}" class="button border with-icon"><i class="sl sl-icon-user"></i> {{__('app.Add listing')}}</a></div>
             @endguest
             
         </div>

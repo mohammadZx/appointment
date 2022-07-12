@@ -99,4 +99,9 @@ class ServiceController extends Controller
     {
         //
     }
+
+
+    public function subservices(Service $service){
+        return response()->json(['data' => $service->subservices]);
+    }
 }

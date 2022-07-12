@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Listing\ListingAttachmentController;
 use App\Http\Controllers\Listing\ListingController;
 use App\Http\Controllers\Listing\ListingTimeController;
 use App\Http\Controllers\User\AppointmentController;
@@ -43,6 +44,9 @@ Route::resource('listing', ListingController::class);
 Route::resource('category', CategoryController::class);
 Route::resource('service', App\Http\Controllers\Service\ServiceController::class);
 Route::post('listing/get-times', [ListingTimeController::class, 'getTimes'])->name('listing.get_times');
+Route::post('listing/add-attachment', [ListingAttachmentController::class, 'store'])->name('listing.add_attachment');
+Route::post('listing/delete-attachment/{attachment}', [ListingAttachmentController::class, 'destroy'])->name('listing.delete_attachment');
+Route::get('service/{service}/subservices', [App\Http\Controllers\Service\ServiceController::class, 'subservices']);
 
 
 

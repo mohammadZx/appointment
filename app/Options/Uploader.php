@@ -29,7 +29,7 @@ class Uploader{
         $attachment = Attachment::find($id);
         Storage::delete($attachment->src);
         $attachment->delete();
-        return;
+        return true;
     }
     public static function getAll($prePage = 50){
         return Attachment::limit($prePage)->get();

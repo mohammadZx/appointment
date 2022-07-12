@@ -15,7 +15,8 @@
   </div>
   
   <div class="container">
-     <div class="row">
+     <form class="row margin-bottom-15" action="{{route('user.listing.store')}}" method="POST">
+      @csrf
         <div class="col-lg-12">
           <div id="utf_add_listing_part">             
 		
@@ -23,11 +24,12 @@
               <div class="utf_add_listing_part_headline_part">
                 <h3><i class="sl sl-icon-tag"></i> {{__('app.Listing information')}}</h3>
               </div>              
-              <div class="row with-forms">         
+              <div class="row with-forms">
+              
                 <div class="col-md-6">
                   <h5>{{__('app.Category')}}</h5>
                   <div class="intro-search-field utf-chosen-cat-single">
-					  <select name="lilsting_category" class="selectpicker default" data-count-selected-text="{{__('app.Selected item {0}')}}" data-placeholder="{{__('app.Select Category')}}"  data-live-search="true"  data-selected-text-format="count" data-size="7" title="{{__('app.Select Category')}}">
+					  <select name="listing_category" required class="selectpicker default" data-count-selected-text="{{__('app.Selected item {0}')}}" data-placeholder="{{__('app.Select Category')}}"  data-live-search="true"  data-selected-text-format="count" data-size="7" title="{{__('app.Select Category')}}">
 					  		@foreach($categories as $cat)
 								<optgroup label="{{$cat->title}}">
 									@foreach($cat->services as $service)
@@ -41,7 +43,36 @@
                 <div class="col-md-6">
                   <h5>{{__('app.Listing title')}}</h5>
                   <input type="text" class="search-field" required name="listing_title" id="listing_title" placeholder="{{__('app.Listing title')}}" value="">
-                </div>    
+                </div> 
+                <div class="col-md-6">
+                  <h5>{{__('app.Flexibility mode')}}</h5>
+                  <input type="number" class="search-field" name="flexibility" id="flexibility" placeholder="{{__('app.Igonre interference for user in minute')}}" value="">
+                </div> 
+                <div class="col-md-6">
+                  <h5>{{__('app.Listing capacity')}}</h5>
+                  <input type="number" class="search-field" name="listing_capacity" id="listing_capacity" placeholder="{{__('app.Listing capacity')}}" value="">
+                </div>
+
+
+                <div class="col-md-4">
+                  <h5>{{__('app.Listing fixed phone (optional)')}}</h5>
+                  <input type="number" class="search-field" required name="fixed_phone" id="fixed_phone" placeholder="{{__('app.Listing fixed phone')}}" value="">
+                </div> 
+
+                <div class="col-md-4">
+                  <h5>{{__('app.Listing instagram (optional)')}}</h5>
+                  <input type="text" class="search-field" name="instagram" id="instagram" placeholder="{{__('app.Listing instagram')}}" value="">
+                </div> 
+
+                <div class="col-md-4">
+                  <h5>{{__('app.Listing whatsapp (optional)')}}</h5>
+                  <input type="number" class="search-field" required name="whatsapp" id="whatsapp" placeholder="{{__('app.Listing whatsapp')}}" value="">
+                </div> 
+
+
+                <div class="col-md-12">
+                <textarea name="content" max="50000" placeholder="{{__('app.Listing Contenet')}}"></textarea>
+              </div> 
               </div>
             </div>
             
@@ -54,12 +85,12 @@
                   <div class="col-md-6">
                     <h5>{{__('app.City')}}</h5>
 					<div class="intro-search-field utf-chosen-cat-single">
-					  <select  name="city" class="selectpicker default with-ajax city" data-placeholder="{{__('app.pages.index.City')}}" data-selected-text-format="count" data-size="7" data-live-search="true" title="{{__('app.pages.index.City')}}"></select>
+					  <select  name="city" required class="selectpicker default with-ajax city" data-placeholder="{{__('app.pages.index.City')}}" data-selected-text-format="count" data-size="7" data-live-search="true" title="{{__('app.pages.index.City')}}"></select>
 				    </div>
                   </div>                  
                   <div class="col-md-6">
                     <h5>{{__('app.Address')}}</h5>                    
-					<input type="text" class="input-text" name="address" id="address" placeholder="{{__('app.Address')}}" value="">
+					<input type="text" required class="input-text" name="address" id="address" placeholder="{{__('app.Address')}}" value="">
                   </div>                  
                   <div class="col-md-12 d-none">
                   <h5>Decimal Degrees</h5>                    
@@ -94,7 +125,7 @@
                 </div>
               <div class="row with-forms">              
                 <div class="utf_submit_section col-md-12">
-                  <form action="file-upload" class="dropzone"></form>
+                <div class="dropzone" id="myDropzone"></div>
                 </div>
 			        </div>	  
             </div> 
@@ -111,7 +142,7 @@
                   <tr class="l-list-item pattern ui-sortable-handle">
                     <td>
                     <div class="fm-input pricing-name">
-                      <select name="workhours[]" required>
+                      <select name="worktimes[item_1][workhours]" required>
                           <option value="saturday">{{__('app.saturday')}}</option>
                           <option value="sunday">{{__('app.sunday')}}</option>
                           <option value="monday">{{__('app.monday')}}</option>
@@ -122,17 +153,17 @@
                       </select>
                     </div>
                     <div class="fm-input pricing-ingredients">
-                        <select name="time_start[]" class="time-select" required>
+                        <select name="worktimes[item_1][time_start]" class="time-select" required>
                           <option value="">{{__('app.Start time')}}</option>
                         </select>
                     </div>
                     <div class="fm-input pricing-ingredients">
-                        <select name="time_end[]" class="time-select" required>
+                        <select name="worktimes[item_1][time_end]" class="time-select" required>
                           <option value="">{{__('app.End time')}}</option>
                         </select>
                     </div>
                     <div class="fm-input">
-                      <select name="type[]" required>
+                      <select name="worktimes[item_1][type]" required>
                         <option value="main">{{__('app.Work time')}}</option>
                         <option value="slot">{{__('app.Rest time')}}</option>
                       </select>
@@ -155,17 +186,16 @@
 					  <tbody class="ui-sortable">
 						<tr class="l-list-item pattern ui-sortable-handle">
 						  <td>
-							<div class="fm-input pricing-name intro-search-field utf-chosen-cat-single">
-                <select name="lilsting_services[]" class="selectpicker default" multiple required data-placeholder="{{__('app.Select services')}}" data-selected-text-format="count" data-size="7" title="{{__('app.Select service')}}"></select>
-							</div>
-							<div class="fm-input pricing-ingredients">
-							  <input type="text" name="capacity[]" placeholder="{{__('app.Capacity')}}">
+							<div class="fm-input pricing-name intro-search-field utf-chosen-service-single">
+                <select name="services[item_1][lilsting_services]" class="default subservice" required data-placeholder="{{__('app.Select service')}}" >
+                  <option value="">{{__('app.Select service')}}</option>
+                </select>
 							</div>
               <div class="fm-input pricing-ingredients">
-							  <input type="text" name="time[]" placeholder="{{__('app.Time for every booking. on minute')}}">
+							  <input type="number" name="services[item_1][time]" required placeholder="{{__('app.Time for every booking. on minute')}}">
 							</div>
 							<div class="fm-input pricing-price"><i class="data-unit">$</i>
-							  <input type="text" name="price[]" placeholder="{{__('app.Price in ' . PRICE_UNIT_EN)}}" data-unit="$">
+							  <input type="number" name="services[item_1][price]" required placeholder="{{__('app.Price in ' . PRICE_UNIT_EN)}}" data-unit="$">
 							</div>
 							<div class="fm-close"><a class="delete" href="#"><i class="fa fa-remove"></i></a></div></td>
 						</tr>
@@ -175,9 +205,10 @@
 				</div>                          
             </div>
 	                       
-            <a href="#" class="button preview"><i class="fa fa-arrow-circle-right"></i> {{__('app.Save')}}</a> </div>
+            <button class="button preview"><i class="fa fa-arrow-circle-right"></i> {{__('app.Save')}}</button>
+           </div>
         </div>        
-      </div>
+      </form>
   </div>
   
  

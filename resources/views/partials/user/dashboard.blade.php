@@ -4,7 +4,7 @@
         <ul>
           <li class="active"><a href="{{route('user.dashboard')}}"><i class="sl sl-icon-layers"></i> {{__('app.Dashboard')}}</a></li>       
 		  <li><a href="{{route('user.listing.index')}}"><i class="sl sl-icon-layers"></i> {{__('app.My Listings')}}</a></li>		  		 
-		  <li><a href="{{route('listing.create')}}"><i class="sl sl-icon-layers"></i> {{__('app.Add listing')}}</a></li>		  		 
+		  <li><a href="{{route('user.listing.create')}}"><i class="sl sl-icon-layers"></i> {{__('app.Add listing')}}</a></li>		  		 
 		  <li><a href="{{route('user.booking.index')}}"><i class="sl sl-icon-docs"></i> {{__('app.Bookings')}}</a></li>		                                             		 
 		  <li><a href="{{route('user.appointment.index')}}"><i class="sl sl-icon-docs"></i> {{__('app.Appointment')}}</a></li>		                                             		 
 		  <li><a href="{{route('user.profile')}}"><i class="sl sl-icon-user"></i> {{__('app.My Profile')}}</a></li>

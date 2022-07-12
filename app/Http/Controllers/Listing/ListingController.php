@@ -38,7 +38,7 @@ class ListingController extends Controller
      */
     public function create()
     {
-        return view('listing.create');
+     
     }
 
     /**
@@ -49,7 +49,7 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      
     }
 
     /**
@@ -79,7 +79,8 @@ class ListingController extends Controller
      */
     public function edit($id)
     {
-        //
+        $this->middleware('auth');
+        
     }
 
     /**
@@ -91,7 +92,8 @@ class ListingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->middleware('auth');
+        
     }
 
     /**

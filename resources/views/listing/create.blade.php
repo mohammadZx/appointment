@@ -7,13 +7,13 @@
 @endsection
 
 @section('scripts')
+
 @include('partials.assets.city-ajax')
+
+
+
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="crossorigin="" />
-<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
-<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
 <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="crossorigin=""></script>
-<script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-<script type='text/javascript' src='https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js'></script>
 
 
 
@@ -85,7 +85,11 @@ $('.time-select').each(function(index){
 // Add listing hour add item
 $('.add-list-item').click(function(e){
   e.preventDefault()
-  $(this).parent().find('table .l-list-item:nth-child(1)').clone().appendTo($(this).parent().find('table tbody'))
+  var i = $(this).parent().find('table .l-list-item').length + 1;
+  html  = $(this).parent().find('table .l-list-item:nth-child(1)').html()
+
+  html = html.replaceAll('item_1' , 'item_' + i)
+  $(this).parent().find('table tbody').append(`<tr class="l-list-item pattern ui-sortable-handle">${html}</tr>`)
 
   $('.fm-close a').click(function(e){
     e.preventDefault()
@@ -97,9 +101,73 @@ $('.add-list-item').click(function(e){
 })
 
 
+$('select[name="listing_category"]').on('change', function(){
+  
+  $.ajax({
+    url: `/service/${$(this).val()}/subservices`,
+  }).done(function(res) {
+
+    $('.subservice').each(function(){
+
+      var html = `<option value="">${$(this).data('placeholder')}</option>`;
+      for(var data of res.data){
+        html += `<option value="${data.id}">${data.title}</option>`;
+      }
+      $(this).html(html);
+      $(this).val('');
+
+    })
+  });
+
+  
+});
+
 
 
 </script>
 <script src="{{ asset('js/layout/dropzone.js') }}"></script>
+
+<script>
+ Dropzone.options.myDropzone= {
+    url: '{{route('listing.add_attachment')}}',
+    autoProcessQueue: true,
+    uploadMultiple: false,
+    parallelUploads: 5,
+    maxFiles: 5,
+    maxFilesize: 1,
+    acceptedFiles: 'image/*',
+    addRemoveLinks: true,
+    init: function(){
+      this.on("sending", function(file, xhr, formData) {
+        formData.append("_token", '{{ csrf_token() }}');
+      })
+    },
+    removedfile: function(file) {
+            var name = file.previewElement.id;
+          $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+            type: 'POST',
+              url: '/listing/delete-attachment/' + name,
+               });
+            var fileRef;
+            return (fileRef = file.previewElement) != null ? 
+            fileRef.parentNode.removeChild(file.previewElement) : void 0;
+
+      },
+
+      success: function(file, response) {
+    
+				file.previewElement.id = response.success.id;
+				file.name = response.success.name;
+        var olddatadzname = file.previewElement.querySelector("[data-dz-name]");   
+        file.previewElement.querySelector("img").alt = response.success.name;
+        olddatadzname.innerHTML = response.success.name;
+        },
+    
+}
+
+</script>
 
 @endsection

@@ -192,11 +192,7 @@
 
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="crossorigin="" />
-<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
-<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
 <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="crossorigin=""></script>
-<script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-<script type='text/javascript' src='https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js'></script>
 
 <script>
 
@@ -206,12 +202,10 @@
     var lon =  $('#utf_single_listingmap').data('longitude');
     var macarte = null;
     var marker;
-    var markerClusters; // Servira à stocker les groupes de marqueurs
         function initMap(){
             macarte = L.map('utf_single_listingmap').setView([lat, lon], 10);
             marker = L.marker({lat, lon}).addTo(macarte)
-            macarte.addLayer(marker);
-            markerClusters = L.markerClusterGroup;
+            macarte.addLayer(marker)
             L.tileLayer(theme, {}).addTo(macarte);
         }
 
