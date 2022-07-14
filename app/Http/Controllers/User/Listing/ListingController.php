@@ -34,9 +34,11 @@ class ListingController extends Controller
     public function create()
     {
         $this->middleware('auth');
-        if(session()->has('listing-attachments')) session()->remove('listing-attachments');
-
-        return view('listing.create');
+        $listing = new Listing();
+        return view('user.listing.create', [
+            'listing' => $listing,
+            'edit' => false
+        ]);
     }
 
     /**
@@ -59,10 +61,6 @@ class ListingController extends Controller
             'services' => ['required', new ServicesRule($request->all())],
         ]);
 
-        if($validator->fails()){
-            dd($validator->errors());
-        }
-
         $validator->validate();
 
         $listing = new Listing();
@@ -72,9 +70,9 @@ class ListingController extends Controller
         $listing->user_id = auth()->user()->id;
         $listing->service_id = $request->listing_category;
         $listing->address = $request->address;
-        $listing->capacity = $request->has('listing_capacity') ?  $request->listing_capacity : 1;
+        $listing->capacity = $request->has('listing_capacity')  && $request->flexibility ?  $request->listing_capacity : 1;
         $listing->city_id = $request->city;
-        $listing->flexibility = $request->has('flexibility') ? $request->flexibility : null; 
+        $listing->flexibility = $request->has('flexibility') && $request->flexibility  ? $request->flexibility : 0; 
         $listing->save();
 
         // add meta data
@@ -134,9 +132,19 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Listing $listing)
     {
-        //
+
+        // set default image to session for handler in edit front with dropzon
+        $images = [];
+        foreach($listing->getMeta('thumbnail_id') as $image) $images[] = $image->meta_value;
+        session()->put('listing-attachments', $images);
+
+        return view('user.listing.create', [
+            'listing' => $listing,
+            'edit' => true
+        ]);
+
     }
 
     /**
@@ -146,7 +154,7 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Listing $listing)
     {
         //
     }

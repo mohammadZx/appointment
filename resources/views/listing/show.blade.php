@@ -203,7 +203,7 @@
     var macarte = null;
     var marker;
         function initMap(){
-            macarte = L.map('utf_single_listingmap').setView([lat, lon], 10);
+            macarte = L.map('utf_single_listingmap').setView([lat, lon], 15);
             marker = L.marker({lat, lon}).addTo(macarte)
             macarte.addLayer(marker)
             L.tileLayer(theme, {}).addTo(macarte);

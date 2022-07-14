@@ -50,6 +50,6 @@ class ServicesRule implements Rule
      */
     public function message()
     {
-        return 'The validation error message.';
+        return __('validation.custom.services.invalid');
     }
 }

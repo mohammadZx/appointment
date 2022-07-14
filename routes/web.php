@@ -2,15 +2,12 @@
 
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Listing\ListingAttachmentController;
-use App\Http\Controllers\Listing\ListingController;
 use App\Http\Controllers\Listing\ListingTimeController;
 use App\Http\Controllers\User\AppointmentController;
 use App\Http\Controllers\User\BookingController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,13 +37,14 @@ Route::get('/faq', fn() => view('pages.faq'))->name('faq');
 
 
 // Front Routes
-Route::resource('listing', ListingController::class);
 Route::resource('category', CategoryController::class);
-Route::resource('service', App\Http\Controllers\Service\ServiceController::class);
 Route::post('listing/get-times', [ListingTimeController::class, 'getTimes'])->name('listing.get_times');
-Route::post('listing/add-attachment', [ListingAttachmentController::class, 'store'])->name('listing.add_attachment');
-Route::post('listing/delete-attachment/{attachment}', [ListingAttachmentController::class, 'destroy'])->name('listing.delete_attachment');
+Route::post('listing/add-attachment', [\App\Http\Controllers\Listing\ListingAttachmentController::class, 'store'])->name('listing.add_attachment');
+Route::post('listing/delete-attachment/{attachment}', [\App\Http\Controllers\Listing\ListingAttachmentController::class, 'destroy'])->name('listing.delete_attachment');
+Route::get('listing/get-attachment', [\App\Http\Controllers\Listing\ListingAttachmentController::class, 'getImage'])->name('listing.get_attachment');
 Route::get('service/{service}/subservices', [App\Http\Controllers\Service\ServiceController::class, 'subservices']);
+Route::resource('listing', \App\Http\Controllers\Listing\ListingController::class);
+Route::resource('service', App\Http\Controllers\Service\ServiceController::class);
 
 
 

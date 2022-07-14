@@ -12,7 +12,7 @@ class Listing extends Model
 {
     use HasFactory, MetaAble, DateStructure, OnDeleteDependency;
     public static $onDeletes = ['comments', 'exceptions', 'times', 'services', 'appointments'];
-    protected $fillable = ['user_id', 'service_id', 'name', 'city_id', 'address', 'capacity', 'status', 'content'];
+    protected $fillable = ['user_id', 'service_id', 'name', 'city_id', 'address', 'capacity', 'status', 'flexibility', 'content'];
 
     public function comments(){
         return $this->morphMany(Comment::class, 'commentable');

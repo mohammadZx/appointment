@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Listing;
 
 use App\Http\Controllers\Controller;
 use App\Models\Attachment;
+use App\Models\Listing;
 use App\Options\Uploader;
 use Illuminate\Http\Request;
+use File;
 
 class ListingAttachmentController extends Controller
 {
@@ -22,7 +24,7 @@ class ListingAttachmentController extends Controller
         }
 
         $images = session()->get('listing-attachments');
-        return response()->json(['success' => ['id' => $image->id, 'name' => basename($image->src)], 'data' => $images]);
+        return response()->json(['success' => ['id' => $image->id, 'name' => $image->id], 'data' => $images]);
     }
 
     public function destroy(Attachment $attachment){
@@ -37,7 +39,32 @@ class ListingAttachmentController extends Controller
             }
         }
 
+        if(request()->has('listing_id') && $listing = Listing::find(request()->listing_id)){
+            $listing->meta()->where('meta_key' ,'thumbnail_id')->where('meta_value', $attachment->id)->delete();
+
+        }
+
         session()->put('listing-attachments', $images);
-        return response()->json(['success' => ['id' => $attachment->id, 'name' => basename($attachment->src)], 'data' => $images]);
+        return response()->json(['success' => ['id' => $attachment->id, 'name' => $attachment->id], 'data' => $images]);
+    }
+
+
+    public function getImage(){
+        $images = [];
+        if(session()->has('listing-attachments')){
+            $images = session()->get('listing-attachments');
+        }
+        foreach($images as $key => $image){
+            $i = Uploader::get($image);
+            if($i){
+                $images[$key] = [];
+                $images[$key]['name'] = $i->id;
+                $images[$key]['size'] = null;
+                $images[$key]['path'] = asset('storage/' . $i->src) ;
+                $images[$key]['id'] = $i->id ;
+            }
+        }
+
+        return response()->json($images);
     }
 }

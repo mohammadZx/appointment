@@ -44,6 +44,31 @@
 			$(".selectpicker.city")
 			.selectpicker()
 			.ajaxSelectPicker(options);
+
+			if($(".selectpicker.city").data('value') != null){
+
+				$.ajax({
+					url: '/api/city-search',
+					type: 'POST',
+					dataType: 'json',
+					data: {
+					q: $(".selectpicker.city").data('value') 
+					},
+					success: function(data){
+					html = ''
+					$.each(data, function (key, value) {
+						html += `<option value="${value.id}" ${$(".selectpicker.city").data('value') == value.id ? 'selected' : null} >${value.province.name} - ${value.name}</option>`
+					});
+
+					$(".selectpicker.city").html(html)
+
+					$(".selectpicker.city")
+			.selectpicker('refresh')
+					}
+				});
+
+
+			}
 		})
 
 	</script>

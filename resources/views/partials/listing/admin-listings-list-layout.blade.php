@@ -11,6 +11,11 @@
             <span><i class="sl sl-icon-phone"></i> {{$listing->user->phone}}</span>
             <p>{{Str::words($listing->content, 10, '...')}}</p>
         </div>
+        <span class="status status-{{$listing->status}}">{{__('app.listingStatus' . $listing->status)}}
+            @if($listing->getMeta('message', true))
+            : {{$listing->getMeta('message', true)}}
+            @endif
+        </span>
         </div>
     </div>
     <div class="buttons-to-right"> 
