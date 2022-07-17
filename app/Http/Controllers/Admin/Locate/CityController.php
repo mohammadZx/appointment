@@ -9,7 +9,53 @@ use Illuminate\Http\Request;
 class CityController extends Controller
 {
     
+    public function index(){
+        $cities = City::orderBy('id', 'DESC')->paginate(PREPAGE);
+        return view('admin.locate.cities', [
+            'cities' => $cities
+        ]);
+    }
 
+    public function store(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'province_id' => 'required:exists:provinces,id'
+        ]);
+
+        $city = new City();
+        if($request->has('city_id')){
+            $city = City::findOrFail($request->city_id);
+        }
+
+        $city->name = $request->name;
+        $city->province_id = $request->province_id;
+
+        $city->save();
+
+        return redirect()->back()->with('message', [
+            'type' => 'success',
+            'message' => __('app.Item successfully added')
+        ]);
+    }
+
+    public function destroy(Request $request, City $city){
+        $request->validate([
+            'city_id' => 'required:exists:cities,id'
+        ]);
+        
+        $city->listings()->update([
+            'city_id' => $request->city_id
+        ]);
+        
+        $city->delete();
+
+        return redirect()->back()->with('message', [
+            'type' => 'success',
+            'message' => __('app.Item successfully deleted')
+        ]);
+        
+    }
+    
 
     public function searchAjax(Request $request){
         $cities = City::with('province')->where('name', 'LIKE', "%{$request->q}%")->orWhere('id', "{$request->q}")->orWhereHas('province', function($q) use($request){

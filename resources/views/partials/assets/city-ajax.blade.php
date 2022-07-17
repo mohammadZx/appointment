@@ -69,6 +69,57 @@
 
 
 			}
+
+
+
+			// Province
+
+			var options = {
+			preserveSelected: false,
+			ajax: {
+				url: "/api/province-search",
+				type: "POST",
+				dataType: "json",
+				data: {
+				q: "@php echo '{{{q}}}' @endphp"
+				}
+			},
+			locale:{
+				searchPlaceholder: "نام استان را جستجو کنید",
+				statusSearching: "درحال جستجو",
+				statusInitialized: "استان مورد نظر را جستجو کنید",
+				statusNoResults: "محلی یافت نشد. دوباره امتحان کنید"
+			},
+			preprocessData: function(data) {
+				var i,
+				l = data.length,
+				array = [];
+				if (l) {
+				for (i = 0; i < l; i++) {
+					array.push(
+					$.extend(true, data[i], {
+						text: data[i].name,
+						value: data[i].id,
+						'data': {
+							'lat': data[i].lat,
+							'lon': data[i].lon
+                    	},
+					})
+					);
+				}
+
+				}
+				return array;
+
+
+			}
+			};
+
+			$(".selectpicker.province")
+			.selectpicker()
+			.ajaxSelectPicker(options);
+
+
 		})
 
 	</script>

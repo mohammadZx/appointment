@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Locate\CityController;
+use App\Http\Controllers\Admin\Locate\ProvinceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('city-search', [CityController::class, 'searchAjax']);
+Route::post('province-search', [ProvinceController::class, 'searchAjax']);

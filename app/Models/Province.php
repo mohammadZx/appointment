@@ -11,4 +11,8 @@ class Province extends Model
 
     protected $fillable = ['name', 'lat', 'lon'];
     public $timestamps = false;
+
+    public function cities(){
+        return $this->hasMany(City::class);
+    }
 }

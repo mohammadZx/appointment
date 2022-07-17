@@ -326,3 +326,18 @@ span.status.status-2 {
 .padding-0{
     padding: 0 !important;
 }
+
+
+.btn-group.bootstrap-select.with-ajax.default.province {
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.with-ajax.default.province .dropdown-menu li {
+    width: 100%;
+}
+
+.province-list input.name {
+    width: 200px;
+}
