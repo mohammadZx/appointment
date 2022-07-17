@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use function GuzzleHttp\json_decode;
 
 define('PREPAGE', 5);
-define('FILTERS', ['service', 'city']);
+define('FILTERS', ['service', 'city', 'status']);
 define('PRICE_UNIT', 'تومان');
 define('PRICE_UNIT_EN', 'TOMAN');
 define('LOGO', 'http://127.0.0.1:8000/images/logo.png');

@@ -37,7 +37,9 @@ class ListingController extends Controller
         $listing = new Listing();
         return view('user.listing.create', [
             'listing' => $listing,
-            'edit' => false
+            'edit' => false,
+            'admin' => false,
+            'route' => route('user.listing.store')
         ]);
     }
 
@@ -111,7 +113,7 @@ class ListingController extends Controller
         session()->remove('listing-attachments');
         return to_route('user.listing.index')->with('message', [
             'type' => 'success',
-            'message' => __('app.Your listin publish successfully and after approve show to anyone')
+            'message' => __('app.Your listing publish successfully and after approve show to anyone')
         ]);
     }
 
@@ -142,7 +144,9 @@ class ListingController extends Controller
 
         return view('user.listing.create', [
             'listing' => $listing,
-            'edit' => true
+            'edit' => true,
+            'admin' => false,
+            'route' => route('user.listing.update', $listing->id)
         ]);
 
     }
@@ -156,7 +160,74 @@ class ListingController extends Controller
      */
     public function update(Request $request, Listing $listing)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'listing_category' => 'required|exists:services,id',
+            'listing_title' => 'required|max:255|min:5',
+            'content' => 'required',
+            'city' => 'required|exists:cities,id',
+            'address' => 'required|min:5',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'worktimes' => ['required', new WorktimesRule($request->all())],
+            'services' => ['required', new ServicesRule($request->all())],
+        ]);
+
+        $validator->validate();
+
+        $listing->status = 0;
+        $listing->name = $request->listing_title;
+        $listing->content = $request->content;
+        $listing->user_id = auth()->user()->id;
+        $listing->service_id = $request->listing_category;
+        $listing->address = $request->address;
+        $listing->capacity = $request->has('listing_capacity')  && $request->flexibility ?  $request->listing_capacity : 1;
+        $listing->city_id = $request->city;
+        $listing->flexibility = $request->has('flexibility') && $request->flexibility  ? $request->flexibility : 0; 
+        $listing->save();
+
+        // add meta data
+        $listing->setMeta('message', null, 0 , true);
+        $listing->setMeta('social_instagram', $request->has('instagram') ? $request->instagram : null, 0 , true);
+        $listing->setMeta('social_whatsapp', $request->has('whatsapp') ? $request->whatsapp : null, 0 , true);
+        $listing->setMeta('fixed_phone', $request->has('fixed_phone') ? $request->fixed_phone : null, 0 , true);
+        $listing->setMeta('map', $request->latitude .','. $request->longitude, 0 , true);
+        
+        if(session()->has('listing-attachments')){
+            $listing->meta()->where('meta_key','thumbnail_id')->delete();
+            $images = session()->get('listing-attachments');
+            foreach($images as $image){
+                $listing->setMeta('thumbnail_id', $image);
+            }
+        }
+
+
+        // add listing times
+        $listing->times()->delete();
+        foreach($request->worktimes as  $item){
+            $listing->times()->create([
+                'time_start' => $item['time_start'],
+                'time_end' => $item['time_end'],
+                'week_day' => $item['workhours'],
+                'type' => $item['type'],
+            ]);
+        }
+
+        // add listing services
+        $listing->services()->delete();
+        foreach($request->services as  $item){
+            $listing->services()->create([
+                'sub_service_id' => $item['lilsting_services'],
+                'time' => $item['time'],
+                'price' => $item['price'],
+            ]);
+        }
+
+
+        session()->remove('listing-attachments');
+        return to_route('user.listing.index')->with('message', [
+            'type' => 'success',
+            'message' => __('app.Your listing updated successfully and after approve show to anyone')
+        ]);
     }
 
     /**

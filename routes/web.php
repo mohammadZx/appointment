@@ -69,8 +69,9 @@ Route::prefix('/user')->name('user.')->middleware('auth')->group(function(){
 
 // Adming Routes
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function(){
-
+    Route::post('changestatus/{appointment}', [App\Http\Controllers\Admin\Appointment\AppointmentController::class, 'changestatus'])->name('appointment.changestatus');
     Route::resource('appointment', App\Http\Controllers\Admin\Appointment\AppointmentController::class);
+    Route::post('listing/changestatus/{listing}', [App\Http\Controllers\Admin\Listing\ListingController::class, 'changeStatus'])->name('listing.changestatus');
     Route::resource('listing', App\Http\Controllers\Admin\Listing\ListingController::class);
     Route::resource('category', App\Http\Controllers\Admin\Category\CategoryController::class);
     Route::resource('comment', App\Http\Controllers\Admin\Comment\CommentController::class);

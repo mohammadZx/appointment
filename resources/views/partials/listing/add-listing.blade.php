@@ -15,7 +15,7 @@
               <li>
               @if($edit)
               {{__('app.Edit listing')}}
-              
+              @else
               {{__('app.Add listing')}}
               @endif
               </li>
@@ -27,8 +27,11 @@
   </div>
   
   <div class="container">
-     <form id="listing-manage" data-listing-id="{{$listing->id}}" class="row margin-bottom-15" data-type="{{$edit ? 'edit' : 'insert'}}" action="@if($edit){{route('user.listing.update', $listing->id)}}@else{{route('user.listing.store')}}@endif" method="POST">
+     <form id="listing-manage" data-listing-id="{{$listing->id}}" class="row margin-bottom-15" data-type="{{$edit ? 'edit' : 'insert'}}" action="{{$route}}" method="POST">
       @csrf
+      @if($edit)
+      @method('put')
+      @endif
         <div class="col-lg-12">
           <div id="utf_add_listing_part">             
 		
@@ -137,12 +140,23 @@
                   <div class="col-md-12 d-none">
                   <h5>Decimal Degrees</h5>                    
                     <div class="row with-forms">
+                    @if($edit)
+                      @php list($lat, $lon) = explode(',', $listing->getMeta('map', true)) @endphp
+                      <div class="col-md-6">
+                      <input type="hidden" class="input-text" name="latitude" value="{{$lat}}"  id="latitude" placeholder="40.7324319" value="">
+                    </div>
+                    <div class="col-md-6">                    
+                      <input type="hidden" class="input-text" name="longitude" value="{{$lon}}" id="longitude" placeholder="-73.824807777775" value="">
+                    </div> 
+                    @else
                     <div class="col-md-6">
-                      <input type="hidden" class="input-text" name="latitude" id="latitude" placeholder="40.7324319" value="">
+                      <input type="hidden" class="input-text" name="latitude"  id="latitude" placeholder="40.7324319" value="">
                     </div>
                     <div class="col-md-6">                    
                       <input type="hidden" class="input-text" name="longitude" id="longitude" placeholder="-73.824807777775" value="">
                     </div> 
+                    @endif
+                    
                     </div> 	
                   </div>				  				  
 				  <div id="utf_listing_location" class="col-md-12 utf_listing_section @error('latitude') invalid @enderror @error('longitude') invalid @enderror">

@@ -68,7 +68,14 @@ $('.time-select').each(function(index){
 })
 
 
+$('.fm-close a').click(function(e){
+    e.preventDefault()
 
+    if( $(this).parent().parent().parent().parent().children().length > 1){
+      $(this).parent().parent().parent().remove()
+    }
+  })
+  
 // Add listing hour add item
 $('.add-list-item').click(function(e){
   e.preventDefault()
