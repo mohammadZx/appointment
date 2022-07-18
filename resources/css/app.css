@@ -341,3 +341,8 @@ span.status.status-2 {
 .province-list input.name {
     width: 200px;
 }
+
+.utf_dashboard_navigation .utf_dashboard_navigation_inner_block ul {
+    max-height: 100vh;
+    overflow-y: auto !important;
+}
