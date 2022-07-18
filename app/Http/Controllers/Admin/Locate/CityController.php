@@ -40,7 +40,7 @@ class CityController extends Controller
 
     public function destroy(Request $request, City $city){
         $request->validate([
-            'city_id' => 'required:exists:cities,id'
+            'city_id' => 'required:exists:cities,id|not_in:' . $city->id
         ]);
         
         $city->listings()->update([

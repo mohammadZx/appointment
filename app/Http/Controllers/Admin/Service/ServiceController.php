@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Service;
 
 use App\Http\Controllers\Controller;
+use App\Models\Service;
+use App\Options\Uploader;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -14,7 +16,10 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $services = Service::orderBy('id','DESC')->get();
+        return view('admin.service.index', [
+            'services' => $services
+        ]);
     }
 
     /**
@@ -24,7 +29,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+      
     }
 
     /**
@@ -35,7 +40,31 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'image' => 'nullable|file|max:1024|mimes:jpg,bmp,png,webp,jpeg,gif',
+            'category_id' => 'required|exists:categories,id'
+        ]);
+
+        $image = null;
+        if($request->image){
+            $upload = Uploader::add($request->image);
+            $image = $upload->id;
+        }
+
+        $category = new Service();
+        $category->title = $request->title;
+        $category->category_id = $request->category_id;
+        $category->icon = $request->icon;
+        $category->content = $request->content;
+        $category->thumbnail_id = $image;
+
+        $category->save();
+
+        return redirect()->back()->with('message', [
+            'type' => 'success',
+            'message' => __('app.Item successfully added')
+        ]);
     }
 
     /**
@@ -46,7 +75,7 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        dd('admin service');
+      
     }
 
     /**
@@ -55,9 +84,11 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Service $service)
     {
-        //
+        return view('admin.service.add-or-edit', [
+            'service' => $service
+        ]);
     }
 
     /**
@@ -67,9 +98,30 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Service $service)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'image' => 'nullable|file|max:1024|mimes:jpg,bmp,png,webp,jpeg,gif',
+            'category_id' => 'required|exists:categories,id'
+        ]);
+
+        if($request->image){
+            Uploader::delete($service->thumbnail_id);
+            $upload = Uploader::add($request->image);
+            $service->thumbnail_id = $upload->id;
+        }
+
+        $service->title = $request->title;
+        $service->category_id = $request->category_id;
+        $service->icon = $request->icon;
+        $service->content = $request->content;
+        $service->save();
+
+        return redirect()->back()->with('message', [
+            'type' => 'success',
+            'message' => __('app.Item successfully updated')
+        ]);
     }
 
     /**
@@ -78,8 +130,26 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Service $service)
     {
-        //
+        $request->validate([
+            'service_listing' => 'required|exists:services,id|not_in:' . $service->id,
+            'service_sub' => 'required|exists:services,id|not_in:' . $service->id
+        ]);
+        
+        $service->subservices()->update([
+            'service_id' => $request->service_sub
+        ]);
+
+        $service->listings()->update([
+            'service_id' => $request->service_listing
+        ]);
+        
+        $service->delete();
+
+        return redirect()->back()->with('message', [
+            'type' => 'success',
+            'message' => __('app.Item successfully deleted')
+        ]);
     }
 }

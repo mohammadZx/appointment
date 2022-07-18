@@ -35,7 +35,7 @@ class ProvinceController extends Controller
 
     public function destroy(Request $request, Province $province){
         $request->validate([
-            'province_id' => 'required:exists:provinces,id'
+            'province_id' => 'required:exists:provinces,id|not_in:' . $province->id
         ]);
         
         $province->cities()->update([
