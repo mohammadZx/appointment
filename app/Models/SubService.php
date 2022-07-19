@@ -11,8 +11,15 @@ class SubService extends Model
 
     protected $fillable = ['service_id', 'title','content'];
 
+    public function service(){
+        return $this->belongsTo(Service::class);
+    }
 
     public function appointments(){
         return $this->morphedByMany(Appointment::class, 'target', 'relationships');
+    }
+
+    public function listings(){
+        return $this->hasMany(ListingService::class);
     }
 }

@@ -78,7 +78,7 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function(){
     Route::resource('city', App\Http\Controllers\Admin\Locate\CityController::class);
     Route::resource('province', App\Http\Controllers\Admin\Locate\ProvinceController::class);
     Route::resource('service', App\Http\Controllers\Admin\Service\ServiceController::class);
-    Route::resource('sub-service', App\Http\Controllers\Admin\Service\SubServiceController::class);
+    Route::resource('subservice', App\Http\Controllers\Admin\Service\SubServiceController::class);
     Route::resource('user', App\Http\Controllers\Admin\User\UserController::class);
     Route::resource('option', App\Http\Controllers\Admin\Option\OptionController::class);
 

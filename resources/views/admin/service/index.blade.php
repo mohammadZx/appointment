@@ -23,7 +23,7 @@
                     @enderror
 
 
-                    <select name="category_id" reuired style="width: 100%" class="margin-bottom-20 category @error('category_id') invalid @enderror" value="{{ old('cateogry') }}">
+                    <select name="category_id" reuired style="width: 100%" class="margin-bottom-20 category @error('category_id') invalid @enderror" value="{{ old('cateogry_id') }}">
                         <option value="">{{__('app.Select Category')}}</option>
                         @foreach($categories as $category)
                         <option value="{{$category->id}}" {{ old('category_id') == $category->id ? 'selected' : null}}>{{$category->title}}</option>

@@ -21,7 +21,7 @@
 		  <li><a href="{{route('admin.appointment.index')}}"><i class="sl sl-icon-docs"></i> {{__('app.Bookings')}}</a></li>	
 		  <li><a href="{{route('admin.category.index')}}"><i class="fa fa-tag"></i> {{__('app.Category')}}</a></li>	
 		  <li><a href="{{route('admin.province.index')}}"><i class="fa fa-map"></i> {{__('app.Provinces')}}</a></li>			  <li><a href="{{route('admin.service.index')}}"><i class="fa fa-wrench"></i> {{__('app.Service')}}</a></li>	
-		  <li><a href="{{route('admin.sub-service.index')}}"><i class="fa fa-wrench"></i> {{__('app.Sub Service')}}</a></li>	
+		  <li><a href="{{route('admin.subservice.index')}}"><i class="fa fa-wrench"></i> {{__('app.Sub Service')}}</a></li>	
 		  <li><a href="{{route('admin.user.index')}}"><i class="sl sl-icon-user"></i> {{__('app.Users')}}</a></li>	
 		  <li><a href="{{route('admin.comment.index')}}"><i class="fa fa-comment"></i> {{__('app.Comments')}}</a></li>	
 
