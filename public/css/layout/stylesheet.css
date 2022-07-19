@@ -9192,7 +9192,6 @@ span.like-icon {
 .utf_dashboard_navigation {
 	position: fixed;
 	min-height: 100vh;
-	overflow: hidden;
 }
 .utf_dashboard_navigation_inner_block {
 	height: 100%;
@@ -17662,12 +17661,8 @@ a.social_bt {
 }
 }
 @media only screen and (min-width: 992px) and (max-width: 1239px){
-.utf_dashboard_content {
-    margin-top: 95px;
-}	
-.utf_dashboard_navigation {
-	margin-top:75px;
-}
+
+
 .utf_dashboard_list_box h4 {
     font-size: 15px;
     line-height: 40px;

@@ -22,7 +22,7 @@ class Appointment extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-    
+
     public function subServices(){
         return $this->morphToMany(SubService::class, 'target', 'relationships', 'obj_id', 'target_id');
     }

@@ -342,7 +342,4 @@ span.status.status-2 {
     width: 200px;
 }
 
-.utf_dashboard_navigation .utf_dashboard_navigation_inner_block ul {
-    max-height: 100vh;
-    overflow-y: auto !important;
-}
+

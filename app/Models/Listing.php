@@ -11,7 +11,7 @@ use App\Options\OnDeleteDependency;
 class Listing extends Model
 {
     use HasFactory, MetaAble, DateStructure, OnDeleteDependency;
-    public static $onDeletes = ['comments', 'exceptions', 'times', 'services', 'appointments'];
+    public static $onDeletes = ['comments', 'exceptions', 'times', 'services', 'appointments', 'wishlists'];
     protected $fillable = ['user_id', 'service_id', 'name', 'city_id', 'address', 'capacity', 'status', 'flexibility', 'content'];
 
     public function comments(){
