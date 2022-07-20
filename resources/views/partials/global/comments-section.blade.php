@@ -23,6 +23,8 @@
 
         
         <div class="@guest guest-none  @endguest">
+            <form id="utf_add_comment" action="{{route('comment.store')}}" method="post" class="utf_add_comment">
+                @csrf
             <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="clearfix"></div>
@@ -41,14 +43,14 @@
                 <div class="clearfix"></div>
             </div>            
             </div>
-            <form id="utf_add_comment" class="utf_add_comment">
             <fieldset>
                 <div>
                 <label>{{__('app.Review')}}:</label>
-                <textarea cols="40" placeholder="{{__('app.Your Message...')}}" rows="3"></textarea>
+                <textarea name="comment" cols="40" placeholder="{{__('app.Your Message...')}}" rows="3"></textarea>
                 </div>
             </fieldset>
             <input type="hidden" name="type" value="{{$type}}">
+            <input type="hidden" name="id" value="{{$item->id}}">
             <button class="button">{{__('app.Submit Review')}}</button>
             <div class="clearfix"></div>
         </form>

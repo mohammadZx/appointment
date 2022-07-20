@@ -21,7 +21,7 @@
             <h4>{{__('app.User management')}}</h4>
             <ul>
               @foreach($users as $user)
-              <li><strong>{{$user->name}}</strong></a>
+              <li><strong>{{$user->name}}</strong> {{$user->phone}}</a>
               <form class="changestatus-appointment" action="{{route('admin.user.destroy', $user->id)}}" method="post">
                 @csrf 
                 @method('delete')    

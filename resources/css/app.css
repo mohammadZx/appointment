@@ -343,3 +343,10 @@ span.status.status-2 {
 }
 
 
+.edit-comment-form{
+    display: none;
+}
+
+.edit-check:checked + .edit-comment-form{
+    display: block;
+}

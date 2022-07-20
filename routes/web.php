@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Comment\CommentController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Listing\ListingTimeController;
@@ -33,6 +34,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', fn() => view('pages.about'))->name('about');
 Route::get('/contact', fn() => view('pages.contact'))->name('contact');
 Route::get('/faq', fn() => view('pages.faq'))->name('faq');
+Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
 
 
 
@@ -74,6 +76,7 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function(){
     Route::post('listing/changestatus/{listing}', [App\Http\Controllers\Admin\Listing\ListingController::class, 'changeStatus'])->name('listing.changestatus');
     Route::resource('listing', App\Http\Controllers\Admin\Listing\ListingController::class);
     Route::resource('category', App\Http\Controllers\Admin\Category\CategoryController::class);
+    Route::get('comment/changestatus/{comment}' , [App\Http\Controllers\Admin\Comment\CommentController::class , 'changeStatus'])->name('comment.changestatus');
     Route::resource('comment', App\Http\Controllers\Admin\Comment\CommentController::class);
     Route::resource('city', App\Http\Controllers\Admin\Locate\CityController::class);
     Route::resource('province', App\Http\Controllers\Admin\Locate\ProvinceController::class);
