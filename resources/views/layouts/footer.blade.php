@@ -43,3 +43,4 @@
     </div>
   </div>  
   <div id="bottom_backto_top"><a href="#"></a></div>
+  <a href="#dialog_signin_part" id="bookmark-popup" data-close="true" data-callback="add_to_bookmark"  data-redirect="false" class="d-none button border with-icon login-button popup-with-zoom-anim"></a></div>

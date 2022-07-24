@@ -8,6 +8,7 @@ use App\Http\Controllers\User\AppointmentController;
 use App\Http\Controllers\User\BookingController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,7 +65,7 @@ Route::prefix('/user')->name('user.')->middleware('auth')->group(function(){
     Route::post('changestatus/{appointment}', [AppointmentController::class, 'changestatus'])->name('appointment.changestatus');
 
     Route::resource('listing', App\Http\Controllers\User\Listing\ListingController::class);
-
+    Route::get('wishlist/manage/{id}', [WishlistController::class, 'manage']);
 });
 
 

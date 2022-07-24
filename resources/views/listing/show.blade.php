@@ -22,7 +22,18 @@
            <h2>{{$listing->name}} <span class="listing-tag">{{$listing->service->title}}</span></h2>		   
             <span> <a href="#utf_listing_location" class="listing-address">{{$listing->address}} <i class="sl sl-icon-location"></i></a> </span>			
 			<span class="call_now">{{$listing->user->phone}} <i class="sl sl-icon-phone"></i></span>
-            <ul class="listing_item_social">
+            @php 
+                $rate = 0;
+                if($listing->comments->pluck('rate')->sum() > 0){
+                    $rate = $listing->comments->pluck('rate')->sum() / $listing->comments->pluck('rate')->count();
+                }
+            @endphp
+            @if($rate > 0)
+            <div class="utf_star_rating_section" data-rating="{{$rate}}">
+            <div class="utf_counter_star_rating">({{$rate}})</div>
+            </div>
+            @endif
+			<ul class="listing_item_social">
 				@foreach($listing->meta()->where('meta_key', 'LIKE' , '%social_%')->get() as $social)
               		<li><a href="{{$social->meta_value}}">{{__('app.' . substr( $social->meta_key, 7 )) }} <i class="fa fa-{{substr( $social->meta_key, 7 )}}"></i></a></li>
 			  	@endforeach
@@ -142,6 +153,12 @@
 			@endguest 
 			<button class="utf_progress_button button fullwidth_block margin-top-5 @guest guest-none  @endguest">{{__('app.Request Booking')}}</button>  
 			</form>
+			<button class="like-button add_to_wishlist @auth bookmark-button @else open-bookmark-auth @endauth" data-id="{{$listing->id}}"><span class="like-icon @auth @php
+                $userbookmarks = auth()->user()->wishlists->pluck('wishlistable_id')->contains($listing->id);
+                if($userbookmarks){
+                    echo 'liked';
+                }
+            @endphp @endauth" ></span> {{__('app.Add to Wishlist')}}</button>
           </div>
 			<div class="clearfix"></div>  
         </div>

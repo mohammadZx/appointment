@@ -91,4 +91,21 @@ class WishlistController extends Controller
             'message' => 'مورد با موفقیت حذف شد'
         ]);
     }
+
+
+    public function manage($id){
+        $this->middleware('auth');
+        $user = auth()->user();
+        $userbookmarks = $user->wishlists->pluck('wishlistable_id')->contains($id);
+        if($userbookmarks){
+            $user->wishlists()->where('wishlistable_id' , $id)->delete();
+        }else{
+            $user->wishlists()->create([
+                'wishlistable_id' => $id,
+                'wishlistable_type' => 'App\Models\Listing'
+            ]);
+        }
+
+        return true;
+    }
 }

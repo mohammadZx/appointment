@@ -10,6 +10,21 @@
             <span><i class="sl sl-icon-phone"></i> {{$listing->user->phone}}</span>												
             </div>
         </div>
+        @php 
+        $rate = 5;
+        if($listing->comments->pluck('rate')->sum() > 0){
+            $rate = $listing->comments->pluck('rate')->sum() / $listing->comments->pluck('rate')->count();
+        }
+        @endphp
+        <div class="utf_star_rating_section" data-rating="{{$rate}}">
+            <div class="utf_counter_star_rating">({{$rate}})</div>
+            <span class="like-icon @auth bookmark-button @else open-bookmark-auth @endauth @auth @php
+                $userbookmarks = auth()->user()->wishlists->pluck('wishlistable_id')->contains($listing->id);
+                if($userbookmarks){
+                    echo 'liked';
+                }
+            @endphp @endauth" data-id="{{$listing->id}}"></span>
+      </div>
         </a> 
     </div>
  

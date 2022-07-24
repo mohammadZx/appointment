@@ -199,7 +199,7 @@ return [
     'Approve' => 'تایید',
     'Rate' => 'امتیاز',
     'Comment management' => 'مدیریت نظرات',
-    '' => '',
+    'Add to Wishlist' => 'علاقه مندی',
     '' => '',
     '' => '',
     '' => '',

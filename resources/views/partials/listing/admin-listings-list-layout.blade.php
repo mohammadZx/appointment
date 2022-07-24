@@ -9,6 +9,17 @@
             <span><i class="{{$listing->service->category->icon}}"></i> {{$listing->service->title}}</span> 
             <span><i class="sl sl-icon-location"></i> {{$listing->address}}</span>
             <span><i class="sl sl-icon-phone"></i> {{$listing->user->phone}}</span>
+            @php 
+                $rate = 0;
+                if($listing->comments->pluck('rate')->sum() > 0){
+                    $rate = $listing->comments->pluck('rate')->sum() / $listing->comments->pluck('rate')->count();
+                }
+            @endphp
+            @if($rate > 0)
+            <div class="utf_star_rating_section" data-rating="{{$rate}}">
+            <div class="utf_counter_star_rating">({{$rate}})</div>
+            </div>
+            @endif
             <p>{{Str::words($listing->content, 10, '...')}}</p>
         </div>
         <span class="status status-{{$listing->status}}">{{__('app.listingStatus' . $listing->status)}}
