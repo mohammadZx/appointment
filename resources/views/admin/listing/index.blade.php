@@ -78,6 +78,7 @@
                     @endif
                 </span>
 
+                @can('change_listing_status')
                 <form action="{{route('admin.listing.changestatus', $listing->id)}}" method="post">
                     @csrf
                     <div class="row">
@@ -94,16 +95,21 @@
                     <button class="button gray col-md-12"><i class="fa fa-pencil"></i> {{__('app.Chage Status')}}</button>
             
                 </form>
-
+                @endcan
 
                 </div>
             </div>
-            <div class="buttons-to-right"> 
+            <div class="buttons-to-right">
+                @can('edit_listing') 
                 <a href="{{route('admin.listing.edit', $listing->id)}}" class="button gray"><i class="fa fa-pencil"></i> {{__('app.Edit')}}</a> 
+                @endcan
+
+                @can('delete_listing')
                 <form action="{{route('admin.listing.destroy', $listing->id)}}" method="post">
                     @csrf @method('delete')
                     <button class="button gray"><i class="fa fa-trash-o"></i> {{__('app.Delete')}}</button>
                 </form>
+                @endcan
             </div>
             </li>
             @endforeach

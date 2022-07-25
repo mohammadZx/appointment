@@ -12,6 +12,7 @@ use App\Models\Listing;
 use App\Models\ListingException;
 use App\Models\ListingService;
 use App\Models\ListingTime;
+use App\Models\Option;
 use Carbon\CarbonPeriod;
 use DateTime;
 use Faker\Generator;
@@ -29,6 +30,57 @@ class DatabaseSeeder extends Seeder
         'saturday'
     ];
     public $companies = ['اذرآنلاین' , 'دیجیکالا' , 'دیجی استایل', 'اسنپ', 'تپسی', 'ایرانسل', 'شاتل', 'پارس آنلاین', 'کافه بازار'];
+    public $options = [
+        'user',
+        'admin'
+    ];
+    public $permissions = [
+        'see_lising',
+        'edit_listing',
+        'delete_listing',
+        'change_listing_status',
+
+        'see_appointment',
+        'edit_appointment',
+        'delete_appointment',
+        'change_appointment_status',
+
+        'see_category',
+        'edit_category',
+        'delete_category',
+        'insert_category',
+
+        'see_service',
+        'edit_service',
+        'delete_service',
+        'insert_service',
+
+        'see_subservice',
+        'edit_subservice',
+        'delete_subservice',
+        'insert_subservice',
+
+        'see_province',
+        'edit_province',
+        'delete_province',
+        'insert_province',
+
+        'see_city',
+        'edit_city',
+        'delete_city',
+        'insert_city',
+
+        'see_user',
+        'edit_user',
+        'delete_user',
+        'change_user_role',
+
+        'see_comment',
+        'edit_comment',
+        'delete_comment',
+        'change_comment_status',
+
+    ];
     public $provinceIds = [];
     public $cityIds = [];
     public $categoryIds = [];
@@ -41,6 +93,8 @@ class DatabaseSeeder extends Seeder
     public $listingServiceIds = [];
     public $appointmentIds = [];
     public $commentIds = [];
+    public $roleIds = [];
+    public $permissionIds = [];
 
 
     /**
@@ -52,10 +106,13 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\User::factory(40)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
+
+        $this->options();
+        echo "Imported options \n";
 
         $this->province();
         echo "Imported province \n";
@@ -83,6 +140,32 @@ class DatabaseSeeder extends Seeder
 
         $this->appointments();
         echo "Imported appointments \n";
+
+
+        
+    }
+
+    public function options(){
+            foreach($this->options as $key => $option){
+                $opt = new Option();
+                $opt->option_key = 'role';
+                $opt->option_value = $option;
+                $opt->save();
+                $this->roleIds[] = $opt->id;
+            }
+
+
+            foreach($this->permissions as $key => $option){
+                $opt = new Option();
+                $opt->option_key = 'permission';
+                $opt->option_value = $option;
+                $opt->save();
+                $this->permissionIds[] = $opt->id;
+
+            }
+
+            $option = Option::where('option_value', 'admin')->first();
+            $option->permissions()->sync(Option::where('option_key', 'permission')->get()->pluck('id'));
     }
 
     public function province(){

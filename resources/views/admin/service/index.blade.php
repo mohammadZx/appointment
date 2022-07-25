@@ -7,6 +7,7 @@
     @include('partials.user.dashboard')   
 	<div class="utf_dashboard_content">
 	<div class="col-lg-12 col-md-12">
+        @can('insert_service')
         <div class="add-province">
             <div class="row">
             <form class="changestatus-appointment margin-top-10" action="{{route('admin.service.store')}}" enctype="multipart/form-data" method="post">
@@ -50,12 +51,13 @@
               </form>
             </div>
         </div>
+        @endcan
         <div class="utf_dashboard_list_box invoices province-list with-icons margin-top-20">
             <h4>{{__('app.Service management')}}</h4>
             <ul>
               @foreach($services as $service)
               <li><strong>{{$service->title}} -- {{$service->listings->count()}}</strong></a>
-
+                @can('delete_service')
               <form class="changestatus-appointment" action="{{route('admin.service.destroy', $service->id)}}" method="post">
                 @csrf  
                 @method('delete')
@@ -75,8 +77,11 @@
                     </select>
                     {{__('app.And delete this service')}}
                   <button class="button margin-right-10">{{__('app.Delete')}}</button>
+                  @can('edit_service')
                   <a class="button margin-right-20" href="{{route('admin.service.edit', $service->id)}}">{{__('app.Edit')}}</a>
-              </form> 
+                    @endcan
+                </form>
+              @endcan 
               @endforeach
             </ul>
           </div>

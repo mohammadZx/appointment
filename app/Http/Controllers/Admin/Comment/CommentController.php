@@ -8,6 +8,16 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:see_comment', ['only' => ['index']]);   
+        $this->middleware('can:edit_comment', ['only' => ['edit', 'update']]);   
+        $this->middleware('can:delete_comment', ['only' => ['destroy']]);    
+        $this->middleware('can:change_comment_status', ['only' => ['changeStatus']]);    
+
+    }
+
+
     public function index(){
         $comments = Comment::orderBy('id', 'DESC')->paginate(PREPAGE);
         return view('admin.comment.index', [

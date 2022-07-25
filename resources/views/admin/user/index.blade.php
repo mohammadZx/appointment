@@ -22,12 +22,16 @@
             <ul>
               @foreach($users as $user)
               <li><strong>{{$user->name}}</strong> {{$user->phone}}</a>
+              @can('delete_user')
               <form class="changestatus-appointment" action="{{route('admin.user.destroy', $user->id)}}" method="post">
                 @csrf 
                 @method('delete')    
                 <button class="button margin-right-10">{{__('app.Delete')}}</button>
+                @can('edit_user')
                 <a href="{{route('admin.user.edit', $user->id)}}" class="button margin-right-20">{{__('app.Edit')}}</a>
+                @endcan
               </form> 
+              @endcan
               @endforeach
             </ul>
           </div>

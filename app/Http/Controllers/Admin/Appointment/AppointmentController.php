@@ -12,6 +12,13 @@ use Illuminate\Validation\Rules\Enum;
 
 class AppointmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:see_appointment', ['only' => ['index']]);   
+        $this->middleware('can:edit_appointment', ['only' => ['edit', 'update']]);   
+        $this->middleware('can:delete_appointment', ['only' => ['destroy']]);    
+        $this->middleware('can:change_appointment_status', ['only' => ['changeStatus']]);  
+    }
     public function index(){
         $appointments = Appointment::orderBy('id', 'DESC')->paginate(PREPAGE);
         $cases = AppointmentStatusEnum::cases();

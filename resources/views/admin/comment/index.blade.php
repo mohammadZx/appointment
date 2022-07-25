@@ -13,18 +13,26 @@
               @foreach($comments as $comment)
               <li><strong>{{$comment->user->name}}</strong> <a href="{{route('listing.show', $comment->commentable->id)}}">{{$comment->commentable->name}}</a> - {{__('app.Rate')}}:{{$comment->rate}} </a>
               <p>{{$comment->content}}</p>
+
+              @can('delete_comment')
               <form class="changestatus-appointment" action="{{route('admin.comment.destroy', $comment->id)}}" method="post">
                 @csrf 
                 @method('delete')    
                 <button class="button margin-right-10">{{__('app.Delete')}}</button>
+                
+                @can('change_comment_status')
                 @if(!$comment->status)
                 <a href="{{route('admin.comment.changestatus', $comment->id)}}" class="button margin-right-20">{{__('app.Approve')}}</a>
                 @else
                 <a href="{{route('admin.comment.changestatus', $comment->id)}}" class="button margin-right-20">{{__('app.Disapprove')}}</a>
                 @endif
-                
+                @endcan
+
+                @can('edit_comment')
                  <label for="comment-edit-{{$comment->id}}" class="button"><a class="button">{{__('app.Edit')}}</a></label>
-            </form>
+                @endcan
+                </form>
+            @endcan
             <br>
             <input type="checkbox" id="comment-edit-{{$comment->id}}" class="d-none edit-check" >
             <form class="edit-comment-form" action="{{route('admin.comment.update', $comment->id)}}" method="post">

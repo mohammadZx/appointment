@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:see_category', ['only' => ['index']]);   
+        $this->middleware('can:insert_category', ['only' => ['store']]);   
+        $this->middleware('can:edit_category', ['only' => ['edit', 'update']]);   
+        $this->middleware('can:delete_category', ['only' => ['destroy']]);    
+    }
+
     public function index(){
         $categories = Category::orderBy('id', 'DESC')->get();
         return view('admin.category.index', [

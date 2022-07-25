@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:see_city', ['only' => ['index']]);   
+        $this->middleware('can:edit_city', ['only' => ['store']]);   
+        $this->middleware('can:delete_city', ['only' => ['destroy']]);    
+        $this->middleware('can:insert_city', ['only' => ['store']]);    
+
+    }
     
     public function index(){
         $cities = City::orderBy('id', 'DESC')->paginate(PREPAGE);

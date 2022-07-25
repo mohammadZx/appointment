@@ -32,9 +32,9 @@ Auth::routes();
 
 // Pages
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/about', fn() => view('pages.about'))->name('about');
-Route::get('/contact', fn() => view('pages.contact'))->name('contact');
-Route::get('/faq', fn() => view('pages.faq'))->name('faq');
+Route::get('/about', [HomeController::class, 'about'] )->name('about');
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
 Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
 
 

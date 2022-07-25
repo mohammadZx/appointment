@@ -11,6 +11,17 @@ use Illuminate\Http\Request;
 
 class SubServiceController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:see_subservice', ['only' => ['index']]);   
+        $this->middleware('can:edit_subservice', ['only' => ['edit', 'update']]);   
+        $this->middleware('can:delete_subservice', ['only' => ['destroy']]);    
+        $this->middleware('can:insert_subservice', ['only' => ['store']]);    
+
+    }
+
+
      /**
      * Display a listing of the resource.
      *

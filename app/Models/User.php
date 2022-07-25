@@ -26,7 +26,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'phone'
+        'phone',
+        'role'
     ];
 
     /**
@@ -50,7 +51,7 @@ class User extends Authenticatable
 
 
     public function role(){
-        $role = $this->getMeta('role', true);
+        $role = $this->attributes['role_id'];
         if(!$role || !$opiton = Option::find($role)) return null;
         return $opiton;
      }

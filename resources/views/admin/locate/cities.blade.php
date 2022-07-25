@@ -7,6 +7,7 @@
     @include('partials.user.dashboard')   
 	<div class="utf_dashboard_content">
 	<div class="col-lg-12 col-md-12">
+    @can('insert_city')
         <div class="add-province">
             <div class="row">
             <form class="changestatus-appointment margin-top-10" action="{{route('admin.city.store')}}" method="post">
@@ -17,11 +18,13 @@
               </form>
             </div>
         </div>
+        @endcan
         <div class="utf_dashboard_list_box invoices province-list with-icons margin-top-20">
             <h4>{{__('app.City management')}}</h4>
             <ul>
               @foreach($cities as $city)
               <li><strong>{{$city->province->name}} - {{$city->name}}</strong></a>
+              @can('delete_city')
               <form class="changestatus-appointment" action="{{route('admin.city.destroy', $city->id)}}" method="post">
                 @csrf  
                 @method('delete')
@@ -29,7 +32,9 @@
                     <select name="city_id" required data-placeholder="{{__('app.pages.index.City')}}" class="selectpicker with-ajax default city province" title="{{__('app.pages.index.City')}}" data-live-search="true" data-selected-text-format="count" data-size="5"></select>
                     {{__('app.And delete this city')}}
                   <button class="button margin-right-10">{{__('app.Delete')}}</button>
-              </form> 
+              </form>
+              @endcan
+              @can('edit_city') 
               <form class="changestatus-appointment margin-top-10" action="{{route('admin.city.store')}}" method="post">
                 @csrf  
                 <input type="hidden" name="city_id" value="{{$city->id}}">
@@ -37,6 +42,7 @@
                  <input class="name" required type="text" name="name" placeholder="{{__('app.City name')}}" value="{{$city->name}}">
                   <button class="button margin-right-10">{{__('app.Edit')}}</button>
               </form>
+              @endcan
               @endforeach
             </ul>
           </div>

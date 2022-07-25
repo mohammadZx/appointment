@@ -12,7 +12,15 @@ use Illuminate\Support\Facades\Validator;
 
 class ListingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:see_listing', ['only' => ['index']]);   
+        $this->middleware('can:edit_listing', ['only' => ['edit', 'update']]);   
+        $this->middleware('can:delete_listing', ['only' => ['destroy']]);    
+        $this->middleware('can:change_listing_status', ['only' => ['changeStatus']]);    
+    }
     public function index(){
+
         $pipelines = app(Pipeline::class)
         ->send(Listing::query())
         ->through([

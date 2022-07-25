@@ -12,6 +12,8 @@
             <ul>
               @foreach($appointments as $appointment)
               <li><a href="{{route('listing.show', $appointment->listing->id)}}"><strong>{{$appointment->listing->name}} <span class="paid booking-status {{$appointment->status->value}}">{{__('app.'.$appointment->status->value)}}</span></strong></a>
+              
+              @can('change_appointment_status')
               <form class="changestatus-appointment" action="{{route('admin.appointment.changestatus', $appointment->id)}}" method="post">
                 @csrf    
               <select required name="status">
@@ -21,9 +23,13 @@
                         @endforeach
                   </select>
                   <button class="button margin-right-10">انجام</button>
+                  
+                  @can('edit_appointment')
                   <a href="{{route('admin.appointment.edit', $appointment->id)}}" class="button button margin-right-10"><span class="im im-icon-Pen-4"></span></a>
-              </form> 
-
+                  @endcan
+                </form> 
+            @endcan
+            
               <ul>
                   @foreach($appointment->subServices as $subservice)
                   <li>{{$subservice->title}}</li>
@@ -31,7 +37,7 @@
                   <li>@if($appointment->name && $appointment->phone) {{$appointment->name}} - {{$appointment->phone}} @else {{$appointment->user->name}} - {{$appointment->user->phone}} @endif</li>
                   <li><span>{{__('app.In date')}} {{$appointment->date_start->format('Y-m-d')}} {{__('app.From hour')}} {{$appointment->date_start->format('H:i')}} {{__('app.To hour')}} {{$appointment->date_end->format('H:i')}}</li>
                 </ul>
-                <div class="buttons-to-right"> <form action="{{route('admin.appointment.destroy', $appointment->id)}}" method="post">@csrf @method('delete')<button class="button gray"><i class="sl sl-icon-trash"></i> {{__('app.Delete booking')}}</button></form> </div>              </li>
+                <div class="buttons-to-right"> @can('delete_appointment')<form action="{{route('admin.appointment.destroy', $appointment->id)}}" method="post">@csrf @method('delete')<button class="button gray"><i class="sl sl-icon-trash"></i> {{__('app.Delete booking')}}</button></form>@endcan </div>              </li>
               @endforeach
             </ul>
           </div>

@@ -29,12 +29,25 @@ class HomeController extends Controller
     public function index()
     {
         $listins = Listing::with(['service' => fn($q) => $q->with(['category'])])->limit(9)->get();
-        $comments = Comment::with(['commentable', 'user'])->get();
+        $comments = Comment::with(['commentable', 'user'])->where('status',1)->limit(5)->orderBy('id', 'DESC')->get();
         $services = Service::with(['category', 'subservices'])->get();
         return view('pages.index', [
             'listings' => $listins,
             'comments' => $comments,
             'services' => $services
         ]);
+    }
+
+    public function faq(){
+        return view('pages.faq');
+    }
+
+
+    public function about(){
+        return view('pages.about');
+    }
+
+    public function contact(){
+        return view('pages.contact');
     }
 }

@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 
 class ProvinceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:see_province', ['only' => ['index']]);   
+        $this->middleware('can:edit_province', ['only' => ['store']]);   
+        $this->middleware('can:delete_province', ['only' => ['destroy']]);    
+        $this->middleware('can:insert_province', ['only' => ['store']]);    
+
+    }
+
     public function index(){
         $provinces = Province::orderBy('id', 'DESC')->paginate(PREPAGE);
         return view('admin.locate.provinces', [

@@ -10,6 +10,17 @@ use Illuminate\Pipeline\Pipeline;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:see_user', ['only' => ['index']]);   
+        $this->middleware('can:edit_user', ['only' => ['edit', 'update']]);   
+        $this->middleware('can:delete_user', ['only' => ['destroy']]);      
+
+    }
+
+
+
     public function index(){
 
         $pipelines = app(Pipeline::class)

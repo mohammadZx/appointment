@@ -11,6 +11,6 @@ class Option extends Model
 
 
     public function permissions(){
-        return $this->morphToMany('App\Models\Option', 'obj', 'relationships', 'obj_id', 'obj_target');
+        return $this->morphToMany(Option::class, 'target', 'relationships', 'obj_id', 'target_id');
     }
 }
