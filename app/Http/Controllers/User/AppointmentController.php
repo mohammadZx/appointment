@@ -6,6 +6,7 @@ use App\Enums\AppointmentStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Rules\IsValidBookingTime;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Enum;
 use Illuminate\Support\Facades\Validator;
@@ -143,5 +144,51 @@ class AppointmentController extends Controller
             'message' => 'مورد با موفقیت ویرایش شد'
         ]);
         
+    }
+
+    public function finish(Request $request, Appointment $appointment){
+        $appointment->status = 'finish';
+        $appointment->save();
+
+        if(!$request->inform_other) return redirect()->back()->with('message', [
+            'type' => 'success',
+            'message' => __('app.Item successfully updated')
+        ]);
+
+        $number = $request->much > 1 ? $request->much : 1;
+
+
+        $start_date = new \DateTime($appointment->date_end);
+        $since_start = $start_date->diff(new \DateTime(date('Y-m-d H:i:s')));
+        $date = date('Y-m-d');
+
+        $minutes = $since_start->days * 24 * 60;
+        $minutes += $since_start->h * 60;
+        $minutes += $since_start->i;
+        
+
+
+        $listing = $appointment->listing;
+        
+        $appointmentToNotify = $listing->appointments()->where('status', AppointmentStatusEnum::NONE)
+        ->where('date_start' , '>' , $date)
+        ->where('date_start', 'LIKE', "%%")
+        ->limit($number)
+        ->get();
+
+        
+
+        foreach($appointmentToNotify as $apt){
+            $apt->update([
+                'date_start' => toGregorian($apt->date_start->addMinutes($minutes)->format('Y-m-d H:i:s')) ,
+                'date_end' => $apt->date_end->addMinutes($minutes)->format('Y-m-d H:i:s')
+            ]);
+        }
+
+        return redirect()->back()->with('message', [
+            'type' => 'success',
+            'message' => __('app.Item successfully updated')
+        ]);
+
     }
 }

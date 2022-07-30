@@ -362,3 +362,39 @@ span.status.status-2 {
 .edit-check:checked + .edit-comment-form{
     display: block;
 }
+
+select:disabled {
+    background: #e2e2e2;
+}
+
+.btn-success{
+    background: #55ff0047 !important;
+    color: #2b6a02 !important;
+    font-weight: bold !important;
+}
+
+label[for="late"]{
+    display: inline;
+}
+.finish-appintment button{
+    width: 100% !important;
+}
+.finish-appintment input[type="number"]{
+    font-size: 11px;
+    width: 100%;
+}
+
+.finish-appintment{
+    font-size: 11px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+.col-lg-12.col-md-12.errors.alert.alert-danger {
+    background: #ff6b0017;
+    border-radius: 5px;
+    border: 1px solid red;
+    color: red;
+}

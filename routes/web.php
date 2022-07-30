@@ -61,6 +61,8 @@ Route::prefix('/user')->name('user.')->middleware('auth')->group(function(){
     
     Route::resource('wishlist', App\Http\Controllers\User\WishlistController::class);
     Route::resource('booking', BookingController::class);
+
+    Route::post('appointment/finish/{appointment}', [AppointmentController::class, 'finish'])->name('appointment.finish');
     Route::resource('appointment', AppointmentController::class);
     Route::post('changestatus/{appointment}', [AppointmentController::class, 'changestatus'])->name('appointment.changestatus');
 

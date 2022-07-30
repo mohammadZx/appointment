@@ -9,7 +9,7 @@ class Wishlist extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['wishlistable_id'];
+    protected $fillable = ['wishlistable_id', 'wishlistable_type'];
 
     public function user(){
         return $this->belongsTo(User::class);

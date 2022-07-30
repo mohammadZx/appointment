@@ -135,16 +135,26 @@
 						<div class="panel-dropdown-scrollable"></div>
 					</div>
 				</div>
+          </div>
 
-				<div class="errors alert alert-danger">
+        <div class="col-lg-12 col-md-12 select_remember_box select_date_box ">
+          <input type="number" name="remember" required class="booking-name" placeholder="{{__('app.Remember time in minutes')}}" >
+          <i class="fa fa-user"></i>
+        </div>
+        <div class="col-lg-12 col-md-12 select_remember_box select_date_box ">
+          <label for="">{{__('app.Detect we send message to you before minutes')}}</label>
+        </div>
+
+
+        @if($errors->any())
+				<div class="col-lg-12 col-md-12 errors alert alert-danger">
 					<ul>
-							@if($errors->any())
 								@foreach ($errors->all() as $error)
 									<li>{{ $error }}</li>
 								@endforeach
-							@endif
 					</ul>
 				</div>
+        @endif
 
 				@guest
 				<div class="d-none guest-show">

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->timestamp('date_start')->nullable();
             $table->timestamp('date_end')->nullable();
             $table->string('status')->nullable();
+            $table->integer('remember_time')->default(15);
             $table->timestamps();
 
             // make relation to business service with relationship table

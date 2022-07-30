@@ -22,8 +22,20 @@
                   </select>
                   <button class="button margin-right-10">انجام</button>
                   <a href="{{route('user.appointment.edit', $appointment->id)}}" class="button button margin-right-10"><span class="im im-icon-Pen-4"></span></a>
-              </form> 
-
+              </form>
+              @if($appointment->status->value != 'finish')
+              <form class="finish-appintment" action="{{route('user.appointment.finish', $appointment->id)}}" method="POST">
+                @csrf
+                <div class="row margint-top-10 margin-bottom-10">
+                  <div class="col-md-7">
+                    <input value="true" id="late" name="inform_other" type="checkbox">
+                    <label for="late">{{__('app.If you want to inform other appointments check it')}}</label>
+                  </div>
+                  <div class="col-md-3 padding-0"><input type="number" name="much" placeholder="{{__('app.How many appointment get to defer?')}}"></div>
+                  <div class="col-md-2"><button class="button btn-success">{{__('app.Finish appointment')}}</button></div>
+                </div>
+              </form>
+              @endif
               <ul>
                   @foreach($appointment->subServices as $subservice)
                   <li>{{$subservice->title}}</li>

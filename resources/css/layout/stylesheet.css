@@ -137,7 +137,7 @@ h2.headline_part span {
 	font-size: 20px;
 	line-height: 30px;
 }
-input, input[type="text"], input[type="password"], input[type="email"], input[type="number"], textarea, select {
+input:not(input[type=checkbox], .finish-appintment input), input[type="text"], input[type="password"], input[type="email"], input[type="number"]:not(.finish-appintment input), textarea, select {
 	height: 50px;
 	line-height: 50px;
 	padding: 0 15px;
