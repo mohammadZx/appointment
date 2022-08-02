@@ -373,7 +373,7 @@ select:disabled {
     font-weight: bold !important;
 }
 
-label[for="late"]{
+label[for*="late"]{
     display: inline;
 }
 .finish-appintment button{

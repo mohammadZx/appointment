@@ -27,8 +27,10 @@ class Uploader{
     }
     public static function delete($id){
         $attachment = Attachment::find($id);
-        Storage::delete($attachment->src);
-        $attachment->delete();
+        if($attachment){
+            Storage::delete($attachment->src);
+            $attachment->delete();
+        }
         return true;
     }
     public static function getAll($prePage = 50){

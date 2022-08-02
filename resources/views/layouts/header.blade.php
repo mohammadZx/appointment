@@ -20,7 +20,6 @@
                   @endforeach                                
                 </ul>
               </li>
-              <li><a href="#">{{__('app.Blog')}}</a></li>
               <li><a href="{{route('about')}}">{{__('app.About us')}}</a></li>              
               <li><a href="{{route('contact')}}">{{__('app.Contact us')}}</a></li>              
               <li><a href="{{route('faq')}}">{{__('app.FAQ')}}</a></li>              

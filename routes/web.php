@@ -4,6 +4,7 @@ use App\Http\Controllers\Comment\CommentController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Listing\ListingTimeController;
+use App\Http\Controllers\NotifyAppointmentController;
 use App\Http\Controllers\User\AppointmentController;
 use App\Http\Controllers\User\BookingController;
 use App\Http\Controllers\User\DashboardController;
@@ -36,6 +37,7 @@ Route::get('/about', [HomeController::class, 'about'] )->name('about');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
 Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
+Route::get('/notify-appointment', [NotifyAppointmentController::class, 'index'])->name('notify-appointment');
 
 
 

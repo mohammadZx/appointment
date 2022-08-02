@@ -13,7 +13,7 @@ class Appointment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['listing_id', 'user_id', 'name', 'phone', 'date_start', 'date_end', 'status'];
+    protected $fillable = ['listing_id', 'user_id', 'name', 'phone', 'date_start', 'date_end', 'status', 'remember_time'];
     protected $dates = ['date_start', 'date_end'];
     protected $casts = [
         'status' => AppointmentStatusEnum::class

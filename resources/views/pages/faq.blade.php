@@ -6,11 +6,11 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h2>FAQ</h2>
+          <h2>{{__('app.FAQ')}}</h2>
           <nav id="breadcrumbs">
             <ul>
-              <li><a href="index_1.html">Home</a></li>
-              <li>FAQ</li>
+              <li><a href="{{route('home')}}">{{__('app.Home')}}</a></li>
+              <li>{{__('app.FAQ')}}</li>
             </ul>
           </nav>
         </div>
@@ -20,11 +20,6 @@
   
   <section class="fullwidth_block margin-top-0 padding-top-0 padding-bottom-75" data-background-color="#fff"> 
 	 <div class="container"> 
-		<div class="row">
-			<div class="col-md-12">
-			  <h3 class="headline_part centered margin-bottom-60">Listing FAQ Questions Answered<span>Lorem Ipsum is simply dummy text of the printing and type setting industry.</span></h3>
-			</div>
-		</div>
 		<div class="row">
 			<div class="col-md-12">			  
 			  <div class="style-2">

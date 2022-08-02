@@ -2,7 +2,7 @@
 @section('seo_title', 'شرکت ایران')
 @section('content')
 
-<div class="search_container_block home_main_search_part main_search_block" data-background-image="images/city_search_background.jpg">
+<div class="search_container_block home_main_search_part main_search_block" data-background-image="{{asset('images/poster_6daebe07-1617-405c-abeb-f8e17c992c6e.webp')}}">
     <div class="main_inner_search_block">
       <div class="container">
         <div class="row">
@@ -91,7 +91,7 @@
     </div>
   </section>
   
-  <a href="{{route('listing.index')}}" class="flip-banner parallax" data-background="images/slider-bg-02.jpg" data-color="#000" data-color-opacity="0.85" data-img-width="2500" data-img-height="1666">
+  <a href="{{route('listing.index')}}" class="flip-banner parallax" data-background="{{asset('images/poster_6daebe07-1617-405c-abeb-f8e17c992c6e.webp')}}" data-color="#000" data-color-opacity="0.85" data-img-width="2500" data-img-height="1666">
 	  <div class="flip-banner-content">
 		<h2 class="flip-visible">{{__('app.pages.index.Browse Listings Attractions List')}}</h2>    
 	  </div>

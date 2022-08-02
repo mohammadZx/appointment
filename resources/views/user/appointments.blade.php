@@ -28,8 +28,8 @@
                 @csrf
                 <div class="row margint-top-10 margin-bottom-10">
                   <div class="col-md-7">
-                    <input value="true" id="late" name="inform_other" type="checkbox">
-                    <label for="late">{{__('app.If you want to inform other appointments check it')}}</label>
+                    <input value="true" id="late-{{$appointment->id}}" name="inform_other" type="checkbox">
+                    <label for="late-{{$appointment->id}}">{{__('app.If you want to inform other appointments check it')}}</label>
                   </div>
                   <div class="col-md-3 padding-0"><input type="number" name="much" placeholder="{{__('app.How many appointment get to defer?')}}"></div>
                   <div class="col-md-2"><button class="button btn-success">{{__('app.Finish appointment')}}</button></div>

@@ -68,6 +68,7 @@ class BookingController extends Controller
         $appointment->date_start = $request->date . ' ' . $start .':00';
         $appointment->date_end = $request->date . ' ' . $end .':00';
         $appointment->status = AppointmentStatusEnum::NONE;
+        $appointment->remember_time = $request->remember ? $request->remember : 15; 
         if($request->has('status')) $request->status = $request->status;
         $appointment->save();
         $appointment->subServices()->sync($request->service);
