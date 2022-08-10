@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Enums\AppointmentStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Options\Sms\BaseSms;
 use App\Rules\IsValidBookingTime;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -183,6 +184,12 @@ class AppointmentController extends Controller
                 'date_start' => toGregorian($apt->date_start->addMinutes($minutes)->format('Y-m-d H:i:s')) ,
                 'date_end' => $apt->date_end->addMinutes($minutes)->format('Y-m-d H:i:s')
             ]);
+
+            if($apt->name && $apt->phone){
+                $sms = BaseSms::sms('melipayamak')->sendByBodyId($apt->phone, 95447, "{$apt->name};{$apt->listing->name};{$apt->date_start}");
+            }else{
+                $sms = BaseSms::sms('melipayamak')->sendByBodyId($apt->user->phone, 95447, "{$apt->user->name};{$apt->listing->name};{$apt->date_start}");
+            }
         }
 
         return redirect()->back()->with('message', [

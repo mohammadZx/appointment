@@ -86,7 +86,7 @@ class ForceAuthController extends Controller
 
 
         $code = rand(1000,9999);
-        $sms = BaseSms::sms('melipayamak')->sendByBodyId($this->data['phone'], 82923, $code);
+        $sms = BaseSms::sms('melipayamak')->sendByBodyId($this->data['phone'], 95446, $code);
         session()->put('send-code', $code);
         session()->put('send-phone', $this->data['phone']);
             $this->messages[] = [
