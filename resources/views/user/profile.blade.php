@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('seo_title', get_title(__('app.My Profile')))
 @section('content')
 
     <!-- Dashboard -->

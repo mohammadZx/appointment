@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('seo_title', get_title(__('app.Add listing')))
 @section('content')
 
     @include('partials.listing.add-listing', [

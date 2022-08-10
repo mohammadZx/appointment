@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('seo_title', 'همه خدمات')
+@section('seo_title', get_title('همه خدمات'))
+
 @section('content')
 
 <div id="titlebar" class="gradient">

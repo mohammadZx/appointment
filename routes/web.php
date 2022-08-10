@@ -28,7 +28,7 @@ Route::post('/code-login', [\App\Http\Controllers\Auth\ForceAuthController::clas
 
 // Auth
 Auth::routes();
-
+Route::get('/register', fn() => redirect('/login'));
 
 
 // Pages

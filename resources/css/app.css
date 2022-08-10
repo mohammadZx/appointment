@@ -386,3 +386,29 @@ label[for*="late"]{
     border: 1px solid red;
     color: red;
 }
+
+
+.utf_dashboard_list_box.invoices li{
+    padding: 15px !important;
+}
+
+.finish-appintment .row{
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.finish-appintment .row .padding-0{
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+.finish-appintment{
+    background: #efefef;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+@media screen and (max-width: 765px){
+    .finish-appintment .row .btn-success{
+        margin-top: 15px
+    }
+}

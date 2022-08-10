@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('seo_title', $service->getMeta('seo_title', true) ? $service->getMeta('seo_title', true) : $service->title)
+@section('seo_title', get_title($service->getMeta('seo_title', true) ? $service->getMeta('seo_title', true) : $service->title))
+
 @section('content')
 
 

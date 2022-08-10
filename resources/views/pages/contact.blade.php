@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('seo_title', 'شرکت ایران')
+@section('seo_title', get_title('تماس با ما'))
 @section('content')
 
 <!-- Content --> 

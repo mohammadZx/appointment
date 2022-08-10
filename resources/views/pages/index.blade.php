@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('seo_title', 'شرکت ایران')
+@section('seo_title', get_title('خانه'))
 @section('content')
 
 <div class="search_container_block home_main_search_part main_search_block" data-background-image="{{asset('images/poster_6daebe07-1617-405c-abeb-f8e17c992c6e.webp')}}">

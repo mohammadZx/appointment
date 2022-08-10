@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('seo_title', $listing->name)
+@section('seo_title', get_title($listing->name))
+
 @section('content')
 
 @php

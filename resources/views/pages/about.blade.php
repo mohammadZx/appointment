@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('seo_title', 'شرکت ایران')
+@section('seo_title', get_title('درباره ما'))
 @section('content')
 
 <div id="titlebar" class="gradient margin-bottom-0">

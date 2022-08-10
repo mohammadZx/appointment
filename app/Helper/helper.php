@@ -14,7 +14,7 @@ define('PREPAGE', 5);
 define('FILTERS', ['service', 'city', 'status']);
 define('PRICE_UNIT', 'تومان');
 define('PRICE_UNIT_EN', 'TOMAN');
-define('LOGO', 'http://127.0.0.1:8000/images/logo.png');
+define('LOGO', '/images/logo.png');
 define('SOCIAL', [
     [
         'icon' => 'fa fa-instagram' ,
@@ -243,4 +243,8 @@ function random_point($radius){
     $lng_min = $longitude - $radius / abs(cos(deg2rad($latitude)) * 69);
     $lat_max = $latitude + ($radius / 69);
     return [$lat_max, $lng_min];
+}
+
+function get_title($title = null){
+     return $title . ' - ' . config('app.name');
 }

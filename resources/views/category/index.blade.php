@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('seo_title', $category->title)
+@section('seo_title', get_title($category->title))
+
 @section('content')
 
 

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/layout/stylesheet.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layout/stylesheet_rtl.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    @if(request()->is('user*'))
+    @if(request()->is('user*') || request()->is('admin*'))
     <link rel="stylesheet" href="{{ asset('css/user.css') }}">
     @endif
 

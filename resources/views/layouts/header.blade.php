@@ -30,8 +30,8 @@
         <div class="utf_right_side">
           <div class="header_widget"> 
             @guest
-              <a href="#dialog_signin_part" data-redirect="{{route('user.dashboard')}}" class="button border sign-in login-button popup-with-zoom-anim"><i class="fa fa-sign-in"></i>{{__('app.Login/Register')}}</a>
-              <a href="#dialog_signin_part" data-redirect="{{route('user.listing.create')}}" class="button border with-icon login-button add-listing-button popup-with-zoom-anim"><i class="sl sl-icon-user"></i> {{__('app.Add listing')}}</a></div>
+              <a href="#dialog_signin_part" data-redirect="{{route('user.dashboard')}}" class="button border sign-in login-button @if(Route::currentRouteName() != 'login') popup-with-zoom-anim @endif"><i class="fa fa-sign-in"></i>{{__('app.Login/Register')}}</a>
+              <a href="#dialog_signin_part" data-redirect="{{route('user.listing.create')}}" class="button border with-icon login-button add-listing-button @if(Route::currentRouteName() != 'login') popup-with-zoom-anim @endif"><i class="sl sl-icon-user"></i> {{__('app.Add listing')}}</a></div>
               @else
               <a href="{{route('user.dashboard')}}" class="header-account-button button border with-icon"><i class="sl sl-icon-user"></i> {{__('app.Account')}}</a>
               <a href="{{route('user.listing.create')}}" class="button border with-icon"><i class="sl sl-icon-user"></i> {{__('app.Add listing')}}</a></div>
@@ -39,6 +39,7 @@
             
         </div>
         
+        @if(Route::currentRouteName() != 'login')
         <div id="dialog_signin_part" class="zoom-anim-dialog mfp-hide">
           <div class="small_dialog_header">
             <h3>&nbsp;</h3>
@@ -49,6 +50,8 @@
             </div>
           </div>
         </div>
+        @endif
+
       </div>
     </div>    
   </header>

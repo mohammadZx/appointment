@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('seo_title', 'کسب و کار ها')
+@section('seo_title', get_title('کسب و کار ها'))
 @section('content')
 
 
