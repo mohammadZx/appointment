@@ -164,6 +164,11 @@ function get_splits($removes, $startTime, $endTime){
 
 function get_booking_times($date, $services, $listing_id, $appointment_id = null){
     // get dependencies
+
+    if(strtotime($date) < strtotime(date('Y-m-d'))) {
+        return ['errors' => [__('app.Dont choose past time')]];
+    }
+
     $day = strtolower(date('l', strtotime($date))); // get weekday of user selected date
     $data = Carbon::parse($date)->toJalali()->formatWord('l');
     $day =  WEEKDAY[$data];

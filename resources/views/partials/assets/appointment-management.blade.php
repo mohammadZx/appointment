@@ -45,10 +45,13 @@ function getTimeSlots(){
 	var token = $('input[name="_token"]').val()
 	var listing_id = $('input[name="listing_id"]').val()
 	var appointment_id = $('input[name="appointment_id"]').val()
+	$('.panel-dropdown.time-slots-dropdown > a').html("{{__('app.Choose Time Slot...')}}")
+
 
 	$.post( "{{route('listing.get_times')}}", { date: date, services: services, _token: token, listing_id: listing_id, appointment_id: appointment_id }).done(function( res ) {
 		$('.panel-dropdown-scrollable').html('')
 		$('.errors ul').html('')
+		$('.errors').addClass('d-none')
 
 		if(res.errors){
 			var errorsHtml = '';
@@ -57,6 +60,7 @@ function getTimeSlots(){
 			}
 
 			$('.errors ul').append(errorsHtml)
+			$('.errors').removeClass('d-none')
 			return
 		}
 
@@ -76,6 +80,13 @@ function getTimeSlots(){
 				counter++
 			}
 			$('.panel-dropdown-scrollable').html(html)
+
+
+			$('.time-slot').on('click', function(){
+				var text = $(this).find('label strong').text().trim()
+				$('.panel-dropdown.time-slots-dropdown.active > a').html(text)
+
+			})
 		}
 
   	});
@@ -89,6 +100,11 @@ $('#booking-form').on('submit', function(e){
 function applybooking(){
 	$('#booking-form').submit()
 }
+
+
+
+
+
 
 // getTimeSlots()
 </script>

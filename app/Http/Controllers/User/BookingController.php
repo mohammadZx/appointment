@@ -53,10 +53,16 @@ class BookingController extends Controller
             'time_slot' => ['required' , new IsValidBookingTime($allReq)],
             'listing_id' => 'required'
         ]);
+
+        $request->date = date('Y-m-d', strtotime(toGregorian($request->date)));
+        $validator->after(function ($validator) use($request) {
+            if(strtotime($request->date) < strtotime(date('Y-m-d'))) {
+                $validator->errors()->add('date', __('app.Dont choose past time'));
+            }
+        });
         
         $validator->validate();
-        
-        $request->date = date('Y-m-d', strtotime(toGregorian($request->date)));
+
         list($start, $end) = explode('|', $request->time_slot);
         $appointment = new Appointment();
         $appointment->listing_id = $request->listing_id;
