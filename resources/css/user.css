@@ -2,3 +2,57 @@
     display: none;
 }
 
+.utf_dashboard_navigation ul{
+    padding-left: 15px !important;
+}
+ul.admin.user-cities li .name {
+    width: 125px;
+    margin-left: 10px;
+}
+@media screen and (max-width: 765px){
+
+ul.admin.user-province .changestatus-appointment {
+    flex-wrap: wrap;
+}
+
+ul.admin.user-province .changestatus-appointment * {
+    margin-bottom: 10px;
+}
+
+ul.admin.user-services .changestatus-appointment {
+    flex-wrap: wrap;
+}
+ul.admin.user-services .changestatus-appointment *{
+    margin-bottom: 10px;
+}
+
+
+ul.admin.user-subservices .changestatus-appointment {
+    flex-wrap: wrap;
+}
+ul.admin.user-subservices .changestatus-appointment *{
+    margin-bottom: 10px;
+}
+
+ul.admin.user-cities li{
+    display: flex;
+    flex-direction: column;
+}
+ul.admin.user-cities .changestatus-appointment {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+ul.admin.user-cities .changestatus-appointment * {
+    margin-bottom: 10px;
+}
+
+.add-province .row .changestatus-appointment {
+    flex-wrap: wrap;
+}
+
+.add-province .row .changestatus-appointment * {
+    margin-bottom: 10px;
+}
+    
+}

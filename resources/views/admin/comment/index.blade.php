@@ -10,7 +10,7 @@
 	<div class="col-lg-12 col-md-12">
         <div class="utf_dashboard_list_box invoices province-list with-icons margin-top-20">
             <h4>{{__('app.Comment management')}}</h4>
-            <ul>
+            <ul class="admin user-comments">
               @foreach($comments as $comment)
               <li><strong>{{$comment->user->name}}</strong> <a href="{{route('listing.show', $comment->commentable->id)}}">{{$comment->commentable->name}}</a> - {{__('app.Rate')}}:{{$comment->rate}} </a>
               <p>{{$comment->content}}</p>

@@ -44,7 +44,7 @@ $('.login-button').click(function(){
 
     $.get('/user/wishlist/manage/' + listiingId,  // url
       function (data, textStatus, jqXHR) {  // success callback
-    
+        window.location.reload()
     });
 
   }

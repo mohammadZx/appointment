@@ -54,7 +54,7 @@
         @endcan
         <div class="utf_dashboard_list_box invoices province-list with-icons margin-top-20">
             <h4>{{__('app.Service management')}}</h4>
-            <ul>
+            <ul class="admin user-services">
               @foreach($services as $service)
               <li><strong>{{$service->title}} -- {{$service->listings->count()}}</strong></a>
                 @can('delete_service')

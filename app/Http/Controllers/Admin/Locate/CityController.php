@@ -18,7 +18,14 @@ class CityController extends Controller
     }
     
     public function index(){
-        $cities = City::orderBy('id', 'DESC')->paginate(PREPAGE);
+        if(request()->has('pid')){
+            $cities = City::where('province_id', request()->pid)->orderBy('id', 'DESC')->paginate(PREPAGE);
+        }else{
+            $cities = City::orderBy('id', 'DESC')->paginate(PREPAGE);
+        }
+
+        $cities->appends(request()->query());
+
         return view('admin.locate.cities', [
             'cities' => $cities
         ]);
@@ -37,6 +44,8 @@ class CityController extends Controller
 
         $city->name = $request->name;
         $city->province_id = $request->province_id;
+        $city->lat = $request->lat;
+        $city->lon = $request->lon;
 
         $city->save();
 

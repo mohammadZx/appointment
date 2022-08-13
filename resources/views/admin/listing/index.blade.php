@@ -60,7 +60,7 @@
       <div class="row"> 
         <div class="col-lg-12 col-md-12">
         <div class="utf_dashboard_list_box margin-top-0">
-        <ul>
+        <ul class="admin user-listings">
             @foreach($listings as $listing)
             <li>
             <div class="utf_list_box_listing_item">

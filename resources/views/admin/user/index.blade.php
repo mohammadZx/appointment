@@ -19,7 +19,7 @@
 	<div class="col-lg-12 col-md-12">
         <div class="utf_dashboard_list_box invoices province-list with-icons margin-top-20">
             <h4>{{__('app.User management')}}</h4>
-            <ul>
+            <ul class="admin user-users">
               @foreach($users as $user)
               <li><strong>{{$user->name}}</strong> {{$user->phone}}</a>
               @can('delete_user')

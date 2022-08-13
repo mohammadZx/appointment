@@ -15,6 +15,12 @@
                 @csrf  
                  <div class="col-md-6"><input class="name" required type="text" name="name" placeholder="{{__('app.City name')}}"></div>
                     <div class="col-md-6"><select name="province_id" required data-placeholder="{{__('app.Province')}}" class="selectpicker with-ajax default province" title="{{__('app.Province')}}" data-live-search="true" data-selected-text-format="count" data-size="5"></select></div>
+                    <div class="col-md-6">
+                      <input type="text" name="lat" placeholder="latitude">
+                    </div>
+                    <div class="col-md-6">
+                    <input type="text" name="lon" placeholder="longitude">
+                    </div>
                  <div class="col-md-6"><button class="button margin-right-10">{{__('app.Add')}}</button></div>
               </form>
             </div>
@@ -22,7 +28,7 @@
         @endcan
         <div class="utf_dashboard_list_box invoices province-list with-icons margin-top-20">
             <h4>{{__('app.City management')}}</h4>
-            <ul>
+            <ul class="admin user-cities">
               @foreach($cities as $city)
               <li><strong>{{$city->province->name}} - {{$city->name}}</strong></a>
               @can('delete_city')
@@ -40,7 +46,9 @@
                 @csrf  
                 <input type="hidden" name="city_id" value="{{$city->id}}">
                 <input type="hidden" name="province_id" value="{{$city->province->id}}">
-                 <input class="name" required type="text" name="name" placeholder="{{__('app.City name')}}" value="{{$city->name}}">
+                <input class="name" required type="text" name="name" placeholder="{{__('app.City name')}}" value="{{$city->name}}">
+                <input class="name" type="text" name="lat" placeholder="latitude" value="{{$city->lat}}">
+                <input class="name" type="text" name="lon" placeholder="longitude" value="{{$city->lon}}">
                   <button class="button margin-right-10">{{__('app.Edit')}}</button>
               </form>
               @endcan

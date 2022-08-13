@@ -42,7 +42,7 @@
         @endcan
         <div class="utf_dashboard_list_box invoices province-list with-icons margin-top-20">
             <h4>{{__('app.Category management')}}</h4>
-            <ul>
+            <ul class="admin user-category">
               @foreach($categories as $category)
               <li><strong>{{$category->title}} -- {{$category->listings->count()}}</strong></a>
 

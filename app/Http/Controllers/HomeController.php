@@ -30,7 +30,7 @@ class HomeController extends Controller
     {
         $listins = Listing::with(['service' => fn($q) => $q->with(['category'])])->limit(9)->get();
         $comments = Comment::with(['commentable', 'user'])->where('status',1)->limit(5)->orderBy('id', 'DESC')->get();
-        $services = Service::with(['category', 'subservices'])->get();
+        $services = Service::with(['category', 'subservices'])->limit(6)->get();
         return view('pages.index', [
             'listings' => $listins,
             'comments' => $comments,

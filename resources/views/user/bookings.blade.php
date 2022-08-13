@@ -11,7 +11,7 @@
 	<div class="col-lg-12">
           <div class="utf_dashboard_list_box invoices with-icons margin-top-20">
             <h4>{{__('app.Recent bookings')}}</h4>
-            <ul>
+            <ul class="user-bookings">
               @foreach($bookings as $booking)
               <li><a href="{{route('listing.show', $booking->listing->id)}}"><strong>{{$booking->listing->name}} <span class="paid booking-status {{$booking->status->value}}">{{__('app.'.$booking->status->value)}}</span></strong></a>
                 <ul>

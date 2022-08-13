@@ -12,7 +12,7 @@
         <div class="col-lg-12 col-md-12">
           <div class="utf_dashboard_list_box with-icons margin-top-20">
             <h4>{{__('app.Wishlists')}}</h4>
-            <ul>
+            <ul class="user-wishlists">
               @foreach($wishlists as $wishlist)
               @php $listing = $wishlist->wishlistable @endphp
               <li> 

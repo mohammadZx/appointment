@@ -20,7 +20,7 @@
         @endcan
         <div class="utf_dashboard_list_box invoices province-list with-icons margin-top-20">
             <h4>{{__('app.Provinces management')}}</h4>
-            <ul>
+            <ul class="admin user-province">
               @foreach($provinces as $province)
               <li><strong>{{$province->name}}</strong></a>
 

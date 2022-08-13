@@ -1142,7 +1142,13 @@ select.utf_chosen_select_single{
     text-align: center;
 }
 #logo {
-    margin: auto;
+    margin-right: auto;
+}
+#logo a {
+    display: block;
+    margin-right: auto;
+    margin-left: 0;
+    width: fit-content;
 }
 .nav_responsive {
     float:right;

@@ -44,7 +44,7 @@
         @endcan
         <div class="utf_dashboard_list_box invoices province-list with-icons margin-top-20">
             <h4>{{__('app.Sub Service management')}}</h4>
-            <ul>
+            <ul class="admin user-subservices">
               @foreach($services as $service)
               <li><strong>{{$service->title}} -- {{$service->listings->count()}}</strong> {{__('app.to')}} {{$service->service->title}}</a>
 

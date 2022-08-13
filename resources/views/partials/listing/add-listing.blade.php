@@ -234,8 +234,8 @@
                             <option value="">{{__('app.End time')}}</option>
                           </select>
                       </div>
-                      <div class="fm-input">
-                        <select name="worktimes[item_{{$i}}][type]" data-value="{{$time->type}}" required>
+                      <div class="fm-input d-none">
+                        <select  name="worktimes[item_{{$i}}][type]" data-value="{{$time->type}}" required>
                           <option value="main">{{__('app.Work time')}}</option>
                           <option value="slot">{{__('app.Rest time')}}</option>
                         </select>
@@ -268,8 +268,8 @@
                             <option value="">{{__('app.End time')}}</option>
                           </select>
                       </div>
-                      <div class="fm-input">
-                        <select disabled name="worktimes[item_1][type]" required>
+                      <div class="fm-input d-none">
+                        <select name="worktimes[item_1][type]" required>
                           <option value="main">{{__('app.Work time')}}</option>
                           <option value="slot">{{__('app.Rest time')}}</option>
                         </select>
