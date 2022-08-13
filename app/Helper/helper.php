@@ -217,7 +217,20 @@ function get_booking_times($date, $services, $listing_id, $appointment_id = null
     foreach($splits as $split){
         $bookingTimes = array_merge($bookingTimes, get_time_slot($timeSlot, $split['start'], $split['end']));
     }
+
+    // unset defer time slots
+    if(date('Y-m-d', strtotime($date)) == date('Y-m-d')){
+        $tmpBookingTime = [];
+        foreach($bookingTimes as $key => $bookingTime){
+            if(strtotime($bookingTime['time_start']) > strtotime(date('H:i'))){
+                $tmpBookingTime[$key] = $bookingTime;
+            }
+        }
+        $bookingTimes = $tmpBookingTime;
+    }
+ 
     
+
     // handle times
     if($exceptions){
         return ['errors' => [__('app.This business is closed on the day of your choice. Please choose another day for appointment')]];
