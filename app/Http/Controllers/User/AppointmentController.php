@@ -151,6 +151,22 @@ class AppointmentController extends Controller
         $appointment->status = 'finish';
         $appointment->save();
 
+        if($request->send_time_sms){
+            $appointmentToNotify =$appointment->listing->appointments()->where('status', AppointmentStatusEnum::NONE)
+            ->where('date_start' , '>=' , $appointment->date_end)
+            ->first();
+
+            if($appointmentToNotify){
+                if($appointmentToNotify->name && $appointmentToNotify->phone){
+                    $sms = @BaseSms::sms('melipayamak')->sendByBodyId($appointmentToNotify->phone, 96043, "{$appointmentToNotify->name};{$appointmentToNotify->listing->name}");
+                }else{
+                    $sms = @BaseSms::sms('melipayamak')->sendByBodyId($appointmentToNotify->user->phone, 96043, "{$appointmentToNotify->user->name};{$appointmentToNotify->listing->name}");
+                }
+                
+                $appointmentToNotify->setMeta('send_its_time_sms', true, 0, true);
+            }
+        }
+
         if(!$request->inform_other) return redirect()->back()->with('message', [
             'type' => 'success',
             'message' => __('app.Item successfully updated')
@@ -177,18 +193,24 @@ class AppointmentController extends Controller
         ->limit($number)
         ->get();
 
+       
         
 
         foreach($appointmentToNotify as $apt){
+            
+            if($minutes > 0){
+                $apt->setMeta('late_origin_date',  $apt->date_start .'|'. $apt->date_end . '|' . $minutes , 0, true);
+            }
+
             $apt->update([
                 'date_start' => toGregorian($apt->date_start->addMinutes($minutes)->format('Y-m-d H:i:s')) ,
                 'date_end' => $apt->date_end->addMinutes($minutes)->format('Y-m-d H:i:s')
             ]);
 
             if($apt->name && $apt->phone){
-                $sms = BaseSms::sms('melipayamak')->sendByBodyId($apt->phone, 95447, "{$apt->name};{$apt->listing->name};{$apt->date_start}");
+                $sms = @BaseSms::sms('melipayamak')->sendByBodyId($apt->phone, 95447, "{$apt->name};{$apt->listing->name};{$apt->date_start}");
             }else{
-                $sms = BaseSms::sms('melipayamak')->sendByBodyId($apt->user->phone, 95447, "{$apt->user->name};{$apt->listing->name};{$apt->date_start}");
+                $sms = @BaseSms::sms('melipayamak')->sendByBodyId($apt->user->phone, 95447, "{$apt->user->name};{$apt->listing->name};{$apt->date_start}");
             }
         }
 

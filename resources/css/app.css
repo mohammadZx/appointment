@@ -360,8 +360,11 @@ select:disabled {
     color: #2b6a02 !important;
     font-weight: bold !important;
 }
-
-label[for*="late"]{
+label{
+    user-select: none;
+    cursor: pointer;
+}
+label[for*="late"], label[for*="send"]{
     display: inline;
 }
 .finish-appintment button{
@@ -388,7 +391,7 @@ label[for*="late"]{
 }
 
 
-.utf_dashboard_list_box.invoices li{
+.utf_dashboard_list_box.invoices > ul > li {
     padding: 15px !important;
 }
 

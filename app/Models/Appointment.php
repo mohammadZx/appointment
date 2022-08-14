@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\AppointmentStatusEnum;
+use App\Meta\MetaAble;
 use App\Options\OnDeleteDependency;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
-    use HasFactory;
+    use HasFactory, MetaAble;
 
     protected $fillable = ['listing_id', 'user_id', 'name', 'phone', 'date_start', 'date_end', 'status', 'remember_time'];
     protected $dates = ['date_start', 'date_end'];

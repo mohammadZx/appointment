@@ -30,6 +30,9 @@
                   <div class="col-md-7">
                     <input value="true" id="late-{{$appointment->id}}" name="inform_other" type="checkbox">
                     <label for="late-{{$appointment->id}}">{{__('app.If you want to inform other appointments check it')}}</label>
+                    <br>
+                    <input value="true" id="send-{{$appointment->id}}" name="send_time_sms" type="checkbox">
+                    <label for="send-{{$appointment->id}}">{{__('app.If you want to notify next appointment check it')}}</label>
                   </div>
                   <div class="col-md-3 padding-0"><input type="number" name="much" placeholder="{{__('app.How many appointment get to defer?')}}"></div>
                   <div class="col-md-2"><button class="button btn-success">{{__('app.Finish appointment')}}</button></div>

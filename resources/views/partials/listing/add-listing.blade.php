@@ -140,7 +140,7 @@
                   <div class="col-md-12 d-none">
                   <h5>Decimal Degrees</h5>                    
                     <div class="row with-forms">
-                    @if($edit)
+                    @if($edit && count(explode(',', $listing->getMeta('map', true))) == 2)
                       @php list($lat, $lon) = explode(',', $listing->getMeta('map', true)) @endphp
                       <div class="col-md-6">
                       <input type="hidden" class="input-text" name="latitude" value="{{$lat}}"  id="latitude" placeholder="40.7324319" value="">
@@ -161,7 +161,7 @@
                   </div>				  				  
 				  <div id="utf_listing_location" class="col-md-12 utf_listing_section @error('latitude') invalid @enderror @error('longitude') invalid @enderror">
 					  <div id="utf_single_listing_map_block">
-              @if($edit)
+              @if($edit  && count(explode(',', $listing->getMeta('map', true))) == 2)
               @php list($lat, $lon) = explode(',', $listing->getMeta('map', true)) @endphp
 						  <div id="utf_single_listingmap" data-lat="{{$lat}}" data-lon="{{$lon}}"></div>
             @else

@@ -13,7 +13,21 @@
             <h4>{{__('app.Recent bookings')}}</h4>
             <ul class="user-bookings">
               @foreach($bookings as $booking)
-              <li><a href="{{route('listing.show', $booking->listing->id)}}"><strong>{{$booking->listing->name}} <span class="paid booking-status {{$booking->status->value}}">{{__('app.'.$booking->status->value)}}</span></strong></a>
+              <li>
+                <a href="{{route('listing.show', $booking->listing->id)}}"><strong>{{$booking->listing->name}}
+                <span class="paid booking-status {{$booking->status->value}}">{{__('app.'.$booking->status->value)}}</span>
+                @if($booking->getMeta('late_origin_date', true))
+                @php
+                  $minuts = explode('|', $booking->getMeta('late_origin_date', true));
+                  if(count($minuts) == 3){ $minuts = $minuts[2]; }else{ $minuts = null; }
+                @endphp
+
+                @if($minuts)
+                <span class="paid booking-status none">{{str_replace('{0}', $minuts, __('app.You appointment was late {0} minut by owner'))}}</span>
+                @endif
+
+                @endif
+              </strong></a>
                 <ul>
                   @foreach($booking->subServices as $subservice)
                   <li>{{$subservice->title}}</li>
@@ -22,6 +36,11 @@
                 </ul>
                 <div class="buttons-to-right"> <form action="{{route('user.booking.destroy', $booking->id)}}" method="post">@csrf @method('delete')<button class="button gray"><i class="sl sl-icon-trash"></i> {{__('app.Delete booking')}}</button></form> </div>
                 <ul class="margin-top-10"><li><i class="im im-icon-Location-2"></i> {{$booking->listing->address}}</li></ul>
+                
+                @if($booking->status->value != 'finish')
+                  <ul class="margin-top-10 counter-booking" data-start="{{toGregorian($booking->date_start)}}"><li>this is counter</li></ul>
+                @endif
+                
               </li>
               @endforeach
             </ul>
@@ -46,7 +65,7 @@
 
 
 @section('scripts')
-
+<script src="{{ asset('js/layout/jquery.countdown2.min.js') }}"></script>
 <script>
 (function($) {
 try {
@@ -59,6 +78,36 @@ try {
         console.log(error);
     }
 })(jQuery);
+
+
+
+$('.counter-booking').each(function(){
+  var time = $(this).data('start')
+  console.log(time)
+    $(this).find('li').countdown(time, function(event) {
+      $(this).html(
+        event.strftime(`
+        <span class="item d">
+        <span class="t">%D</span>
+          <span class="n">{{__('app.Days')}}</span>
+        </span>
+        <span class="item h">
+        <span class="t">%H</span>
+          <span class="n">{{__('app.Hours')}}</span>
+        </span>
+        <span class="item m">
+        <span class="t">%M</span>
+          <span class="n">{{__('app.Minuts')}}</span>
+        </span>
+        <span class="item s">
+        <span class="t">%S</span>
+          <span class="n">{{__('app.Seconds')}}</span>
+        </span>
+        <span clss="gls">{{__('app.Remaining until your turn')}}</span>
+        `)
+      );
+    });
+})
 </script>
 
 @endsection

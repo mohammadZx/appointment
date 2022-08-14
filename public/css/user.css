@@ -57,3 +57,16 @@ ul.admin.user-cities .changestatus-appointment * {
     
 }
 
+
+.counter-booking li {
+    /* background: red !important; */
+    background: #ffa5005e !important;
+    color: orangered !important;
+    padding: 3px 10px !important;
+    border-radius: 5px !important;
+}
+
+.counter-booking li span {
+    color: orangered !important;
+    font-size: 12px;
+}
