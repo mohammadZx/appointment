@@ -19,7 +19,7 @@
                 @if($booking->getMeta('late_origin_date', true))
                 @php
                   $minuts = explode('|', $booking->getMeta('late_origin_date', true));
-                  if(count($minuts) == 3){ $minuts = $minuts[2]; }else{ $minuts = null; }
+                  if(count($minuts) == 2){ $minuts = date_diff_minut($minuts[1], $booking->date_end); }else{ $minuts = null; }
                 @endphp
 
                 @if($minuts)

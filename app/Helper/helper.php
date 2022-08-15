@@ -266,3 +266,14 @@ function random_point($radius){
 function get_title($title = null){
      return $title . ' - ' . config('app.name');
 }
+
+
+function date_diff_minut($date1, $date2){
+    $start_date = new \DateTime($date1);
+    $since_start = $start_date->diff(new \DateTime($date2));
+    $minutes = $since_start->days * 24 * 60;
+    $minutes += $since_start->h * 60;
+    $minutes += $since_start->i;
+
+    return $minutes;
+}

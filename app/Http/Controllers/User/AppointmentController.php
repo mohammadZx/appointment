@@ -148,71 +148,46 @@ class AppointmentController extends Controller
     }
 
     public function finish(Request $request, Appointment $appointment){
+        // get Diffrent between the appoitment finished time and now to handle some operation
+        $minutes = date_diff_minut($appointment->date_end, date('Y-m-d H:i:s'));
+    
+        // change appointment status
         $appointment->status = 'finish';
         $appointment->save();
 
-        if($request->send_time_sms){
-            $appointmentToNotify =$appointment->listing->appointments()->where('status', AppointmentStatusEnum::NONE)
-            ->where('date_start' , '>=' , $appointment->date_end)
-            ->first();
-
-            if($appointmentToNotify){
-                if($appointmentToNotify->name && $appointmentToNotify->phone){
-                    $sms = @BaseSms::sms('melipayamak')->sendByBodyId($appointmentToNotify->phone, 96043, "{$appointmentToNotify->name};{$appointmentToNotify->listing->name}");
-                }else{
-                    $sms = @BaseSms::sms('melipayamak')->sendByBodyId($appointmentToNotify->user->phone, 96043, "{$appointmentToNotify->user->name};{$appointmentToNotify->listing->name}");
-                }
-                
-                $appointmentToNotify->setMeta('send_its_time_sms', true, 0, true);
-            }
-        }
-
-        if(!$request->inform_other) return redirect()->back()->with('message', [
-            'type' => 'success',
-            'message' => __('app.Item successfully updated')
-        ]);
-
-        $number = $request->much > 1 ? $request->much : 1;
-
-
-        $start_date = new \DateTime($appointment->date_end);
-        $since_start = $start_date->diff(new \DateTime(date('Y-m-d H:i:s')));
-        $date = date('Y-m-d');
-
-        $minutes = $since_start->days * 24 * 60;
-        $minutes += $since_start->h * 60;
-        $minutes += $since_start->i;
+        // send sms to booking owner for time comming if listing owner want
+        if($request->send_time_sms) $this->notifyTime($appointment);
         
 
+        // Default change all time lates for next bookings in a listing
+        if(!$request->inform_other && $minutes > 0){
 
-        $listing = $appointment->listing;
-        
-        $appointmentToNotify = $listing->appointments()->where('status', AppointmentStatusEnum::NONE)
-        ->where('date_start' , '>' , $date)
-        ->where('date_start', 'LIKE', "%%")
-        ->limit($number)
-        ->get();
-
-       
-        
-
-        foreach($appointmentToNotify as $apt){
-            
-            if($minutes > 0){
-                $apt->setMeta('late_origin_date',  $apt->date_start .'|'. $apt->date_end . '|' . $minutes , 0, true);
-            }
-
-            $apt->update([
-                'date_start' => toGregorian($apt->date_start->addMinutes($minutes)->format('Y-m-d H:i:s')) ,
-                'date_end' => $apt->date_end->addMinutes($minutes)->format('Y-m-d H:i:s')
+            $this->changeTimesForOtherAppointment($appointment, $minutes);
+            return redirect()->back()->with('message', [
+                'type' => 'success',
+                'message' => __('app.Item successfully updated')
             ]);
-
-            if($apt->name && $apt->phone){
-                $sms = @BaseSms::sms('melipayamak')->sendByBodyId($apt->phone, 95447, "{$apt->name};{$apt->listing->name};{$apt->date_start}");
-            }else{
-                $sms = @BaseSms::sms('melipayamak')->sendByBodyId($apt->user->phone, 95447, "{$apt->user->name};{$apt->listing->name};{$apt->date_start}");
-            }
         }
+
+
+        // Change time if listing owner want to customize
+        if($minutes > 0){
+            $appointmentToNotify = $appointment->listing->appointments()->whereIn('status', [AppointmentStatusEnum::NONE, AppointmentStatusEnum::APPROVE])
+            ->where('date_start' , '>' , date('Y-m-d H:i:s'))
+            ->where('id' , '<>' , $appointment->id)
+            ->limit($request->much > 1 ? $request->much : 1)
+            ->get();
+
+            foreach($appointmentToNotify as $apt){
+                if(!$apt->getMeta('late_origin_date', true)) $apt->setMeta('late_origin_date',  $apt->date_start .'|'. $apt->date_end , 0, true);
+                $apt->update([
+                    'date_start' => toGregorian($apt->date_start->addMinutes($minutes)->format('Y-m-d H:i:s')) ,
+                    'date_end' => $apt->date_end->addMinutes($minutes)->format('Y-m-d H:i:s')
+                ]);
+            }
+
+        }
+
 
         return redirect()->back()->with('message', [
             'type' => 'success',
@@ -220,4 +195,66 @@ class AppointmentController extends Controller
         ]);
 
     }
+
+
+    /**
+     *  Recursive function to change start and end time with consider free time between to appointment
+     *  @steps
+     *   1- get appoitnment and sum date end and date diff in minut
+     *   2- get the appoitnment where the date start < those date in {1}
+     *   3- if exsit anythis, that mean, must change the date start and date end
+     *   4- mins free time between this appointment and the appoinment in {3}
+     *   5- update in repeat this functionality
+     * 
+     *  @param object $appointment
+     *  @param integer $minutes
+     */
+    public function changeTimesForOtherAppointment($appointment, $minutes, $before = []){
+        $date = $appointment->date_end->addMinutes($minutes)->format('Y-m-d H:i:s');
+        $dd = $appointment->date_end->addMinutes($minutes)->format('Y-m-d');
+        $before[] = $appointment->id;
+
+        $appointmentToChange = $appointment->listing->appointments()->whereIn('status', [AppointmentStatusEnum::NONE, AppointmentStatusEnum::APPROVE])
+            ->where('date_start' , '<' , $date)
+            ->where('date_start' , 'LIKE' , "%{$dd}%")
+            ->whereNotIn('id' , $before)
+            ->first();
+
+        if($appointmentToChange){
+            // $minutes -= date_diff_minut(
+            //     $appointment->date_end->addMinutes($minutes)->format('Y-m-d H:i:s'),
+            //     toGregorian($appointmentToChange->date_start)
+            // );
+    
+            if(!$appointmentToChange->getMeta('late_origin_date', true)) $appointmentToChange->setMeta('late_origin_date',  $appointmentToChange->date_start .'|'. $appointmentToChange->date_end , 0, true);
+            $appointmentToChange->update([
+                'date_start' => toGregorian($appointmentToChange->date_start->addMinutes($minutes)->format('Y-m-d H:i:s')) ,
+                'date_end' => $appointmentToChange->date_end->addMinutes($minutes)->format('Y-m-d H:i:s')
+            ]);
+
+            $this->changeTimesForOtherAppointment($appointmentToChange, $minutes, $before);
+        }
+    }
+
+
+    /**
+     * send sms to next appointment
+     * @param object $appointment
+     */
+    public function notifyTime($appointment){
+        $appointmentToNotify =$appointment->listing->appointments()->where('status', AppointmentStatusEnum::NONE)
+        ->where('date_start' , '>=' , $appointment->date_end)
+        ->first();
+
+        if($appointmentToNotify){
+            if($appointmentToNotify->name && $appointmentToNotify->phone){
+                $sms = @BaseSms::sms('melipayamak')->sendByBodyId($appointmentToNotify->phone, 96043, "{$appointmentToNotify->name};{$appointmentToNotify->listing->name}");
+            }else{
+                $sms = @BaseSms::sms('melipayamak')->sendByBodyId($appointmentToNotify->user->phone, 96043, "{$appointmentToNotify->user->name};{$appointmentToNotify->listing->name}");
+            }
+            
+            $appointmentToNotify->setMeta('send_its_time_sms', true, 0, true);
+        }
+    }
+
 }
