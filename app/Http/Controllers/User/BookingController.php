@@ -6,6 +6,7 @@ use App\Enums\AppointmentStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Rules\IsValidBookingTime;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,17 @@ class BookingController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $bookings = $user->bookings()->orderBy('id', 'DESC')->paginate(PREPAGE);
+
+        $pipelines = app(Pipeline::class)
+        ->send(Appointment::query())
+        ->through([
+            new \App\QueryFilters\AptDate(Appointment::class),
+            new \App\QueryFilters\AptStatus(Appointment::class),
+        ])
+        ->thenReturn();
+
+        $bookings = $pipelines->where('user_id', $user->id)->orderBy('id', 'DESC')->paginate(PREPAGE);
+        $bookings->appends(request()->query());
         return view('user.bookings', [
             'bookings' => $bookings
         ]);

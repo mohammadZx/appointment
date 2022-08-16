@@ -2,6 +2,12 @@
     @isset($withFilters)
         <div class="listing_filter_block">
           <form action="{{route('listing.index')}}" class="col-md-12 filter-row">
+            <div class="sort-by w-30 px-1">
+              <div class="utf_sort_by_select_item sort_by_margin">
+                  <input type="text" name="name" placeholder="{{__('app.Enter listing name')}}" value="">
+              </div>
+            </div>
+
             <div class="sort-by w-30">
               <div class="utf_sort_by_select_item sort_by_margin">
                   <select name="city" @if(request()->has('city')) value="{{request()->city}}" @endif data-placeholder="{{__('app.pages.index.City')}}" class="selectpicker with-ajax default city" title="{{__('app.pages.index.City')}}" data-live-search="true" data-selected-text-format="count" data-size="5"></select>
@@ -26,12 +32,12 @@
             </div>
           </form>
             @php $filters = []; @endphp
-            @if(request()->hasAny(FILTERS))
+            @if(request()->hasAny(array_keys(FILTERS)))
                 <div class="filtered col-md-12 mt-3">
                     فیلتر برای: 
-                    @foreach(FILTERS as $filter)
+                    @foreach(FILTERS as $filter => $val)
                         @if(in_array($filter, array_keys(request()->all())) && request()->all()[$filter])
-                            @php $filters[] = __('app.'. $filter) @endphp
+                            @php $filters[] = __('app.'. $filter) . ': ' . $val() @endphp
                         @endif
                     @endforeach
 

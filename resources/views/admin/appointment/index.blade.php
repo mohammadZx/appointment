@@ -6,6 +6,7 @@
   <div id="dashboard"> 
     @include('partials.user.dashboard')   
 	<div class="utf_dashboard_content">
+  @include('partials.global.filter', ['filters' => ['aptdate', 'aptstatus'] , 'route' => route('admin.appointment.index')])
 	<div class="col-lg-12 col-md-12">
         <div class="utf_dashboard_list_box invoices with-icons margin-top-20">
             <h4>{{__('app.Recent bookings for your listing')}}</h4>
@@ -35,7 +36,7 @@
                   <li>{{$subservice->title}}</li>
                   @endforeach
                   <li>@if($appointment->name && $appointment->phone) {{$appointment->name}} - {{$appointment->phone}} @else {{$appointment->user->name}} - {{$appointment->user->phone}} @endif</li>
-                  <li><span>{{__('app.In date')}} {{$appointment->date_start->format('Y-m-d')}} {{__('app.From hour')}} {{$appointment->date_start->format('H:i')}} {{__('app.To hour')}} {{$appointment->date_end->format('H:i')}}</li>
+                  <li><span>{{__('app.In date')}} <time>{{$appointment->date_start->format('Y-m-d')}}</time> {{__('app.From hour')}} {{$appointment->date_start->format('H:i')}} {{__('app.To hour')}} {{$appointment->date_end->format('H:i')}}</li>
                 </ul>
                 <div class="buttons-to-right"> @can('delete_appointment')<form action="{{route('admin.appointment.destroy', $appointment->id)}}" method="post">@csrf @method('delete')<button class="button gray"><i class="sl sl-icon-trash"></i> {{__('app.Delete booking')}}</button></form>@endcan </div>              </li>
               @endforeach
@@ -58,7 +59,9 @@
 
 
 @section('scripts')
+<link rel="stylesheet" href="{{ asset('css/layout/jalalidatepicker.min.css') }}">
 
+<script src="{{ asset('js/layout/jalalidatepicker.min.js') }}"></script>
 <script>
 (function($) {
 try {
@@ -71,6 +74,10 @@ try {
         console.log(error);
     }
 })(jQuery);
+
+jalaliDatepicker.startWatch({
+	separatorChar: "-"
+});
 </script>
 
 @endsection

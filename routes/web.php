@@ -36,6 +36,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'] )->name('about');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
+Route::get('/ads', fn() => view('pages.ads'))->name('ads');
 Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
 Route::get('/notify-appointment', [NotifyAppointmentController::class, 'index'])->name('notify-appointment');
 

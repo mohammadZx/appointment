@@ -21,7 +21,7 @@
         <div id="titlebar" class="utf_listing_titlebar">
           <div class="utf_listing_titlebar_title">
            <h2>{{$listing->name}} <span class="listing-tag">{{$listing->service->title}}</span></h2>		   
-            <span> <a href="#utf_listing_location" class="listing-address">{{$listing->address}} <i class="sl sl-icon-location"></i></a> </span>			
+            <span> <a href="#utf_listing_location" class="listing-address"><i class="sl sl-icon-location"></i> {{$listing->address}}</a> </span>			
 			<span class="call_now">{{$listing->user->phone}} <i class="sl sl-icon-phone"></i></span>
             @php 
                 $rate = 0;

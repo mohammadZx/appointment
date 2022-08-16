@@ -9,6 +9,7 @@ use App\Options\Sms\BaseSms;
 use App\Rules\IsValidBookingTime;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Validation\Rules\Enum;
 use Illuminate\Support\Facades\Validator;
 class AppointmentController extends Controller
@@ -21,12 +22,24 @@ class AppointmentController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $appointments = $user->appointments()->orderBy('id', 'DESC')->paginate(PREPAGE);
-        $cases = AppointmentStatusEnum::cases();
+
+        $pipelines = app(Pipeline::class)
+        ->send(Appointment::query())
+        ->through([
+            new \App\QueryFilters\AptDate(Appointment::class),
+            new \App\QueryFilters\AptStatus(Appointment::class),
+        ])
+        ->thenReturn();
+
+        $appointments = $pipelines->whereHas('listing', function($q) use($user){
+            $q->where('listings.user_id', $user->id);
+        })->orderBy('appointments.id', 'DESC')->paginate(PREPAGE);
+
+        $appointments->appends(request()->query());
         return view('user.appointments', [
             'appointments' => $appointments,
-            'cases' => $cases
         ]);
+
     }
 
     /**

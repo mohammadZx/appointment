@@ -24,7 +24,7 @@
                     });
                     var mmenuAPI = $(".mmenu-init").data("mmenu");
                     var $icon = $(".hamburger");
-                    $(".mmenu-trigger").click(function() {
+                    $(".mmenu-trigger:not(.account)").click(function() {
                         mmenuAPI.open();
                     });
                     mmenuAPI.bind("open:finish", function() {

@@ -64,6 +64,7 @@
           })
     @endif
     </script>
+    @include('partials.assets.city-ajax')
     <script src="{{ asset('js/app.js') }}"></script>
 
     

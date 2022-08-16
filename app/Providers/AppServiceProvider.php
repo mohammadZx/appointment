@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Enums\AppointmentStatusEnum;
 use App\Models\Category;
 use App\Models\Option;
 use Illuminate\Support\Facades\Gate;
@@ -32,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
         $categories = Category::with(['services' => fn($q) => $q->with('subservices')])->get();
         view()->share('categories', $categories);
+        view()->share('cases', AppointmentStatusEnum::cases());
+
         
         $options = [];
         if(Schema::hasTable('options')){

@@ -11,6 +11,9 @@
             <h4>{{__('app.pages.index.Main page sub title')}}</h4>
             <form action="{{route('listing.index')}}">
 				<div class="main_input_search_part">
+        <div class="main_input_search_part_item">
+							<input type="text" name="name" placeholder="{{__('app.Enter listing name')}}" value="">
+						</div>
 					<div class="main_input_search_part_item intro-search-field">
 						<select name="service" data-placeholder="{{__('app.pages.index.All category')}}" class="selectpicker default category" title="{{__('app.pages.index.All category')}}" data-live-search="true" data-selected-text-format="count" data-size="5">
 							@foreach($categories as $cat)
@@ -151,6 +154,3 @@
 @endsection
 
 
-@section('scripts')
-	@include('partials.assets.city-ajax')
-@endsection

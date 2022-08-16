@@ -69,7 +69,6 @@
 
 
 @section('scripts')
-@include('partials.assets.city-ajax')
 <script>
 (function($) {
 try {

@@ -27,13 +27,16 @@ class ListingController extends Controller
             new \App\QueryFilters\City(Listing::class),
             new \App\QueryFilters\Service(Listing::class),
             new \App\QueryFilters\Status(Listing::class),
+            new \App\QueryFilters\Search(Listing::class),
         ])
         ->thenReturn();
         $data = $pipelines->with(['service', 'user' => function($q){
             return $q->with(['meta']);
         }])->orderBy('id', 'DESC');
+        $datas = $data->paginate(PREPAGE);
+        $datas->appends(request()->query());
         return view('admin.listing.index', [
-            'listings' => $data->paginate(PREPAGE)
+            'listings' => $datas
         ]);
     }
 

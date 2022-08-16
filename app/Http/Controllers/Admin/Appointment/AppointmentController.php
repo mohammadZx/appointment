@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Rules\IsValidBookingTime;
 use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Enum;
 
@@ -20,7 +21,17 @@ class AppointmentController extends Controller
         $this->middleware('can:change_appointment_status', ['only' => ['changeStatus']]);  
     }
     public function index(){
-        $appointments = Appointment::orderBy('id', 'DESC')->paginate(PREPAGE);
+
+        $pipelines = app(Pipeline::class)
+        ->send(Appointment::query())
+        ->through([
+            new \App\QueryFilters\AptDate(Appointment::class),
+            new \App\QueryFilters\AptStatus(Appointment::class),
+        ])
+        ->thenReturn();
+        $appointments = $pipelines->orderBy('id', 'DESC')->paginate(PREPAGE);
+        $appointments->appends(request()->query());
+
         $cases = AppointmentStatusEnum::cases();
         return view('admin.appointment.index', [
             'appointments' => $appointments,

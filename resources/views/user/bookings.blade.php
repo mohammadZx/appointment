@@ -7,6 +7,7 @@
     @include('partials.user.dashboard')   
 	<div class="utf_dashboard_content">
 	<div class="row"> 
+  @include('partials.global.filter', ['filters' => ['aptdate', 'aptstatus'] , 'route' => route('user.booking.index')])
 
 	<div class="col-lg-12">
           <div class="utf_dashboard_list_box invoices with-icons margin-top-20">
@@ -32,7 +33,7 @@
                   @foreach($booking->subServices as $subservice)
                   <li>{{$subservice->title}}</li>
                   @endforeach
-                  <li><span>{{__('app.In date')}} {{$booking->date_start->format('Y-m-d')}} {{__('app.From hour')}} {{$booking->date_start->format('H:i')}} {{__('app.To hour')}} {{$booking->date_end->format('H:i')}}</li>
+                  <li><span>{{__('app.In date')}} <time>{{$booking->date_start->format('Y-m-d')}}</time> {{__('app.From hour')}} {{$booking->date_start->format('H:i')}} {{__('app.To hour')}} {{$booking->date_end->format('H:i')}}</li>
                 </ul>
                 <div class="buttons-to-right"> <form action="{{route('user.booking.destroy', $booking->id)}}" method="post">@csrf @method('delete')<button class="button gray"><i class="sl sl-icon-trash"></i> {{__('app.Delete booking')}}</button></form> </div>
                 <ul class="margin-top-10"><li><i class="im im-icon-Location-2"></i> {{$booking->listing->address}}</li></ul>
@@ -66,6 +67,9 @@
 
 @section('scripts')
 <script src="{{ asset('js/layout/jquery.countdown2.min.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('css/layout/jalalidatepicker.min.css') }}">
+
+<script src="{{ asset('js/layout/jalalidatepicker.min.js') }}"></script>
 <script>
 (function($) {
 try {
@@ -108,6 +112,10 @@ $('.counter-booking').each(function(){
       );
     });
 })
+
+jalaliDatepicker.startWatch({
+	separatorChar: "-"
+});
 </script>
 
 @endsection

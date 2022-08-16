@@ -2,8 +2,11 @@
 
 require_once __DIR__ . '/operations/action.php';
 
+use App\Enums\AppointmentStatusEnum;
 use App\Models\Attachment;
+use App\Models\City;
 use App\Models\Listing;
+use App\Models\Service;
 use Hekmatinasser\Verta\Verta;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -11,7 +14,39 @@ use Illuminate\Support\Facades\DB;
 use function GuzzleHttp\json_decode;
 
 define('PREPAGE', 5);
-define('FILTERS', ['service', 'city', 'status']);
+define('FILTERS', [
+    'service' =>  function(){
+        $id = request()->service;
+        $obj = Service::find($id);
+        return $obj->title;
+    },
+    'city' => function(){
+        $id = request()->city;
+        $obj = City::find($id);
+        return $obj->name;
+    },
+    'status' => function(){
+        return match (request()->status) {
+            '1' => __("app.Status Approved"),
+            '2' => __("app.Status Declined"),
+            '0' => __("app.Status None"),
+            '' => '',
+        };
+    },
+    'aptstatus' => function(){
+        foreach(AppointmentStatusEnum::cases() as $case){
+            if($case->value == request()->aptstatus){
+                return __('app.' . $case->value);
+            }
+        }
+    },
+    'date' => function(){
+        return request()->date;
+    },
+    'name' => function(){
+        return request()->name;
+    }
+]);
 define('PRICE_UNIT', 'تومان');
 define('PRICE_UNIT_EN', 'TOMAN');
 define('LOGO', '/images/logo.png');

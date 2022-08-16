@@ -16,6 +16,7 @@
     "/js/layout/jquery-migrate-3.1.0.min.js": "/js/layout/jquery-migrate-3.1.0.min.js",
     "/js/layout/jquery-ui.min.js": "/js/layout/jquery-ui.min.js",
     "/js/layout/jquery.countdown.min.js": "/js/layout/jquery.countdown.min.js",
+    "/js/layout/jquery.countdown2.min.js": "/js/layout/jquery.countdown2.min.js",
     "/js/layout/jquery.min.js": "/js/layout/jquery.min.js",
     "/js/layout/magnific-popup.min.js": "/js/layout/magnific-popup.min.js",
     "/js/layout/maps.js": "/js/layout/maps.js",
@@ -175,6 +176,5 @@
     "/images/utf_listing_item-03.jpg": "/images/utf_listing_item-03.jpg",
     "/images/utf_listing_item-04.jpg": "/images/utf_listing_item-04.jpg",
     "/images/utf_listing_item-05.jpg": "/images/utf_listing_item-05.jpg",
-    "/images/utf_listing_item-06.jpg": "/images/utf_listing_item-06.jpg",
-    "/js/layout/jquery.countdown2.min.js": "/js/layout/jquery.countdown2.min.js"
+    "/images/utf_listing_item-06.jpg": "/images/utf_listing_item-06.jpg"
 }

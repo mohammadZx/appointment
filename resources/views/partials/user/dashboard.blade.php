@@ -3,6 +3,7 @@
       <div class="utf_dashboard_navigation_inner_block">
         <ul>
           <li class="active"><a href="{{route('user.dashboard')}}"><i class="sl sl-icon-layers"></i> {{__('app.Dashboard')}}</a></li>       
+		  <li><a href="#dialog_search_part" class="popup-with-zoom-anim"><i class="sl sl-icon-magnifier"></i> {{__('app.Search')}}</a></li> 
 		  <li><a href="{{route('user.listing.index')}}"><i class="sl sl-icon-layers"></i> {{__('app.My Listings')}}</a></li>		  		 
 		  <li><a href="{{route('user.listing.create')}}"><i class="sl sl-icon-layers"></i> {{__('app.Add listing')}}</a></li>		  		 
 		  <li><a href="{{route('user.booking.index')}}"><i class="sl sl-icon-docs"></i> {{__('app.Bookings')}}</a></li>		                                             		 

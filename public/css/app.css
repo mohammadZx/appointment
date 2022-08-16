@@ -459,3 +459,134 @@ label.hint .num {
     padding: 0;
     font-size: 13px;
 }
+
+
+.utf_listing_item-container.list-layout .utf_listing_item-inner {
+    width: 95%;
+}
+
+time {
+    display: inline-block;
+}
+
+.justify-center{
+    justify-content: center;
+    display: flex;
+}
+.main_input_search_part input, .main_input_search_part input{
+    border: none !important;
+}
+
+a.listing-address {
+    display: inline-block;
+    direction: revert;
+}
+
+#dialog_search_part, #small-dialog {
+	max-width: 90vw;
+}
+#small-dialog .mfp-close, #dialog_search_part, .mfp-close, .mfp-close:hover {
+	color: #fff;
+}
+#dialog_search_part .mfp-close, #small-dialog .mfp-close {
+	color: #ff2222;
+	background-color:#fff;
+	border-radius: 30px;
+	top: 20px;
+	right: 20px;
+	width: 34px;
+	height: 34px;
+}
+#dialog_search_part .mfp-close:hover, #small-dialog .mfp-close:hover {
+	color: #666;
+	transform: rotate(0);
+	background-color: #e4e4e4 !important;
+}
+#dialog_search_part .mfp-close::after, #dialog_search_part .mfp-close::before, #small-dialog .mfp-close::after, #small-dialog .mfp-close::before {
+	top: 0px;
+	height: 9px;
+	font-size: 21px;
+	transition: 0s;
+}
+#dialog_search_part, #small-dialog {
+	background: #ffffff;
+	padding:30px 20px;
+	padding-top: 0;
+	text-align: left;
+	max-width: 400px;
+	margin: 20px auto;
+	position: relative;
+	box-sizing: border-box;
+	border-radius: 4px;
+}
+#dialog_search_part {
+	max-width: 450px;
+}
+#dialog_search_part span.line, #small-dialog span.line {
+	padding-top: 0;
+}
+
+#dialog_search_part, #small-dialog {
+	background: #fff;
+	padding-top: 0;
+}
+#dialog_search_part .mfp-close, #small-dialog .mfp-close {
+	top: 15px;
+	right: 20px;
+	width: 40px;
+	height: 40px;
+}
+
+#dialog_search_part .mfp-close::after, #dialog_search_part .mfp-close::before, #small-dialog .mfp-close::after, #small-dialog .mfp-close::before {
+	top: 3px;	
+}
+
+
+
+
+#dialog_search_part form.col-md-12.filter-row {
+    display: flex;
+    flex-direction: column;
+}
+
+
+#dialog_search_part .sort-by.w-30.px-1 {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+
+#dialog_search_part .sort-by.w-30.px-1 input {
+    margin-bottom: 0;
+}
+
+
+#dialog_search_part .sort-by.w-30.px-1 select {
+    padding: 0;
+}
+
+.mfp-auto-cursor .mfp-content {
+    overflow: visible !important;
+}
+
+.mmenu-trigger.account a {
+    color: white;
+    font-size: 24px;
+}
+
+.mmenu-trigger.account {
+    margin-right: 15px;
+}
+
+@media screen and (min-width: 1024px){
+    .mmenu-trigger.account{
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 1024px){
+    .header-account-button{
+        display: none !important;
+    }
+}
+

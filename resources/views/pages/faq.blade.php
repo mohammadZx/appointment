@@ -20,8 +20,8 @@
   
   <section class="fullwidth_block margin-top-0 padding-top-0 padding-bottom-75" data-background-color="#fff"> 
 	 <div class="container"> 
-		<div class="row">
-			<div class="col-md-12">			  
+		<div class="row justify-center">
+			<div class="col-md-8">			  
 			  <div class="style-2">
 				<div class="accordion">
 				  <h3><span class="ui-accordion-header-icon ui-icon ui-accordion-icon"></span><i class="sl sl-icon-plus"></i> (1) How to Open an Account?</h3>
