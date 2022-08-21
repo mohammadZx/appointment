@@ -11,9 +11,7 @@
             <h4>{{__('app.pages.index.Main page sub title')}}</h4>
             <form action="{{route('listing.index')}}">
 				<div class="main_input_search_part">
-        <div class="main_input_search_part_item">
-							<input type="text" name="name" placeholder="{{__('app.Enter listing name')}}" value="">
-						</div>
+
 					<div class="main_input_search_part_item intro-search-field">
 						<select name="service" data-placeholder="{{__('app.pages.index.All category')}}" class="selectpicker default category" title="{{__('app.pages.index.All category')}}" data-live-search="true" data-selected-text-format="count" data-size="5">
 							@foreach($categories as $cat)
@@ -35,6 +33,18 @@
 				<button class="button">{{__('app.pages.index.Search')}}</button>
 				</div>
 			</form>
+      <form action="{{route('listing.index')}}">
+        <p class="or-search">{{__('app.Or search for listing name')}}</p>
+				<div class="main_input_search_part">
+          <div class="main_input_search_part_item">
+            <input type="text" name="name" placeholder="{{__('app.Enter listing name')}}" value="">
+          </div>
+          <button class="button">{{__('app.pages.index.Search')}}</button>
+				</div>
+			</form>
+      
+
+
             <div class="main_popular_categories">
 			  <h3>{{__('app.pages.index.Main page or sub title')}}</h3>
 

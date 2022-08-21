@@ -107,19 +107,19 @@
 			<input type="hidden" name="listing_id" value="{{$listing->id}}">
 
 			@if(auth()->check() && auth()->user()->listings->pluck('id')->contains($listing->id))
-			<div class="col-lg-12 col-md-12 select_name_box select_date_box margin-bottom-30">
+			<div class="col-md-12 select_name_box select_date_box margin-bottom-30">
               <input type="text" name="name" required class="booking-name" placeholder="{{__('app.Name')}}" >
 			  <i class="fa fa-user"></i>
             </div>
 
-			<div class="col-lg-12 col-md-12 select_phone_box select_date_box margin-bottom-30">
+			<div class="col-md-12 select_phone_box select_date_box margin-bottom-30">
               <input type="text" name="phone" required class="booking-phone" placeholder="{{__('app.Phone')}}">
 			  <i class="fa fa-phone"></i>
             </div>
 			@endif
 
       <div class="col-md-12"><label class="hint" for="apt-service">{!! __('app.1- First select one or two service') !!}</label></div>
-			<div class="col-lg-12 col-md-12 select_subservice_box margin-bottom-30">
+			<div class="col-md-12 select_subservice_box margin-bottom-30">
 				<select id="apt-service" name="service[]" required multiple  data-count-selected-text="{{__('app.Selected item {0}')}}"  data-placeholder="{{__('app.Choose items')}}" class="selectpicker default category" title="{{__('app.Choose items')}}" data-live-search="true" data-selected-text-format="count" data-size="5">
 					@foreach($listing->services as $service)
 						<option value="{{$service->subservice->id}}">{{$service->subservice->title}}</option>
@@ -127,33 +127,33 @@
 				</select>
 			</div>
       <div class="col-md-12"><label class="hint" for="date-picker">{!! __('app.2- Now select date to want set booking') !!}</label></div>
-            <div class="col-lg-12 col-md-12 select_date_box margin-bottom-30">
+            <div class="col-md-12 select_date_box margin-bottom-30">
               <input type="text" id="date-picker" name="date" required class="booking-date-picker" data-jdp placeholder="{{__('app.Select Date')}}" readonly="readonly">
 			  <i class="fa fa-calendar"></i>
             </div>
 
-            <div class="col-md-12"><label class="hint">{!! __('app.3- Now from the free times. select that what you want.') !!}</label></div>
-  		    <div class="col-lg-12 margin-bottom-30">
-				<div class="panel-dropdown time-slots-dropdown">
-					<a href="#">{{__('app.Choose Time Slot...')}}</a>
-					<div class="panel-dropdown-content padding-reset">
-						<div class="panel-dropdown-scrollable"></div>
-					</div>
-				</div>
+          <div class="col-md-12"><label class="hint">{!! __('app.3- Now from the free times. select that what you want.') !!}</label></div>
+            <div class="col-md-12 margin-bottom-30">
+              <div class="panel-dropdown time-slots-dropdown">
+                <a href="#">{{__('app.Choose Time Slot...')}}</a>
+                <div class="panel-dropdown-content padding-reset">
+                  <div class="panel-dropdown-scrollable"></div>
+                </div>
+            </div>
           </div>
 
-        <div class="col-lg-12 col-md-12 select_remember_box select_date_box ">
+        <div class="col-md-12 select_remember_box select_date_box ">
           <input type="number" name="remember" class="booking-name" placeholder="{{__('app.Remember time in minutes')}}" >
           <i class="fa fa-user"></i>
         </div>
-        <div class="col-lg-12 col-md-12 select_remember_box select_date_box ">
+        <div class="col-md-12 select_remember_box select_date_box ">
           <label for="">{{__('app.Detect we send message to you before minutes')}}</label>
         </div>
 
 
         
         @if($errors->any())
-				<div class="col-lg-12 col-md-12 errors alert alert-danger">
+				<div class="col-md-12 errors alert alert-danger">
 					<ul>
 								@foreach ($errors->all() as $error)
 									<li>{{ $error }}</li>
@@ -161,7 +161,7 @@
 					</ul>
 				</div>
         @else
-        <div class="col-lg-12 col-md-12 errors d-none alert alert-danger">
+        <div class="col-md-12 errors d-none alert alert-danger">
 					<ul></ul>
         </div>
         @endif

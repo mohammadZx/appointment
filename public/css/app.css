@@ -590,3 +590,11 @@ a.listing-address {
     }
 }
 
+.or-search{
+    text-align: center;
+    color: white !important;
+    margin-top: 10px;
+}
+.or-search + .main_input_search_part{
+    margin-top: 10px;
+} 

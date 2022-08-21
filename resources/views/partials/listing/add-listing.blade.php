@@ -25,7 +25,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="container">
      <form id="listing-manage" data-listing-id="{{$listing->id}}" class="row margin-bottom-15" data-type="{{$edit ? 'edit' : 'insert'}}" action="{{$route}}" method="POST">
       @csrf
@@ -44,11 +44,11 @@
                 <div class="col-md-6">
                   <h5>{{__('app.Category')}}</h5>
                   <div class="intro-search-field utf-chosen-cat-single">
-					  <select name="listing_category" required value="{{$listing->service_id}}" data-value="{{$listing->service_id}}" class="selectpicker default @error('listing_category') invalid @enderror" data-count-selected-text="{{__('app.Selected item {0}')}}" data-placeholder="{{__('app.Select Category')}}"  data-live-search="true"  data-selected-text-format="count" data-size="7" title="{{__('app.Select Category')}}">
+					  <select name="listing_category" required value="{{old('listing_category') ? old('listing_category') : $listing->service_id}}" data-value="{{old('listing_category') ? old('listing_category') : $listing->service_id}}" class="selectpicker default @error('listing_category') invalid @enderror" data-count-selected-text="{{__('app.Selected item {0}')}}" data-placeholder="{{__('app.Select Category')}}"  data-live-search="true"  data-selected-text-format="count" data-size="7" title="{{__('app.Select Category')}}">
 					  		@foreach($categories as $cat)
 								<optgroup label="{{$cat->title}}">
 									@foreach($cat->services as $service)
-										<option value="{{$service->id}}" @if($service->id == $listing->service_id) selected @endif>{{$service->title}}</option>
+										<option value="{{$service->id}}" @if($service->id == (old('listing_category') ? old('listing_category') : $listing->service_id)) selected @endif>{{$service->title}}</option>
 									@endforeach
 								</optgroup>
 							@endforeach					
@@ -60,21 +60,21 @@
                 </div>
                 <div class="col-md-6">
                   <h5>{{__('app.Listing title')}}</h5>
-                  <input type="text" class="search-field @error('listing_title') invalid @enderror" required name="listing_title" id="listing_title" placeholder="{{__('app.Listing title')}}" value="{{$listing->name}}">
+                  <input type="text" class="search-field @error('listing_title') invalid @enderror" required name="listing_title" id="listing_title" placeholder="{{__('app.Listing title')}}" value="{{old('listing_category') ? old('listing_title') : $listing->name}}">
                   @error('listing_title') 
                     <span class="invalid-messsage">{{$message}}</span>
                   @enderror
                 </div> 
                 <div class="col-md-6">
                   <h5>{{__('app.Flexibility mode')}}</h5>
-                  <input type="number" value="{{$listing->flexibility ? $listing->flexibility : null }}" class="search-field @error('flexibility') invalid @enderror" name="flexibility" id="flexibility" placeholder="{{__('app.Igonre interference for user in minute')}}">
+                  <input type="number" value="{{old('flexibility') ? old('flexibility') : ($listing->flexibility ? $listing->flexibility : null )}}" class="search-field @error('flexibility') invalid @enderror" name="flexibility" id="flexibility" placeholder="{{__('app.Igonre interference for user in minute')}}">
                   @error('flexibility') 
                     <span class="invalid-messsage">{{$message}}</span>
                   @enderror
                 </div> 
                 <div class="col-md-6">
                   <h5>{{__('app.Listing capacity')}}</h5>
-                  <input type="number" value="{{$listing->capacity ? $listing->capacity : null }}" class="search-field @error('listing_capacity') invalid @enderror" name="listing_capacity" id="listing_capacity" placeholder="{{__('app.Listing capacity')}}">
+                  <input type="number" value="{{old('listing_capacity') ? old('listing_capacity') : ($listing->capacity ? $listing->capacity : null) }}" class="search-field @error('listing_capacity') invalid @enderror" name="listing_capacity" id="listing_capacity" placeholder="{{__('app.Listing capacity')}}">
                   @error('listing_capacity') 
                     <span class="invalid-messsage">{{$message}}</span>
                   @enderror
@@ -83,7 +83,7 @@
 
                 <div class="col-md-4">
                   <h5>{{__('app.Listing fixed phone (optional)')}}</h5>
-                  <input type="number" class="search-field @error('fixed_phone') invalid @enderror" name="fixed_phone" id="fixed_phone" placeholder="02166934534" value="{{$listing->getMeta('fixed_phone', true)}}">
+                  <input type="number" class="search-field @error('fixed_phone') invalid @enderror" name="fixed_phone" id="fixed_phone" placeholder="02166934534" value="{{old('fixed_phone') ? old('fixed_phone') : $listing->getMeta('fixed_phone', true)}}">
                   @error('fixed_phone') 
                     <span class="invalid-messsage">{{$message}}</span>
                   @enderror
@@ -91,7 +91,7 @@
 
                 <div class="col-md-4">
                   <h5>{{__('app.Listing instagram (optional)')}}</h5>
-                  <input type="text" class="search-field @error('instagram') invalid @enderror" name="instagram" id="instagram" placeholder="https://instagram.com/test_page" value="{{$listing->getMeta('social_instagram', true)}}">
+                  <input type="text" class="search-field @error('instagram') invalid @enderror" name="instagram" id="instagram" placeholder="https://instagram.com/test_page" value="{{old('instagram') ? old('instagram') : $listing->getMeta('social_instagram', true)}}">
                   @error('instagram') 
                     <span class="invalid-messsage">{{$message}}</span>
                   @enderror
@@ -99,7 +99,7 @@
 
                 <div class="col-md-4">
                   <h5>{{__('app.Listing whatsapp (optional)')}}</h5>
-                  <input type="number" class="search-field @error('whatsapp') invalid @enderror" name="whatsapp" id="whatsapp" placeholder="09120000000" value="{{$listing->getMeta('social_whatsapp', true)}}">
+                  <input type="number" class="search-field @error('whatsapp') invalid @enderror" name="whatsapp" id="whatsapp" placeholder="09120000000" value="{{old('whatsapp') ? old('whatsapp') : $listing->getMeta('social_whatsapp', true)}}">
                   @error('whatsapp') 
                     <span class="invalid-messsage">{{$message}}</span>
                   @enderror
@@ -107,7 +107,7 @@
 
 
                 <div class="col-md-12">
-                <textarea name="content" class="@error('content') invalid @enderror" max="50000" placeholder="{{__('app.Listing Contenet')}}">{{$listing->content}}</textarea>
+                <textarea name="content" class="@error('content') invalid @enderror" max="50000" placeholder="{{__('app.Listing Contenet')}}">{{old('content') ? old('content') : $listing->content}}</textarea>
                 @error('content') 
                     <span class="invalid-messsage">{{$message}}</span>
                   @enderror
@@ -124,7 +124,7 @@
                   <div class="col-md-6">
                     <h5>{{__('app.City')}}</h5>
                   <div class="intro-search-field utf-chosen-cat-single">
-                    <select  name="city" value="{{$listing->city_id}}" data-value="{{$listing->city_id}}" required class="selectpicker default with-ajax city @error('city') invalid @enderror" data-placeholder="{{__('app.pages.index.City')}}" data-selected-text-format="count" data-size="7" data-live-search="true" title="{{__('app.pages.index.City')}}"></select>
+                    <select  name="city" value="{{old('city') ? old('city') : $listing->city_id}}" data-value="{{old('city') ? old('city') : $listing->city_id}}" required class="selectpicker default with-ajax city add @error('city') invalid @enderror" data-placeholder="{{__('app.pages.index.City')}}" data-selected-text-format="count" data-size="7" data-live-search="true" title="{{__('app.pages.index.City')}}"></select>
                     @error('city') 
                       <span class="invalid-messsage">{{$message}}</span>
                     @enderror
@@ -132,7 +132,7 @@
                   </div>                  
                   <div class="col-md-6">
                     <h5>{{__('app.Address')}}</h5>                    
-					            <input type="text" value="{{$listing->address}}" required class="input-text @error('address') invalid @enderror" name="address" id="address" placeholder="{{__('app.Address')}}" value="">
+					            <input type="text" value="{{old('address') ? old('address') : $listing->address}}" required class="input-text @error('address') invalid @enderror" name="address" id="address" placeholder="{{__('app.Address')}}" value="">
                       @error('address') 
                         <span class="invalid-messsage">{{$message}}</span>
                       @enderror
@@ -143,17 +143,17 @@
                     @if($edit && count(explode(',', $listing->getMeta('map', true))) == 2)
                       @php list($lat, $lon) = explode(',', $listing->getMeta('map', true)) @endphp
                       <div class="col-md-6">
-                      <input type="hidden" class="input-text" name="latitude" value="{{$lat}}"  id="latitude" placeholder="40.7324319" value="">
+                      <input type="hidden" class="input-text" name="latitude" value="{{old('latitude') ? old('latitude') : $lat}}"  id="latitude" placeholder="40.7324319" value="">
                     </div>
                     <div class="col-md-6">                    
-                      <input type="hidden" class="input-text" name="longitude" value="{{$lon}}" id="longitude" placeholder="-73.824807777775" value="">
+                      <input type="hidden" class="input-text" name="longitude" value="{{old('longitude') ? old('longitude') : $lon}}" id="longitude" placeholder="-73.824807777775" value="">
                     </div> 
                     @else
                     <div class="col-md-6">
-                      <input type="hidden" class="input-text" name="latitude"  id="latitude" placeholder="40.7324319" value="">
+                      <input type="hidden" class="input-text" name="latitude"  id="latitude" placeholder="40.7324319" value="{{old('latitude')}}">
                     </div>
                     <div class="col-md-6">                    
-                      <input type="hidden" class="input-text" name="longitude" id="longitude" placeholder="-73.824807777775" value="">
+                      <input type="hidden" class="input-text" name="longitude" id="longitude" placeholder="-73.824807777775" value="{{old('longitude')}}">
                     </div> 
                     @endif
                     
@@ -163,9 +163,9 @@
 					  <div id="utf_single_listing_map_block">
               @if($edit  && count(explode(',', $listing->getMeta('map', true))) == 2)
               @php list($lat, $lon) = explode(',', $listing->getMeta('map', true)) @endphp
-						  <div id="utf_single_listingmap" data-lat="{{$lat}}" data-lon="{{$lon}}"></div>
+						  <div id="utf_single_listingmap" data-lat="{{old('latitude') ? old('latitude') : $lat}}" data-lon="{{old('longitude') ? old('longitude') : $lon}}"></div>
             @else
-						  <div id="utf_single_listingmap" data-lat="35.715298" data-lon="51.404343"></div>
+						  <div id="utf_single_listingmap" data-lat="{{old('latitude') ? old('latitude') : 35.715298}}" data-lon="{{old('longitude') ? old('longitude') : 51.404343}}"></div>
             @endif
 					  </div>
 				  
@@ -208,7 +208,44 @@
               <div class="switcher-content"> 
               <table id="utf_hours_list_section">
                   <tbody class="ui-sortable">
-                    @if($edit)
+                    @if(old('worktimes'))
+                    @php $i = 1; @endphp
+                    @foreach(old('worktimes') as $time)
+                    <tr class="l-list-item pattern ui-sortable-handle">
+                      <td>
+                      <div class="fm-input pricing-name">
+                        <select name="worktimes[item_{{$i}}][workhours]" data-value="{{$time['workhours']}}" required>
+                            <option value="saturday">{{__('app.saturday')}}</option>
+                            <option value="sunday">{{__('app.sunday')}}</option>
+                            <option value="monday">{{__('app.monday')}}</option>
+                            <option value="tuesday">{{__('app.tuesday')}}</option>
+                            <option value="wednesday">{{__('app.wednesday')}}</option>
+                            <option value="thursday">{{__('app.thursday')}}</option>
+                            <option value="friday">{{__('app.friday')}}</option>
+                        </select>
+                      </div>
+                      <div class="fm-input pricing-ingredients">
+                          <select name="worktimes[item_{{$i}}][time_start]"  data-value="{{$time['time_start']}}" class="time-select" required>
+                            <option value="">{{__('app.Start time')}}</option>
+                          </select>
+                      </div>
+                      <div class="fm-input pricing-ingredients">
+                          <select name="worktimes[item_{{$i}}][time_end]" data-value="{{$time['time_end']}}" class="time-select" required>
+                            <option value="">{{__('app.End time')}}</option>
+                          </select>
+                      </div>
+                      <div class="fm-input d-none">
+                        <select  name="worktimes[item_{{$i}}][type]" data-value="{{$time['type']}}" required>
+                          <option value="main">{{__('app.Work time')}}</option>
+                          <option value="slot">{{__('app.Rest time')}}</option>
+                        </select>
+                      </div>
+                      <div class="fm-close"><a class="delete" href="#"><i class="fa fa-remove"></i></a></div></td>
+                    </tr>
+                    @php $i++; @endphp
+                    @endforeach
+
+                    @elseif($edit)
                     @php $i = 1; @endphp
                       @foreach($listing->times as $time)
                       <tr class="l-list-item pattern ui-sortable-handle">
@@ -294,7 +331,31 @@
 				  <div class="col-md-12">
 					<table id="utf_pricing_list_section">
 					  <tbody class="ui-sortable">
-            @if($edit)
+            @if(old('services'))
+
+                @php $i = 1; @endphp
+                  @foreach(old('services') as $service)
+                  <tr class="l-list-item pattern ui-sortable-handle">
+                    <td>
+                    <div class="fm-input pricing-name intro-search-field utf-chosen-service-single">
+                      <select name="services[item_{{$i}}][lilsting_services]" value="{{$service['lilsting_services']}}" class="default subservice" required data-placeholder="{{__('app.Select service')}}" >
+                          @foreach((\App\Models\SubService::find($service['lilsting_services']))->service->subservices as $services)
+                        <option value="{{$services->id}}" @if($services->id == $service['lilsting_services']) selected @endif>{{$services->title}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="fm-input pricing-ingredients">
+                      <input type="number" name="services[item_{{$i}}][time]" value="{{$service['time']}}" required placeholder="{{__('app.Time for every booking. on minute')}}">
+                    </div>
+                    <div class="fm-input pricing-price"><i class="data-unit">$</i>
+                      <input type="number" name="services[item_{{$i}}][price]" value="{{$service['price']}}" required placeholder="{{__('app.Price in ' . PRICE_UNIT_EN)}}" data-unit="$">
+                    </div>
+                    <div class="fm-close"><a class="delete" href="#"><i class="fa fa-remove"></i></a></div></td>
+                  </tr>
+                  @php $i++ @endphp
+                  @endforeach
+
+            @elseif($edit)
             @php $i = 1; @endphp
                   @foreach($listing->services as $service)
                   <tr class="l-list-item pattern ui-sortable-handle">

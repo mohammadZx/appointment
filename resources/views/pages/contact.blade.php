@@ -10,17 +10,27 @@
       <div class="col-md-8">
         <section id="contact" class="margin-bottom-70">
           <h4><i class="sl sl-icon-phone"></i> تماس با ما</h4>          
-          <form id="contactform">
+          <form action="{{route('contactpost')}}" method="post" id="contactform">
+            @csrf
             <div class="row">
               <div class="col-md-6">  
-				  <input name="name" type="text" placeholder="نام" required />                
+				  <input name="name" type="text" class="@error('name') invalid @enderror" placeholder="نام" value="{{old('name')}}" required />   
+          @error('name') 
+            <span class="invalid-messsage">{{$message}}</span>
+          @enderror             
               </div>
               <div class="col-md-6">                
-                  <input name="email" type="text" placeholder="تلفن" required />                
+                  <input name="phone" type="text" class="@error('phone') invalid @enderror" placeholder="تلفن" value="{{old('phone')}}" required />
+                  @error('phone') 
+                    <span class="invalid-messsage">{{$message}}</span>
+                  @enderror                 
               </div>
-			  <div class="col-md-12">
-				  <textarea name="comments" cols="40" rows="2" id="comments" placeholder="پیام شما" required></textarea>
-			  </div>
+			  <div class="col-md-12 margin-top-10">
+				  <textarea name="message" cols="40" rows="2" id="comments" class="@error('message') invalid @enderror" placeholder="پیام شما" required>{{old('phone')}}</textarea>
+          @error('message') 
+          <span class="invalid-messsage">{{$message}}</span>
+        @enderror  
+        </div>
             </div>            
             <input type="submit" class="submit button" id="submit" value="ارسال" />
           </form>

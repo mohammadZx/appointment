@@ -27,9 +27,10 @@
         $('#longitude').val(e.latlng.lng)
     }
 
-    $(".selectpicker.city").on('change', function(){
-        var lat = $('.selectpicker.city').find(":selected").data('lat');
-        var lon = $('.selectpicker.city').find(":selected").data('lon');
+    $(".selectpicker.city.add").on('change', function(){
+        var lat = $('.selectpicker.city.add').find(":selected").data('lat');
+        var lon = $('.selectpicker.city.add').find(":selected").data('lon');
+
         macarte.setView([lat, lon], 15)
         macarte.removeLayer(marker)
         marker = L.marker({lat, lon}).addTo(macarte)

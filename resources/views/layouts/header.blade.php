@@ -68,7 +68,29 @@
           </div>
           <div class="utf_signin_form style_one">
             <div class="tab_container alt"> 
-              @include('partials.global.filter', ['filters' => ['city', 'service','search'] , 'route' => route('listing.index')])
+              @include('partials.global.filter', ['filters' => ['city', 'service'] , 'route' => route('listing.index')])
+             
+
+         
+            <div class="listing-filter">
+                <div class="listing_filter_block">
+                <form action="{{route('listing.index')}}" class="col-md-12 filter-row">
+              
+                    <div class="sort-by w-30 px-1">
+                        <div class="utf_sort_by_select_item sort_by_margin">
+                            <input type="text" name="name" placeholder="{{__('app.Enter listing name')}}" value="">
+                        </div>
+                    </div>
+                
+                    <div class="sort-by px-1">
+                        <div class="col-md-12 centered_content"> <button class="button border">{{__('app.Apply')}}</button> </div>
+                    </div>
+                </form>
+              
+                </div>
+            </div>
+
+      
             </div>
           </div>
         </div>

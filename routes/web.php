@@ -10,6 +10,9 @@ use App\Http\Controllers\User\BookingController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\WishlistController;
+use App\Mail\ContactMail;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -93,3 +96,21 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function(){
 
 });
 
+
+
+
+Route::post('/contact', function(Request $req){
+    $req->validate([
+        'phone' => 'required|size:11',
+        'name' => 'required',
+        'message' => 'required'
+    ]);
+
+    Mail::to('info@ontime2.com')->send(new ContactMail($req->all()));
+
+    return redirect()->back()->with('message', [
+        'type' =>  'success',
+        'message' => 'اطلاعات شما با موفقیت ارسال شد'
+    ]);
+
+})->name('contactpost');
