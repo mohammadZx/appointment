@@ -213,7 +213,7 @@ function get_booking_times($date, $services, $listing_id, $appointment_id = null
     $timeSlots = $listing->times()->where('week_day', $day)->whereType('slot')->get();
     $services = $listing->services()->whereIn('sub_service_id', $services)->get();
     if($appointment_id){
-        $appointments = $listing->appointments()->selectRaw('*, count(*) as count')->where('id', '<>', $appointment_id)->where('date_start', 'LIKE', "%{$date}%")->where('status', 'none')->groupBy(DB::raw('CONCAT(date_start, "|", date_end) '))->get();
+        $appointments = $listing->appointments()->selectRaw('*, count(*) as count')->where('id', '<>', is_object($appointment_id) ? $appointment_id->id  : $appointment_id)->where('date_start', 'LIKE', "%{$date}%")->where('status', 'none')->groupBy(DB::raw('CONCAT(date_start, "|", date_end) '))->get();
     }else{
         $appointments = $listing->appointments()->selectRaw('*, count(*) as count')->where('date_start', 'LIKE', "%{$date}%")->where('status', 'none')->groupBy(DB::raw('CONCAT(date_start, "|", date_end) '))->get();
     }

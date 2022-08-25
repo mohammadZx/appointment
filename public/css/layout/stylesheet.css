@@ -16053,7 +16053,7 @@ li.total-costs .col-md-4 {
 .utf_dashboard_navigation.active ul, .utf_dashboard_navigation.active {
 	opacity: 1;
 	visibility: visible;
-	max-height: 900px;	
+	max-height: 1500px;	
 }
 .utf_dashboard_navigation ul, .utf_dashboard_navigation.active ul li ul, .utf_dashboard_navigation ul li ul {
 	visibility: hidden;

@@ -59,7 +59,7 @@
         @endphp
         Swal.fire({
             icon: '{{$message['type']}}',
-            text: '{{$message['message']}}',
+            html: '{!! $message['message'] !!}',
             confirmButtonText: 'خروج',
           })
     @endif

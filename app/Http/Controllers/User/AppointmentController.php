@@ -22,22 +22,42 @@ class AppointmentController extends Controller
     public function index()
     {
         $user = auth()->user();
+        $date = date('Y-m-d');
 
-        $pipelines = app(Pipeline::class)
-        ->send(Appointment::query())
-        ->through([
-            new \App\QueryFilters\AptDate(Appointment::class),
-            new \App\QueryFilters\AptStatus(Appointment::class),
-        ])
-        ->thenReturn();
+        $dateBooks = Appointment::selectRaw('DATE_FORMAT(appointments.date_start, "%Y-%m-%d") as date ,sub_services.title as title, count(*) as count ')
+        ->leftJoin('relationships', 'appointments.id', '=' , 'relationships.obj_id')
+        ->leftJoin('sub_services', 'relationships.target_id', '=' , 'sub_services.id')
+        ->whereRaw("DATE_FORMAT(appointments.date_start, '%Y-%m-%d') >= '$date'")
+        ->where('relationships.target_type', 'App\Models\Appointment')
+        ->whereHas('listing', function($q) use($user){
+            $q->where('listings.user_id', $user->id);
+        })
+        ->groupByRaw('DATE_FORMAT(appointments.date_start, "%Y-%m-%d"), sub_services.title')
+        ->orderBy('appointments.date_start', 'ASC')->get();
+
+
+        if(!request()->has('stauts') && !request()->has('date')){
+            
+            $pipelines = Appointment::query()->where('date_start', 'LIKE', "%{$date}%");
+        }else{
+                $pipelines = app(Pipeline::class)
+                ->send(Appointment::query())
+                ->through([
+                    new \App\QueryFilters\AptDate(Appointment::class),
+                    new \App\QueryFilters\AptStatus(Appointment::class),
+                ])
+                ->thenReturn();
+        }
+        
 
         $appointments = $pipelines->whereHas('listing', function($q) use($user){
             $q->where('listings.user_id', $user->id);
-        })->orderBy('appointments.id', 'DESC')->paginate(PREPAGE);
+        })->orderByRaw('ABS(DATEDIFF(date_start, NOW()))')->paginate(PREPAGE);
 
         $appointments->appends(request()->query());
         return view('user.appointments', [
             'appointments' => $appointments,
+            'dateBooks' => $dateBooks
         ]);
 
     }
@@ -185,19 +205,19 @@ class AppointmentController extends Controller
 
         // Change time if listing owner want to customize
         if($minutes > 0){
-            $appointmentToNotify = $appointment->listing->appointments()->whereIn('status', [AppointmentStatusEnum::NONE, AppointmentStatusEnum::APPROVE])
-            ->where('date_start' , '>' , date('Y-m-d H:i:s'))
-            ->where('id' , '<>' , $appointment->id)
-            ->limit($request->much > 1 ? $request->much : 1)
-            ->get();
+            // $appointmentToNotify = $appointment->listing->appointments()->whereIn('status', [AppointmentStatusEnum::NONE, AppointmentStatusEnum::APPROVE])
+            // ->where('date_start' , '>' , date('Y-m-d H:i:s'))
+            // ->where('id' , '<>' , $appointment->id)
+            // ->limit($request->much > 1 ? $request->much : 1)
+            // ->get();
 
-            foreach($appointmentToNotify as $apt){
-                if(!$apt->getMeta('late_origin_date', true)) $apt->setMeta('late_origin_date',  $apt->date_start .'|'. $apt->date_end , 0, true);
-                $apt->update([
-                    'date_start' => toGregorian($apt->date_start->addMinutes($minutes)->format('Y-m-d H:i:s')) ,
-                    'date_end' => $apt->date_end->addMinutes($minutes)->format('Y-m-d H:i:s')
-                ]);
-            }
+            // foreach($appointmentToNotify as $apt){
+            //     if(!$apt->getMeta('late_origin_date', true)) $apt->setMeta('late_origin_date',  $apt->date_start .'|'. $apt->date_end , 0, true);
+            //     $apt->update([
+            //         'date_start' => toGregorian($apt->date_start->addMinutes($minutes)->format('Y-m-d H:i:s')) ,
+            //         'date_end' => $apt->date_end->addMinutes($minutes)->format('Y-m-d H:i:s')
+            //     ]);
+            // }
 
         }
 
@@ -268,6 +288,36 @@ class AppointmentController extends Controller
             
             $appointmentToNotify->setMeta('send_its_time_sms', true, 0, true);
         }
+    }
+
+
+    public function takeGap(Request $request){
+        $request->validate([
+            'minutes' => 'required|min:1'
+        ]);
+        $user = auth()->user();
+
+
+        $appointment= Appointment::whereIn('status', [AppointmentStatusEnum::NONE, AppointmentStatusEnum::APPROVE])
+        ->where('date_start' , '>' , date('Y-m-d H:i:s'))
+        ->whereHas('listing', function($q) use($user){
+            $q->where('listings.user_id', $user->id);
+        })
+        ->orderByRaw('ABS(DATEDIFF(date_start, NOW()))')
+        ->first();
+
+
+        $appointment->update([
+            'date_start' => toGregorian($appointment->date_start->addMinutes($request->minutes)->format('Y-m-d H:i:s')) ,
+            'date_end' => $appointment->date_end->addMinutes($request->minutes)->format('Y-m-d H:i:s')
+        ]);
+        
+        $this->changeTimesForOtherAppointment($appointment, $request->minutes);
+        return redirect()->back()->with('message', [
+            'type' => 'success',
+            'message' => __('app.The gap successfully added')
+        ]);
+
     }
 
 }

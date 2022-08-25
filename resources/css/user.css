@@ -69,3 +69,30 @@ ul.admin.user-cities .changestatus-appointment * {
     color: orangered !important;
     font-size: 12px;
 }
+
+
+@media screen and (max-width: 991px){
+  .utf_dashboard_navigation.active ul, .utf_dashboard_navigation.active {
+      max-height: 1800px !important;
+  }
+}
+
+
+
+.appointmentstable th {
+    text-align: revert;
+}
+
+.appointmentstable.table {
+    background: white;
+    border-radius: 5px !important;
+    border: 1px solid #ccce;
+}
+
+.apt-filter .listing_filter_block{
+    margin-bottom: 0 !important;
+}
+
+select[name="aptstatus"] {
+    padding: 0;
+}
