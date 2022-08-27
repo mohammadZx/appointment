@@ -598,3 +598,58 @@ a.listing-address {
 .or-search + .main_input_search_part{
     margin-top: 10px;
 } 
+
+
+#navigation.style_one ul a{
+    padding: 5px 0px 15px 0px;
+    font-size: 15px;
+}
+
+
+
+.user-navigate-index a.utf_dashboard_nav_responsive {
+    margin-top: 0 !important;
+}
+
+@media screen and (min-width: 990px){
+    .user-navigate-index{
+        display: none;
+    }
+}
+
+
+.user-navigate-index  a.utf_dashboard_nav_responsive {
+    font-size: 14px;
+}
+
+a.utf_dashboard_nav_responsive {
+    height: fit-content;
+}
+
+#dashboard{
+    min-height: fit-content;
+}
+.close-list-item{
+    left: 0 !important;
+}
+
+ul.user-wishlists * {
+    font-size: 12px !important;
+}
+
+ul.user-wishlists form.close-list-item {
+    margin-left: 10px;
+}
+
+ul.user-wishlists li {
+    padding-left: 55px;
+}
+
+
+span.status {
+    display: block;
+    width: fit-content;
+}
+.buttons-to-right form {
+    margin-top: 10px;
+}

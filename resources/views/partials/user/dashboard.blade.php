@@ -7,7 +7,9 @@
 		  <li><a href="{{route('user.listing.index')}}"><i class="sl sl-icon-layers"></i> {{__('app.My Listings')}}</a></li>		  		 
 		  <li><a href="{{route('user.listing.create')}}"><i class="sl sl-icon-layers"></i> {{__('app.Add listing')}}</a></li>		  		 
 		  <li><a href="{{route('user.booking.index')}}"><i class="sl sl-icon-docs"></i> {{__('app.Bookings')}}</a></li>		                                             		 
+		  @if(auth()->user()->listings->count() > 0) 
 		  <li><a href="{{route('user.appointment.index')}}"><i class="sl sl-icon-docs"></i> {{__('app.Appointment')}}</a></li>		                                             		 
+		@endif 
 		  <li><a href="{{route('user.profile')}}"><i class="sl sl-icon-user"></i> {{__('app.My Profile')}}</a></li>
 		  <li><a href="{{route('user.wishlist.index')}}"><i class="sl sl-icon-heart"></i> {{__('app.Wishlists')}}</a></li>
           <li><form action="{{route('logout')}}" method="post" style="padding: 15px;">
