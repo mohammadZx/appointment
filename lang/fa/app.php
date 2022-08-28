@@ -230,7 +230,7 @@ return [
     'The gap successfully added' => 'فاصله زمانی با موفقیت ایجاد شد',
     'Gap in minute' => 'وقفه به دقیقه',
     'Add time gap' => 'اعمال وقفه',
-    '' => '',
+    'How mutch late in minutes?' => 'چند دقیقه تاخیر اعمال شود. (به دقیقه)',
     '' => '',
     '' => '',
     '' => '',

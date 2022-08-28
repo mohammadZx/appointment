@@ -192,6 +192,17 @@ class AppointmentController extends Controller
         if($request->send_time_sms) $this->notifyTime($appointment);
         
 
+        // Default set late to other in minutes
+        if($request->muchlate && $request->muchlate >= 0){
+
+            $this->changeTimesForOtherAppointment($appointment, $request->muchlate);
+            return redirect()->back()->with('message', [
+                'type' => 'success',
+                'message' => __('app.Item successfully updated')
+            ]);
+        }
+
+
         // Default change all time lates for next bookings in a listing
         if(!$request->inform_other && $minutes > 0){
 

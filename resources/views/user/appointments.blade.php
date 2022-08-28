@@ -58,18 +58,20 @@
                   <button class="button margin-right-10">انجام</button>
                   <a href="{{route('user.appointment.edit', $appointment->id)}}" class="button button margin-right-10"><span class="im im-icon-Pen-4"></span></a>
               </form>
-              @if($appointment->status->value != 'finish')
+              @if($appointment->status->value != 'finish' && strtotime(toGregorian($appointment->date_start)) < time())
               <form class="finish-appintment" action="{{route('user.appointment.finish', $appointment->id)}}" method="POST">
                 @csrf
                 <div class="row margint-top-10 margin-bottom-10">
-                  <div class="col-md-10">
-                    <input value="true" id="late-{{$appointment->id}}" name="inform_other" type="checkbox">
-                    <label for="late-{{$appointment->id}}">{{__('app.If you want to inform other appointments check it')}}</label>
+                  <div class="col-md-10 d-none">
+                    <input class="d-none" value="true" id="late-{{$appointment->id}}" name="inform_other" type="checkbox">
+                    <label class="d-none" for="late-{{$appointment->id}}">{{__('app.If you want to inform other appointments check it')}}</label>
                     <br>
-                    <input value="true" id="send-{{$appointment->id}}" name="send_time_sms" type="checkbox">
-                    <label for="send-{{$appointment->id}}">{{__('app.If you want to notify next appointment check it')}}</label>
+                    <input class="d-none" value="true" checked id="send-{{$appointment->id}}" name="send_time_sms" type="checkbox">
+                    <label class="d-none" for="send-{{$appointment->id}}">{{__('app.If you want to notify next appointment check it')}}</label>
                   </div>
-                  <div class="col-md-3 padding-0 d-none"><input type="number" name="much" placeholder="{{__('app.How many appointment get to defer?')}}"></div>
+                  <div class="col-md-6"></div>
+                  <div class="col-md-4 padding-0 d-none"><input type="number" name="much" placeholder="{{__('app.How many appointment get to defer?')}}"></div>
+                  <div class="col-md-4 padding-0"><input type="number" name="muchlate" placeholder="{{__('app.How mutch late in minutes?')}}"></div>
                   <div class="col-md-2"><button class="button btn-success">{{__('app.Finish appointment')}}</button></div>
                 </div>
               </form>

@@ -653,3 +653,9 @@ span.status {
 .buttons-to-right form {
     margin-top: 10px;
 }
+
+
+
+.bs-searchbox input.form-control {
+    margin-bottom: 5px !important;
+}
