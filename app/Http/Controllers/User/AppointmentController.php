@@ -292,9 +292,9 @@ class AppointmentController extends Controller
 
         if($appointmentToNotify){
             if($appointmentToNotify->name && $appointmentToNotify->phone){
-                $sms = @BaseSms::sms('melipayamak')->sendByBodyId($appointmentToNotify->phone, 96043, "{$appointmentToNotify->name};{$appointmentToNotify->listing->name}");
+                $sms = @BaseSms::sms('ghasedak')->sendByBodyId($appointmentToNotify->phone, 'ontime', "{$appointmentToNotify->name};{$appointmentToNotify->listing->name}");
             }else{
-                $sms = @BaseSms::sms('melipayamak')->sendByBodyId($appointmentToNotify->user->phone, 96043, "{$appointmentToNotify->user->name};{$appointmentToNotify->listing->name}");
+                $sms = @BaseSms::sms('ghasedak')->sendByBodyId($appointmentToNotify->user->phone, 'ontime', "{$appointmentToNotify->user->name};{$appointmentToNotify->listing->name}");
             }
             
             $appointmentToNotify->setMeta('send_its_time_sms', true, 0, true);

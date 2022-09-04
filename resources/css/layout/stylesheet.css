@@ -1143,7 +1143,6 @@ body #utf_panel_menu li li li a {
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: 50%;
-	height: 620px;
 	z-index: 9;
 }
 .search_container_block:before {
@@ -1214,10 +1213,7 @@ body #utf_panel_menu li li li a {
   Main Inner Search Block
 ============*/
 .main_inner_search_block {
-	position: relative;
 	display: block;
-	top: 50%;
-	transform: translate(0, -50%);
 	padding-bottom: 30px;
 }
 .main_inner_search_block select {
@@ -15851,9 +15847,6 @@ h4 span.headline_part-detail {
 .utf_dashboard_stat_icon {
 	font-size: 40px;
 }
-.search_container_block {
-	height: 575px;
-}
 }
 @media only screen and (max-width: 1365px) {
 header.fullwidth_block.dashboard .container {
@@ -15992,14 +15985,8 @@ header.fullwidth_block.dashboard .container {
 }	
 }
 @media (max-width: 991px) {
-.search_container_block {
-	height: 680px;
-}
 .main_input_search_part{
 	margin-top:30px;
-}
-.main_inner_search_block {
-	top:53%
 }
 .main_popular_categories_list{
 	padding-left:0;
@@ -16079,9 +16066,6 @@ li.total-costs .col-md-4 {
 }
 header.fullwidth_block.dashboard .container {
 	padding: 0 5%;
-}
-.main_inner_search_block {
-	transform: translate(0, -51%);
 }
 a.utf_dashboard_nav_responsive {
 	width: 90%;
@@ -17053,12 +17037,6 @@ h4.headline {
 }
 }
 @media (max-width: 639px){
-.search_container_block {
-    height: 1000px;
-}
-.main_search_block {
-    height: 680px;
-}
 ul.main_popular_categories_list li a{
 	width:130px;
 	height:100px
@@ -17074,9 +17052,6 @@ ul.main_popular_categories_list li a{
 }
 .main_popular_categories{
 	margin-top:20px;
-}
-.main_inner_search_block {
-    top: 51%;
 }
 ul.main_popular_categories_list{
 	padding-left:0;
@@ -17371,14 +17346,6 @@ ul.main_popular_categories_list{
 }	
 .dashboard_notifi_dropdown {
     right: -300px;	
-}
-.home_main_search_part {
-    height: 850px;
-}
-}
-@media only screen and (max-width:479px) {
-.home_main_search_part {
-	height: 1120px;
 }
 }
 @media only screen and (max-width: 365px) {

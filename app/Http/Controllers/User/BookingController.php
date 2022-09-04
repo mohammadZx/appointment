@@ -135,9 +135,9 @@ class BookingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Appointment $appointment)
+    public function destroy(Appointment $booking)
     {
-        $appointment->delete();
+        $booking->delete();
         return redirect()->back()->with('message' , [
             'type' => 'success',
             'message' => 'مورد با موفقیت حذف شد'

@@ -20,42 +20,45 @@
   
   <section class="fullwidth_block margin-top-0 padding-top-0 padding-bottom-75" data-background-color="#fff"> 
 	 <div class="container"> 
-		<div class="row justify-center">
+		<div class="row  justify-center">
 			<div class="col-md-8">			  
 			  <div class="style-2">
 				<div class="accordion">
-				  <h3><span class="ui-accordion-header-icon ui-icon ui-accordion-icon"></span><i class="sl sl-icon-plus"></i> (1) How to Open an Account?</h3>
+				  <h3><span class="ui-accordion-header-icon ui-icon ui-accordion-icon"></span><i class="sl sl-icon-plus"></i>حالت منعطف چیست؟</h3>
 				  <div>
-					<p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					<p>حالت منعطف برای زمانی است که صاحب کسبو کار  چندین خدمت رو اراعه میده و ممکنه زمان های کاری که صاحب کسبو کار مشخص کرده به زمان مشخص شده  خدمات بخش پذیر نباشه.
+بنابر این صاحب کسبو کار  باوارد کردن این عدد به سیستم دستور میده تا چه مقدار اجازه داره ساعت های کاری رو بیشتر کنه تا اعداد به هم بخش پذیر بشن و تمام ساعت های کاری نوبت دهی بشه  و زمان خالی باقی نمونه. 
+🛑دقت کنید که اگر این مقدار رو زیاد وارد کنید سیستم ساعت های کاری شمارو به همون مقدار بیشتر میکنه و نوبت دهی  میکنه!</p>
 				  </div>
-				  <h3><span class="ui-accordion-header-icon ui-icon ui-accordion-icon"></span><i class="sl sl-icon-plus"></i> (2) How to Add Listing?</h3>
+				  <h3><span class="ui-accordion-header-icon ui-icon ui-accordion-icon"></span><i class="sl sl-icon-plus"></i>سایت آنتایم تو برای چه کسانی طراحی شده است؟</h3>
 				  <div>
-					<p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					<p>اگر از انتظار کشید در مکان های شلوغ و کسل کنند خسته شده اید. 
+ میخواهید ازادی عمل داشته باشید به کار های خود رسیدگی کنید و در عین حال از نوبت خود لحظه به لحظه باخبر باشید. 
+ زمان درست و به موقع بدونه معطلی درمحلی که نوبت گرفتید حاظر شوید. 
+سایت آنتایم تو دقیقا برای شما طراحی شده است!
+<br>
+همچنین برای صاحبین کسبو کار هایی که رفاه و آرامش مشتریانشان اولویت کار آنهاس و به دنبال راهی آسان و بدونه هزینه برای بالا بردن کیفیت خدمات خود هستند
+<br>
+آنتایم تو باهدف جلو گیری از اطلاف وقت و به ارمغان آوردن محیط کاری منظم و با کیفیت برای هم وطنان عزیز خدمات خود را اراعه میکند.</p>
 				  </div>
-				  <h3><span class="ui-accordion-header-icon ui-icon ui-accordion-icon"></span><i class="sl sl-icon-plus"></i> (3) What is Featured Listing?</h3>
+				  <h3><span class="ui-accordion-header-icon ui-icon ui-accordion-icon"></span><i class="sl sl-icon-plus"></i> پیامک اطلاع رسانی چیست؟</h3>
 				  <div>
-					<p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					<p>پیامک اطلاع رسانی برای آرامش خاطر کاربران عزیز و اراعه هرچه بهتر خدمات سایت آنتایم تو  تعبیه شده است. 
+برای استفاده درست از این ابزار شما میتوانید مقدار زمانی که طول میکشد تا به محل اراعه خدمت برسید رو وارد کنید. 
+ما در زمان درست به شما اطلاع رسانی میکنیم تا به موقع حرکت کنید و آنتایم سر نوبت خود حضور پیدا کنیدو با خیال آسوده از اراعه خدمات لذت ببرید.</p>
 				  </div>				  
-				  <h3><span class="ui-accordion-header-icon ui-icon ui-accordion-icon"></span><i class="sl sl-icon-plus"></i> (4) Include Real Frequently Asked Questions?</h3>
+				  <h3><span class="ui-accordion-header-icon ui-icon ui-accordion-icon"></span><i class="sl sl-icon-plus"></i> دکمه اتمام کار رزرو چیست؟</h3>
 				  <div>
-					<p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					<p>مهم ترین قسمت برای مدیریت درست نوبت ها دکمه اتمام کار رزرو است.
+این دکمه تایین کننده این هست که نوبت ها چه مقدار تاخیر میخورند ویا تاخیری اعمال نشود بنابر این باید خیلی به موقع و با دقت این دکمه رو صاحب کسبو کار زمانی بزنه  که نوبت فعلی تمام میشه و میخواد نوبت بعدی رو صدا بزنه. 
+<br>
+زمانی که دکمه زده میشه سیستم برای نفر بعد پیامک ارسال میکنه و تایین میکنه نوبت های بعدی چه مقدار عقب برن. 
+<br>
+همچنین قسمتی در کنار این دکمه قرار داده شده تا کاملا صاحب کسبو کار کنترول نوبت هارو در دست داشته باشه به این صورت که  میتونه مشخص کنه نوبت های بعدی طبق تشخیص سیستم عقب برن یا مقداری که صاحب کسبو کار تشخیص میده. 
+در واقع کنترول نوبت ها هم دستی میتونه اتفاق بیوفته هم اتوماتیک و فقط با زدن یک دکمه. 
+<br>
+🛑دقت کنید که دقیقا زمانی باید این دکمه زده بشه که نوبت فعلی تمام شده و نفر بعدی رو صاحب کسبو کار میخواد  جایگزین کنه،در غیر این صورت محاسبات سیستم اشتباه انجام میشه و نوبت ها بیشتر از نیاز عقب میرن بنابر این در مواقعی که صاحب کسبو کار فراموش کرد این دکمه رو درزمان تعویض نوبت ها بزنه لازمه زمانی که نوبت قبلی تمام شد رو بدونه و بصورت دستی مقدار عقب رفتن نوبت های بعدی رو وارد کنه.</p>
 				  </div>
-				  <h3><span class="ui-accordion-header-icon ui-icon ui-accordion-icon"></span><i class="sl sl-icon-plus"></i> (5) Make Sure you Really Need a FAQ?</h3>
-				  <div>
-					<p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-				  </div>
-				  <h3><span class="ui-accordion-header-icon ui-icon ui-accordion-icon"></span><i class="sl sl-icon-plus"></i> (6) Keep it Short and Simple?</h3>
-				  <div>
-					<p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-				  </div>
-				  <h3><span class="ui-accordion-header-icon ui-icon ui-accordion-icon"></span><i class="sl sl-icon-plus"></i> (7) How Can My Business Be Found in Local Search?</h3>
-				  <div>
-					<p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-				  </div>
-				  <h3><span class="ui-accordion-header-icon ui-icon ui-accordion-icon"></span><i class="sl sl-icon-plus"></i> (8)  Why is it Important to Claim My Local Business Listings?</h3>
-				  <div>
-					<p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-				  </div>	
 				</div>
 			  </div>
 			</div>

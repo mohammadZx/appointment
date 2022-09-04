@@ -21,13 +21,13 @@ class NotifyAppointmentController extends Controller
 
           foreach($appointments as $appointment){
             if($appointment->name && $appointment->phone){
-                $sms = BaseSms::sms('melipayamak')->sendByBodyId($appointment->phone, 95448, "{$appointment->name};{$appointment->listing->name};{$appointment->date_start}");
+                $sms = BaseSms::sms('ghasedak')->sendByBodyId($appointment->phone, 'remember', "{$appointment->name};{$appointment->listing->name};{$appointment->date_start}");
             }else{
-                $sms = BaseSms::sms('melipayamak')->sendByBodyId($appointment->user->phone, 95448, "{$appointment->user->name};{$appointment->listing->name};{$appointment->date_start}");
+                $sms = BaseSms::sms('ghasedak')->sendByBodyId($appointment->user->phone, 'remember', "{$appointment->user->name};{$appointment->listing->name};{$appointment->date_start}");
             }
         }
 
-
+        return;
 
         // Notify now
         $appointments = Appointment::whereRaw("

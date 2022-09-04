@@ -211,7 +211,7 @@ return [
     'Edit user' => 'ویرایش کاربر',
     '1- First select one or two service' => '<span class="num">1</span> ابتدا یک خدمت رو انتخاب کنید',
     '2- Now select date to want set booking' => '<span class="num">2</span> روزی که می خواهید در آن نوبت بگیرید را انتخاب کنید',
-    '3- Now from the free times. select that what you want.' => '<span class="num">3</span> از بین زمان های خالی یکی را اتخاب نمایید',
+    '3- Now from the free times. select that what you want.' => '<span class="num">3</span> از بین زمان های خالی یکی را انتخاب نمایید',
     'Dont choose past time' => 'لطفا از یک زمان معتبر استفاده کنید',
     'If you want to notify next appointment check it' => 'اگر میخواهید به نفر بعد اطلاع رسانی شود',
     'You appointment was late {0} minut by owner' => 'نوبت شما توسط صاحب کسب و کار {0} دقیقه تاخیر یافت',

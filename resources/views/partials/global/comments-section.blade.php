@@ -8,7 +8,7 @@
         <div class="avatar"><img src="{{get_user_avatar($comments->user->getMeta('user_avatar', true))}}" alt="" /></div>
         <div class="utf_comment_content">
             <div class="utf_arrow_comment"></div>
-            <div class="utf_star_rating_section" data-rating="5"></div>                  
+            <div class="utf_star_rating_section" data-rating="{{$comments->rate}}"></div>                  
             <div class="utf_by_comment">{{$comments->user->name}}<span class="date"><i class="fa fa-clock-o"></i> {{$comments->created_at}}</span> </div>
             <p>{{$comments->content}}</p>                                    
         </div>
