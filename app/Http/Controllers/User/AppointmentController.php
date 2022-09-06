@@ -192,17 +192,17 @@ class AppointmentController extends Controller
         if($request->send_time_sms) $this->notifyTime($appointment);
         
 
-        // Default set late to other in minutes
+      
+      	// Default set late to other in minutes
         if($request->muchlate && $request->muchlate >= 0){
-
             $this->changeTimesForOtherAppointment($appointment, $request->muchlate);
             return redirect()->back()->with('message', [
                 'type' => 'success',
                 'message' => __('app.Item successfully updated')
             ]);
         }
-
-
+      
+      
         // Default change all time lates for next bookings in a listing
         if(!$request->inform_other && $minutes > 0){
 
@@ -212,7 +212,7 @@ class AppointmentController extends Controller
                 'message' => __('app.Item successfully updated')
             ]);
         }
-
+      
 
         // Change time if listing owner want to customize
         if($minutes > 0){
@@ -286,11 +286,20 @@ class AppointmentController extends Controller
      * @param object $appointment
      */
     public function notifyTime($appointment){
+      	$dd = $appointment->date_end->format('Y-m-d');
         $appointmentToNotify =$appointment->listing->appointments()->where('status', AppointmentStatusEnum::NONE)
         ->where('date_start' , '>=' , $appointment->date_end)
+        ->where('id' , '<>' , $appointment->id)
+        ->where('date_start' , 'LIKE' , "%{$dd}%")
+        ->orderByRaw('ABS(DATEDIFF(date_start, NOW()))')
         ->first();
-
-        if($appointmentToNotify){
+	
+      	$gap = date_diff_minut(
+               	date('Y-m-d H:i:s'),
+                toGregorian($appointmentToNotify->date_start)
+        );
+      
+        if($gap <= 5){
             if($appointmentToNotify->name && $appointmentToNotify->phone){
                 $sms = @BaseSms::sms('ghasedak')->sendByBodyId($appointmentToNotify->phone, 'ontime', "{$appointmentToNotify->name};{$appointmentToNotify->listing->name}");
             }else{
@@ -307,13 +316,14 @@ class AppointmentController extends Controller
             'minutes' => 'required|min:1'
         ]);
         $user = auth()->user();
-
+		$dd = date('Y-m-d');
 
         $appointment= Appointment::whereIn('status', [AppointmentStatusEnum::NONE, AppointmentStatusEnum::APPROVE])
         ->where('date_start' , '>' , date('Y-m-d H:i:s'))
         ->whereHas('listing', function($q) use($user){
             $q->where('listings.user_id', $user->id);
         })
+        ->where('date_start' , 'LIKE' , "%{$dd}%")
         ->orderByRaw('ABS(DATEDIFF(date_start, NOW()))')
         ->first();
 

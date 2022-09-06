@@ -310,5 +310,10 @@ function date_diff_minut($date1, $date2){
     $minutes += $since_start->h * 60;
     $minutes += $since_start->i;
 
+    
+	if(strtotime($date1) > strtotime($date2)){
+    	return -$minutes;
+    }
+    
     return $minutes;
 }
