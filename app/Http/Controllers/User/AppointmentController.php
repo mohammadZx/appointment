@@ -253,7 +253,7 @@ class AppointmentController extends Controller
      *  @param object $appointment
      *  @param integer $minutes
      */
-    public function changeTimesForOtherAppointment($appointment, $minutes, $before = []){
+    public function changeTimesForOtherAppointment($appointment, $minutes, $addLateFirst = false, $before = []){
         $date = $appointment->date_end->addMinutes($minutes)->format('Y-m-d H:i:s');
         $dd = $appointment->date_end->addMinutes($minutes)->format('Y-m-d');
         $before[] = $appointment->id;
@@ -263,20 +263,21 @@ class AppointmentController extends Controller
             ->where('date_start' , 'LIKE' , "%{$dd}%")
             ->whereNotIn('id' , $before)
             ->first();
+      
+      if($addLateFirst){
+        if(!$appointment->getMeta('late_origin_date', true)) $appointment->setMeta('late_origin_date',  $appointment->date_start .'|'. $appointment->date_end , 0, true);
+        $appointment->update([
+          'date_start' => toGregorian($appointment->date_start->addMinutes($minutes)->format('Y-m-d H:i:s')) ,
+          'date_end' => $appointment->date_end->addMinutes($minutes)->format('Y-m-d H:i:s')
+        ]);
+      }
 
         if($appointmentToChange){
             // $minutes -= date_diff_minut(
             //     $appointment->date_end->addMinutes($minutes)->format('Y-m-d H:i:s'),
             //     toGregorian($appointmentToChange->date_start)
             // );
-    
-            if(!$appointmentToChange->getMeta('late_origin_date', true)) $appointmentToChange->setMeta('late_origin_date',  $appointmentToChange->date_start .'|'. $appointmentToChange->date_end , 0, true);
-            $appointmentToChange->update([
-                'date_start' => toGregorian($appointmentToChange->date_start->addMinutes($minutes)->format('Y-m-d H:i:s')) ,
-                'date_end' => $appointmentToChange->date_end->addMinutes($minutes)->format('Y-m-d H:i:s')
-            ]);
-
-            $this->changeTimesForOtherAppointment($appointmentToChange, $minutes, $before);
+            $this->changeTimesForOtherAppointment($appointmentToChange, $minutes, true, $before);
         }
     }
 
@@ -317,23 +318,24 @@ class AppointmentController extends Controller
         ]);
         $user = auth()->user();
 		$dd = date('Y-m-d');
-
+		$gap = Carbon::now()->addMinute($request->minutes)->format('Y-m-d H:i:s');
+      
         $appointment= Appointment::whereIn('status', [AppointmentStatusEnum::NONE, AppointmentStatusEnum::APPROVE])
-        ->where('date_start' , '>' , date('Y-m-d H:i:s'))
+        ->where('date_start' , '<=' , $gap)
         ->whereHas('listing', function($q) use($user){
             $q->where('listings.user_id', $user->id);
         })
         ->where('date_start' , 'LIKE' , "%{$dd}%")
         ->orderByRaw('ABS(DATEDIFF(date_start, NOW()))')
         ->first();
-
-
-        $appointment->update([
-            'date_start' => toGregorian($appointment->date_start->addMinutes($request->minutes)->format('Y-m-d H:i:s')) ,
-            'date_end' => $appointment->date_end->addMinutes($request->minutes)->format('Y-m-d H:i:s')
+		
+      	if(!$appointment) return redirect()->back()->with('message', [
+            'type' => 'success',
+            'message' => __('app.The gap successfully added')
         ]);
-        
-        $this->changeTimesForOtherAppointment($appointment, $request->minutes);
+
+ 		$this->changeTimesForOtherAppointment($appointment, $request->minutes, true);
+      
         return redirect()->back()->with('message', [
             'type' => 'success',
             'message' => __('app.The gap successfully added')

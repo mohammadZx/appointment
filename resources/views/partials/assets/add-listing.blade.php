@@ -4,7 +4,7 @@
 
 <script>
 
-  var theme = 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
+    var theme = 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
     var lat = $('#utf_single_listingmap').data('lat');
     var lon = $('#utf_single_listingmap').data('lon');
     var macarte = null;
